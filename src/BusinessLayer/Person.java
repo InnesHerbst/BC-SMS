@@ -123,8 +123,4 @@ public abstract class Person {
         this.p_address2 = p_address2;
     }
 
-   
-
-    
-
 }
