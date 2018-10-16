@@ -5,6 +5,7 @@
  */
 package UILayer;
 
+import DataLayer.StaffDataHandler;
 import javax.swing.JOptionPane;
 
 /**
@@ -151,9 +152,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:   
-        
-        
-        
+                     
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void lblForgot_Password_Click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgot_Password_Click
@@ -166,8 +165,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void lblRegister_Click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegister_Click
         // TODO add your handling code here:        
-        new RegistrationForm().setVisible(true);
-        
+        new RegistrationForm().setVisible(true);        
         this.dispose();
     }//GEN-LAST:event_lblRegister_Click
 
