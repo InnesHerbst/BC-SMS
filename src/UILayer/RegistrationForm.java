@@ -64,6 +64,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void initComponents() {
 
         bgpGender = new javax.swing.ButtonGroup();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         pnlRegister = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
@@ -74,7 +75,6 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        dpkDoB = new org.jdesktop.swingx.JXDatePicker();
         btnRegister = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -94,6 +94,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         jLabel13 = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
+        dpkDoB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register");
@@ -210,18 +211,6 @@ public class RegistrationForm extends javax.swing.JFrame {
                         .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlRegisterLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtInitial, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtStaffID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                    .addComponent(dpkDoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(pnlRegisterLayout.createSequentialGroup()
-                                        .addComponent(rbnFemale)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbnMale))
-                                    .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(pnlRegisterLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addComponent(txtCellNum))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -233,7 +222,19 @@ public class RegistrationForm extends javax.swing.JFrame {
                                     .addComponent(cmbCampus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbDepartment, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtPassword)
-                                    .addComponent(cmbPosition, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(cmbPosition, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtInitial, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtStaffID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                    .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                        .addComponent(rbnFemale)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rbnMale))
+                                    .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dpkDoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlRegisterLayout.setVerticalGroup(
@@ -292,7 +293,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister)
                     .addComponent(btnCancel))
@@ -407,6 +408,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JPanel pnlRegister;
     private javax.swing.JRadioButton rbnFemale;
     private javax.swing.JRadioButton rbnMale;
