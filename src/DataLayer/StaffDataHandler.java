@@ -116,9 +116,7 @@ public class StaffDataHandler extends ConnectionHandler {
                     arg[0] = "Success";
                     arg[1] = "Insert Statement success";
                 }
-                //Still Busy
 
-                iCMD.executeQuery();
             } catch (SQLException e) {
                 arg[0] = "Error - Database";
                 arg[1] = e.getMessage();
@@ -144,10 +142,10 @@ public class StaffDataHandler extends ConnectionHandler {
         try {
             if (ConnectDatabase()) {
                 sCMD = getDbConnection().prepareStatement("SELECT * FROM tblStaff");
-                
+
                 ResultSet result = sCMD.executeQuery();
-                
-                while (result.next()) {                    
+
+                while (result.next()) {
                     String sID = result.getString("Staff_ID");
                     String sName = result.getString("Staff_First_Name");
                     String sIni = result.getString("Staff_Initials");
@@ -161,14 +159,13 @@ public class StaffDataHandler extends ConnectionHandler {
                     int sCampID = result.getInt("Staff_Campus_ID");
                     int sDepID = result.getInt("Staff_Department_ID");
                     String sPWord = result.getString("Staff_Password");
-                    
+
                     staff.add(new Staff(sCampID, sDepID, sID, sIni, sName, sLName, sDoB, sGender, sPhone, sEmail, sPWord, sAddr1, sAddr2));
                 }
-                
-                
+
             }
         } catch (SQLException e) {
-            System.out.println("Problem Occured : "+e.getMessage());
+            System.out.println("Problem Occured : " + e.getMessage());
         } finally {
             if (sCMD != null) {
                 sCMD.close();
