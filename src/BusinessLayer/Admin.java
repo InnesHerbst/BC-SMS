@@ -12,8 +12,9 @@ import java.util.Date;
 public class Admin extends Person{
     private int Campus_ID;
 
-    public Admin(String p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, String p_password, String p_address1, String p_address2) {
+    public Admin(int Campus_ID, String p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, String p_password, String p_address1, String p_address2) {
         super(p_ID, p_initials, p_firstname, p_lastname, p_dob, p_gender, p_phone, p_email, p_password, p_address1, p_address2);
+        this.Campus_ID = Campus_ID;
     }
 
     

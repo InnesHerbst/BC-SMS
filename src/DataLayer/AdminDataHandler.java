@@ -19,7 +19,7 @@ public class AdminDataHandler extends ConnectionHandler {
 
     private static AdminDataHandler adminDataHandler;
 
-    private AdminDataHandler() {
+    public AdminDataHandler() {
         super();
     }
 
