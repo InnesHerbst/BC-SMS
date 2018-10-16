@@ -1,4 +1,3 @@
-
 package BusinessLayer;
 
 /**
@@ -69,6 +68,11 @@ public class Campus {
 
     public void setWorkNumber(int workNumber) {
         this.workNumber = workNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Campus{" + "campusID=" + campusID + ", campusName=" + campusName + ", cAddress1=" + cAddress1 + ", cAddress2=" + cAddress2 + ", campusEmail=" + campusEmail + ", workNumber=" + workNumber + '}';
     }
 
 }

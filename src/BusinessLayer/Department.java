@@ -40,4 +40,9 @@ public class Department {
         this.deptDescription = deptDescription;
     }
 
+    @Override
+    public String toString() {
+        return "Department{" + "deptID=" + deptID + ", deptName=" + deptName + ", deptDescription=" + deptDescription + '}';
+    }
+
 }
