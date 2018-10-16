@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public abstract class Person {
 
-    private int p_ID;
+    private String p_ID;
     private String p_initials;
     private String p_firstname;
     private String p_lastname;
@@ -21,11 +21,11 @@ public abstract class Person {
     private String p_address1;
     private String p_address2;
 
-    public int getP_ID() {
+    public String getP_ID() {
         return p_ID;
     }
 
-    public void setP_ID(int p_ID) {
+    public void setP_ID(String p_ID) {
         this.p_ID = p_ID;
     }
 
@@ -109,7 +109,7 @@ public abstract class Person {
         this.p_address2 = p_address2;
     }
 
-    public Person(int p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, String p_password, String p_address1, String p_address2) {
+    public Person(String p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, String p_password, String p_address1, String p_address2) {
         this.p_ID = p_ID;
         this.p_initials = p_initials;
         this.p_firstname = p_firstname;
@@ -122,6 +122,8 @@ public abstract class Person {
         this.p_address1 = p_address1;
         this.p_address2 = p_address2;
     }
+
+   
 
     
 
