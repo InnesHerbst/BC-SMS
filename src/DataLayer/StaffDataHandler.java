@@ -9,7 +9,6 @@ import BusinessLayer.Staff;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 
 /**
@@ -34,16 +33,15 @@ public class StaffDataHandler extends ConnectionHandler {
         return staffDataHandler;
     }  
     
-    public String[] SignIn(String username,String password){
+    public String[] SignIn(String username,String password) throws SQLException{
         String[] arg = new String[2];
+        PreparedStatement sCMD = null;
         
         if(ConnectDatabase()){
             try {
-                PreparedStatement sCMD = getDbConnection().prepareStatement("Select EMAIL,PASSWORD from tblStaff where EMAIL = ?");
+                sCMD = getDbConnection().prepareStatement("Select EMAIL,PASSWORD from tblStaff where EMAIL = ?");
                 sCMD.setString(1, username);
-                ResultSet result = sCMD.executeQuery();
-                
-                result.first();
+                ResultSet result = sCMD.executeQuery();               
                 
                 while (result.next()) {
                     String uEmail = result.getString("EMAIL");
@@ -69,7 +67,13 @@ public class StaffDataHandler extends ConnectionHandler {
             } catch (SQLException e) {
                 arg[0] = "Error - Database";
                 arg[1] = e.getMessage();
-            }            
+            }finally{
+                if(sCMD != null){
+                    sCMD.close();
+                }
+                DisconnectDatabase();
+            }    
+            
         }else{
             //Set the return type an error
             arg[0] = "Error - Database";
@@ -81,24 +85,47 @@ public class StaffDataHandler extends ConnectionHandler {
         return arg;
     }
     
-    public String[] Register(Staff nStaff){
+    public String[] Register(Staff nStaff) throws SQLException{
         String[] arg = new String[2];
+        PreparedStatement iCMD = null;
         
         if(ConnectDatabase()){
             try {
-                PreparedStatement iCMD = getDbConnection().prepareStatement("INSERT INTO tblRegister VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                iCMD.setString(1, nStaff);
-                iCMD.setString(2, nStaff);
-                iCMD.setString(3, nStaff);
-                iCMD.setString(4, nStaff);
-                iCMD.setDate(5, (Date) nStaff);
-                iCMD.setString();
+                iCMD = getDbConnection().prepareStatement("INSERT INTO tblRegister VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                iCMD.setString(1, nStaff.getP_ID());
+                iCMD.setString(2, nStaff.getP_firstname());
+                iCMD.setString(3, nStaff.getP_initials());
+                iCMD.setString(4, nStaff.getP_lastname());
+                iCMD.setDate(5, (Date) nStaff.getP_dob());
+                iCMD.setString(6,nStaff.getP_gender());
+                iCMD.setString(7, nStaff.getP_phone());
+                iCMD.setString(8, nStaff.getP_email());
+                iCMD.setString(9, nStaff.getP_address1());
+                iCMD.setString(10, nStaff.getP_address2());
+                iCMD.setInt(11, nStaff.getCampus_id());
+                iCMD.setInt(12, nStaff.getDepartment_id());
+                iCMD.setString(13, nStaff.getP_password());
+                
+                int count = iCMD.executeUpdate();
+                
+                if(count < 1){
+                    arg[0] = "Error - SQL";
+                    arg[1] = "Insert Statement Incorrect";
+                }else{
+                    arg[0] = "Success";
+                    arg[1] = "Insert Statement success";
+                }
                 //Still Busy
                 
                 iCMD.executeQuery();
             } catch (SQLException e) {
                 arg[0] = "Error - Database";
                 arg[1] = e.getMessage();
+            }finally{
+                if(iCMD != null){
+                    iCMD.close();
+                }
+                DisconnectDatabase();
             }
             
         }else{
