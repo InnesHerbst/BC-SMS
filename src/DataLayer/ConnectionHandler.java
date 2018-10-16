@@ -36,7 +36,7 @@ public abstract class ConnectionHandler {
 
     public ConnectionHandler() {
 
-        dbURL = "jdbc:sqlserver://localhost:1433;databasename=dbTest;integratedSecurity=true;";
+        dbURL = "jdbc:sqlserver://localhost:1433;databasename=PRG_Project;integratedSecurity=true;";
 
         try {
             dbConnection = DriverManager.getConnection(dbURL);
