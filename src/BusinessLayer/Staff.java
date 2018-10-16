@@ -6,120 +6,36 @@ import java.util.Date;
  *
  * @author Marline
  */
-public class Staff {
+public class Staff extends Person{
 
-    private String staff_ID;
-    private String staff_initials;
-    private String staff_firstname;
-    private String staff_lastname;
-    private Date staff_dob;
-    private int staff_gender;
-    private int staff_phone;
-    private String staff_email;
-    private String staff_password;
-    private String staff_address1;
-    private String staff_address2;
+    public Staff(int p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, int p_gender, int p_phone, String p_email, String p_password, String p_address1, String p_address2,int campus_id,int department_id) {
+        super(p_ID, p_initials, p_firstname, p_lastname, p_dob, p_gender, p_phone, p_email, p_password, p_address1, p_address2);
+        
+        this.campus_id = campus_id;
+        this.department_id = this.department_id;
+    }
+    
+    private int campus_id;
+    private int department_id;
 
-    public Staff(String staff_ID, String staff_initials, String staff_firstname, String staff_lastname, Date staff_dob, int staff_gender, int staff_phone, String staff_email, String staff_password, String staff_address1, String staff_address2) {
-        this.staff_ID = staff_ID;
-        this.staff_initials = staff_initials;
-        this.staff_firstname = staff_firstname;
-        this.staff_lastname = staff_lastname;
-        this.staff_dob = staff_dob;
-        this.staff_gender = staff_gender;
-        this.staff_phone = staff_phone;
-        this.staff_email = staff_email;
-        this.staff_password = staff_password;
-        this.staff_address1 = staff_address1;
-        this.staff_address2 = staff_address2;
+    public int getCampus_id() {
+        return campus_id;
     }
 
-    public String getStaff_ID() {
-        return staff_ID;
+    public void setCampus_id(int campus_id) {
+        this.campus_id = campus_id;
     }
 
-    public String getStaff_initials() {
-        return staff_initials;
+    public int getDepartment_id() {
+        return department_id;
     }
 
-    public String getStaff_firstname() {
-        return staff_firstname;
+    public void setDepartment_id(int department_id) {
+        this.department_id = department_id;
     }
+    
+    
 
-    public String getStaff_lastname() {
-        return staff_lastname;
-    }
-
-    public Date getStaff_dob() {
-        return staff_dob;
-    }
-
-    public int getStaff_gender() {
-        return staff_gender;
-    }
-
-    public int getStaff_phone() {
-        return staff_phone;
-    }
-
-    public String getStaff_email() {
-        return staff_email;
-    }
-
-    public String getStaff_password() {
-        return staff_password;
-    }
-
-    public String getStaff_address1() {
-        return staff_address1;
-    }
-
-    public String getStaff_address2() {
-        return staff_address2;
-    }
-
-    public void setStaff_ID(String staff_ID) {
-        this.staff_ID = staff_ID;
-    }
-
-    public void setStaff_initials(String staff_initials) {
-        this.staff_initials = staff_initials;
-    }
-
-    public void setStaff_firstname(String staff_firstname) {
-        this.staff_firstname = staff_firstname;
-    }
-
-    public void setStaff_lastname(String staff_lastname) {
-        this.staff_lastname = staff_lastname;
-    }
-
-    public void setStaff_dob(Date staff_dob) {
-        this.staff_dob = staff_dob;
-    }
-
-    public void setStaff_gender(int staff_gender) {
-        this.staff_gender = staff_gender;
-    }
-
-    public void setStaff_phone(int staff_phone) {
-        this.staff_phone = staff_phone;
-    }
-
-    public void setStaff_email(String staff_email) {
-        this.staff_email = staff_email;
-    }
-
-    public void setStaff_password(String staff_password) {
-        this.staff_password = staff_password;
-    }
-
-    public void setStaff_address1(String staff_address1) {
-        this.staff_address1 = staff_address1;
-    }
-
-    public void setStaff_address2(String staff_address2) {
-        this.staff_address2 = staff_address2;
-    }
+   
 
 }
