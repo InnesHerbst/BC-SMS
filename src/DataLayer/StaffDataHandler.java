@@ -6,6 +6,7 @@
 package DataLayer;
 
 import BusinessLayer.Staff;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
@@ -86,7 +87,13 @@ public class StaffDataHandler extends ConnectionHandler {
         if(ConnectDatabase()){
             try {
                 PreparedStatement iCMD = getDbConnection().prepareStatement("INSERT INTO tblRegister VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                //iCMD.setString(1, nSt);
+                iCMD.setString(1, nStaff);
+                iCMD.setString(2, nStaff);
+                iCMD.setString(3, nStaff);
+                iCMD.setString(4, nStaff);
+                iCMD.setDate(5, (Date) nStaff);
+                iCMD.setString();
+                //Still Busy
                 
                 iCMD.executeQuery();
             } catch (SQLException e) {
