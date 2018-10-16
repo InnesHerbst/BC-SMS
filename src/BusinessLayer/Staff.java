@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class Staff {
 
-    private int staff_ID;
+    private String staff_ID;
     private String staff_initials;
     private String staff_firstname;
     private String staff_lastname;
@@ -20,7 +20,7 @@ public class Staff {
     private String staff_address1;
     private String staff_address2;
 
-    public Staff(int staff_ID, String staff_initials, String staff_firstname, String staff_lastname, Date staff_dob, int staff_gender, int staff_phone, String staff_email, String staff_password, String staff_address1, String staff_address2) {
+    public Staff(String staff_ID, String staff_initials, String staff_firstname, String staff_lastname, Date staff_dob, int staff_gender, int staff_phone, String staff_email, String staff_password, String staff_address1, String staff_address2) {
         this.staff_ID = staff_ID;
         this.staff_initials = staff_initials;
         this.staff_firstname = staff_firstname;
@@ -34,7 +34,7 @@ public class Staff {
         this.staff_address2 = staff_address2;
     }
 
-    public int getStaff_ID() {
+    public String getStaff_ID() {
         return staff_ID;
     }
 
@@ -78,7 +78,7 @@ public class Staff {
         return staff_address2;
     }
 
-    public void setStaff_ID(int staff_ID) {
+    public void setStaff_ID(String staff_ID) {
         this.staff_ID = staff_ID;
     }
 
