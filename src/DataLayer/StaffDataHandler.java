@@ -167,8 +167,8 @@ public class StaffDataHandler extends ConnectionHandler {
                 
                 
             }
-        } catch (Exception e) {
-
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : "+e.getMessage());
         } finally {
             if (sCMD != null) {
                 sCMD.close();
