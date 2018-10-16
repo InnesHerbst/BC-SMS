@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bgpGender">
     </Component>
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -86,21 +88,6 @@
                           </Group>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtInitial" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txtFirstName" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txtStaffID" alignment="1" pref="305" max="32767" attributes="0"/>
-                                      <Component id="dpkDoB" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="rbnFemale" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="rbnMale" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="txtLastName" alignment="1" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Component id="txtCellNum" max="32767" attributes="0"/>
                               </Group>
@@ -116,6 +103,21 @@
                                       <Component id="cmbDepartment" alignment="1" max="32767" attributes="0"/>
                                       <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
                                       <Component id="cmbPosition" alignment="1" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtInitial" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtFirstName" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtStaffID" alignment="1" pref="305" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="rbnFemale" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rbnMale" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtLastName" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="dpkDoB" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -194,7 +196,7 @@
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbPosition" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnRegister" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -249,8 +251,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Date Of Birth : "/>
           </Properties>
-        </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="dpkDoB">
         </Component>
         <Component class="javax.swing.JButton" name="btnRegister">
           <Properties>
@@ -385,6 +385,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="org.jdesktop.swingx.JXDatePicker" name="dpkDoB">
         </Component>
       </SubComponents>
     </Container>
