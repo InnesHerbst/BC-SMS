@@ -16,6 +16,8 @@ import java.util.List;
  *
  * @author Innes Herbst
  */
+
+
 public class StockDataHandler extends ConnectionHandler {
 
     private static StockDataHandler stockDataHandler;
@@ -154,7 +156,7 @@ public class StockDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                dCMD = getDbConnection().prepareStatement("DELETE FROM Stock WHERE Stock_id = ?");                
+                dCMD = getDbConnection().prepareStatement("DELETE FROM Stock WHERE Stock_id = ?");
                 dCMD.setInt(1, sID);
 
                 int count = dCMD.executeUpdate();
@@ -184,5 +186,4 @@ public class StockDataHandler extends ConnectionHandler {
 
         return arg;
     }
-
 }
