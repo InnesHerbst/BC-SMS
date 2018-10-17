@@ -46,13 +46,28 @@ public class AdminDataHandler extends ConnectionHandler {
 
                 while (result.next()) {
                     String uEmail = result.getString("Admin_Email");
+                    System.out.println(uEmail);
                     char[] uPWord = result.getString("Admin_Password").toCharArray();
+                    System.out.println(Arrays.toString(uPWord));
                     
                     //char[] uPassword = uPWord.toCharArray();
                     //Changed the method to accomadate the password textfields.
-
-                    if (uEmail.toUpperCase().equals(username.toUpperCase())) {
-                        if (Arrays.equals(uPWord, password)) {
+                    System.out.println("Data Handler : "+uEmail.trim().toUpperCase()+" , "+username.trim().toUpperCase());
+                    System.out.println(uEmail.trim().toUpperCase().equals(username.trim().toUpperCase()));
+                    boolean matches = true;
+                    if (uEmail.trim().toUpperCase().equals(username.trim().toUpperCase())) {
+                        System.out.println("IT WENT IN");
+                        
+                        
+                        
+                        for (int i = 0; i < uPWord.length; i++) {
+                            if(uPWord[i] != password[i]){
+                                matches = false;
+                            }
+                        }
+                        
+                        
+                        if (matches) {
                             //Set the return type to success
                             arg[0] = "Success";
                             arg[1] = "User Can Sign In";
@@ -60,10 +75,12 @@ public class AdminDataHandler extends ConnectionHandler {
                             arg[0] = "Error - Password";
                             arg[1] = "Password Incorrect";
                         }
+                        
+                        System.out.println(Arrays.toString(arg));
                     }
                 }
 
-                if (!arg[0].equals("Success") || !arg[0].equals("Error - Password")) {
+                if (!arg[0].equals("Success") && !arg[0].equals("Error - Password")) {
                     arg[0] = "Error - User";
                     arg[1] = "User Not Found";
                 }

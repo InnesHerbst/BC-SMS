@@ -64,6 +64,11 @@ public class Stock_AddForm extends javax.swing.JFrame {
         jLabel3.setText("Quantity");
 
         jButton2.setText("Add");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Campus");
 
@@ -155,10 +160,13 @@ public class Stock_AddForm extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
+        String[] product = new String[]{"--Please Select--", "PC", "C#"};
         String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
         String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
         List<Product> lp = new ArrayList<>();
         
+        cmbProduct.removeAllItems();
+        cmbProduct.setModel(new DefaultComboBoxModel<>(product));
        
         //Campus combo box
         cmbCampus.removeAllItems();
@@ -176,6 +184,21 @@ public class Stock_AddForm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_formComponentShown
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int productid = cmbProduct.getSelectedIndex();
+        int campusid = cmbCampus.getSelectedIndex();
+        int depid = cmbDepartment.getSelectedIndex();
+        String qu = spnQuantity.getValue().toString();
+        int quantity = Integer.parseInt(qu);
+        
+        Stock.AddStock(productid, quantity, depid, campusid);
+        
+        AdministrationForm af = new AdministrationForm();
+        af.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

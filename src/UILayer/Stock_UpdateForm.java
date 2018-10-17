@@ -175,7 +175,6 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
 //        List<Stock> ls = new ArrayList<>();
         int id = Integer.parseInt(txtid.getText());
         String name = txtname.getText();
@@ -186,8 +185,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         String discription = txtDiscription.getText();
         
 //        ls.add(new Stock(id, name, price, quantity, catagory, discription));
-        
-        st.UpdateStock(id,quantity,name);
+        Stock.UpdateStock(id, quantity, name);
         
         AdministrationForm af = new AdministrationForm();
         af.setVisible(true);

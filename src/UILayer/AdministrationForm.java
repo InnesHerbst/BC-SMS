@@ -282,15 +282,21 @@ public class AdministrationForm extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = jtblStock.getSelectedRow();
-        int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
-
-        JOptionPane.showMessageDialog(null, id, "Test", JOptionPane.WARNING_MESSAGE);
-        Stock_UpdateForm su = new Stock_UpdateForm();
-        su.getID(id);
-        su.setVisible(true);
-        this.setVisible(false);
-
+        
+        try {
+            int selectedRowIndex = jtblStock.getSelectedRow();
+            int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
+            String name = (String) jtblStock.getModel().getValueAt(selectedRowIndex, 1);
+            Stock_UpdateForm su = new Stock_UpdateForm();
+            su.getID(id);
+            su.setVisible(true);
+            this.setVisible(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -306,10 +312,19 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1ComponentShown
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+
+        // TODO add your handling code here:
+        
         Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
+
         List<Stock> ls = st.DisplayStock();
 
         DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
+
+        
+        model.setRowCount(0);
+        
+
 
         for (Stock l : ls) {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
@@ -339,16 +354,29 @@ public class AdministrationForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //When Delte is pressd
-        int selectedRowIndex = jtblStock.getSelectedRow();
-        int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
-        String name = (String) jtblStock.getModel().getValueAt(selectedRowIndex, 1);
-
-        JOptionPane.showMessageDialog(null, id, "Test", JOptionPane.WARNING_MESSAGE);
         Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
-        st.DeleteStock(id, name);
+        try {
+            int selectedRowIndex = jtblStock.getSelectedRow();
+            int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
+            String name = (String) jtblStock.getModel().getValueAt(selectedRowIndex, 1);
+            st.DeleteStock(id, name);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        
         //Refresh the form
-//        this.setVisible(false);
-//        this.setVisible(true);
+        
+        List<Stock> ls = st.DisplayStock();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
+        model.setRowCount(0);
+        
+        for (Stock l : ls) {
+            model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
