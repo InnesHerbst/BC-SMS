@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,15 +54,15 @@ public class StaffDataHandler extends ConnectionHandler {
                     char[] uPWord = result.getString("Staff_Password").toCharArray();
 
                     if (uEmail.toUpperCase().equals(username.toUpperCase())) {
-                        
+
                         boolean matches = true;
-                        
+
                         for (int i = 0; i < uPWord.length; i++) {
-                            if(uPWord[i] != password[i]){
+                            if (uPWord[i] != password[i]) {
                                 matches = false;
                             }
                         }
-                        
+
                         if (matches) {
                             //Set the return type to success
                             arg[0] = "Success";
@@ -295,6 +297,92 @@ public class StaffDataHandler extends ConnectionHandler {
 
         return arg;
 
+    }
+
+    public String[] authStaff(String sID) throws SQLException {
+        String[] arg = new String[2];
+        PreparedStatement cCMD = null;
+
+        if (ConnectDatabase()) {
+            try {
+                cCMD = getDbConnection().prepareStatement("Insert into Staff Select * from Registration where Employee_ID = ?");
+                cCMD.setString(1, sID);
+
+                int count = cCMD.executeUpdate();
+
+                if (count < 1) {
+                    arg[0] = "Error - SQL";
+                    arg[1] = "INSERT Statement Incorrect.";
+                } else {
+                    cCMD = getDbConnection().prepareStatement("Delete from Registration where Employee_ID = ?");
+                    cCMD.setString(1, sID);
+
+                    count = cCMD.executeUpdate();
+
+                    if (count < 1) {
+                        arg[0] = "Error - SQL";
+                        arg[1] = "Delete Statement Incorrect.";
+                    } else {
+                        arg[0] = "Success";
+                        arg[1] = "Delete Statement Correct.";
+                    }
+                }
+            } catch (SQLException ex) {
+                arg[0] = "Error - SQL";
+                arg[1] = ex.getMessage();
+            } finally {
+                if (cCMD != null) {
+                    cCMD.close();
+                }
+
+                DisconnectDatabase();
+            }
+        } else {
+            arg[0] = "Error - Database";
+            arg[1] = "Database could not connect.";
+        }
+
+        return arg;
+    }
+
+    public List<Staff> getUnAuthStaff() throws SQLException {
+        List<Staff> staff = new ArrayList<>();
+        PreparedStatement sCMD = null;
+
+        try {
+            if (ConnectDatabase()) {
+                sCMD = getDbConnection().prepareStatement("Select * from Registration");
+
+                ResultSet result = sCMD.executeQuery();
+
+                while (result.next()) {
+                    String sID = result.getString("Employee_ID");
+                    String sName = result.getString("Registration_First_Name");
+                    String sIni = result.getString("Registration_Initials");
+                    String sLName = result.getString("Registration_Last_Name");
+                    Date sDoB = result.getDate("Registration_DoB");
+                    String sGender = result.getString("Registration_Gender");
+                    String sPhone = result.getString("Registration_Phone");
+                    String sEmail = result.getString("Registration_Email");
+                    String sAddr1 = result.getString("Registration_Address_1");
+                    String sAddr2 = result.getString("Registration_Address_2");
+                    int sCampID = result.getInt("Campus_ID");
+                    int sDepID = result.getInt("Department_ID");
+                    String sPWord = result.getString("Registration_Password");
+
+                    staff.add(new Staff(sCampID, sDepID, sID, sIni, sName, sLName, sDoB, sGender, sPhone, sEmail, sPWord.toCharArray(), sAddr1, sAddr2));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : " + e.getMessage());
+        } finally {
+            if (sCMD != null) {
+                sCMD.close();
+            }
+            DisconnectDatabase();
+        }
+
+        return staff;
     }
 
 }

@@ -103,5 +103,28 @@ public class Staff extends Person {
         
         return staff;
     }
+    
+    public static List<Staff> fetchUnAuthStaffData() {
+        List<Staff> staff = new ArrayList<>();
+        try {
+            staff = StaffDataHandler.getInstance().getUnAuthStaff();
+        } catch (SQLException ex) {
+            Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return staff;
+    }
+    
+    public static String[] authStaff(String sID){
+        String[] result = null;
+        
+        try {
+            result = StaffDataHandler.getInstance().authStaff(sID);
+        } catch (SQLException e) {
+            System.out.println("");
+        }
+        
+        return result;
+    }
 
 }
