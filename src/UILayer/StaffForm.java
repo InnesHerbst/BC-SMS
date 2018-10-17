@@ -33,6 +33,7 @@ public class StaffForm extends javax.swing.JFrame {
         btnAddStaff = new javax.swing.JButton();
         btnUpdateStaff = new javax.swing.JButton();
         btnDeleteStaff = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
@@ -78,6 +79,8 @@ public class StaffForm extends javax.swing.JFrame {
             }
         });
 
+        btnBack.setLabel("Back");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -89,13 +92,16 @@ public class StaffForm extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAddStaff)
-                            .addComponent(btnDeleteStaff)
                             .addComponent(btnUpdateStaff))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnDeleteStaff)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack)))
                 .addContainerGap())
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddStaff, btnDeleteStaff, btnUpdateStaff});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddStaff, btnBack, btnDeleteStaff, btnUpdateStaff});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,11 +113,15 @@ public class StaffForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdateStaff)
                 .addGap(18, 18, 18)
-                .addComponent(btnDeleteStaff)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDeleteStaff)
+                    .addComponent(btnBack))
                 .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddStaff, btnDeleteStaff, btnUpdateStaff});
+
+        btnBack.getAccessibleContext().setAccessibleName("btnBack");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,6 +197,7 @@ public class StaffForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddStaff;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteStaff;
     private javax.swing.JButton btnUpdateStaff;
     private javax.swing.JPanel jPanel3;
