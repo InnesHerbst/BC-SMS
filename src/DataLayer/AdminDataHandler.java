@@ -92,6 +92,10 @@ public class AdminDataHandler extends ConnectionHandler {
         PreparedStatement iCMD = null;
 
         try {
+            StringBuilder uPassword = new StringBuilder();
+            for (int i = 0; i < nAdmin.getP_password().length; i++) {
+                uPassword.append(nAdmin.getP_password()[i]);
+            }
             if (ConnectDatabase()) {
                 iCMD = getDbConnection().prepareStatement("INSERT INTO Administrator VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
                 iCMD.setString(1, nAdmin.getP_ID());
@@ -102,7 +106,7 @@ public class AdminDataHandler extends ConnectionHandler {
                 iCMD.setString(6, nAdmin.getP_gender());
                 iCMD.setString(7, nAdmin.getP_phone());
                 iCMD.setString(8, nAdmin.getP_email());
-                iCMD.setString(9, nAdmin.getP_password());
+                iCMD.setString(9, uPassword.toString());
                 iCMD.setString(10, nAdmin.getP_address1());
                 iCMD.setString(11, nAdmin.getP_address2());
                 iCMD.setInt(12, nAdmin.getCampus_ID());

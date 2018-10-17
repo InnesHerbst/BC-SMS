@@ -16,7 +16,7 @@ public abstract class Person {
     private String p_gender;
     private String p_phone;
     private String p_email;
-    private String p_password;
+    private char[] p_password;
     private String p_address1;
     private String p_address2;
 
@@ -84,11 +84,11 @@ public abstract class Person {
         this.p_email = p_email;
     }
 
-    public String getP_password() {
+    public char[] getP_password() {
         return p_password;
     }
 
-    public void setP_password(String p_password) {
+    public void setP_password(char[] p_password) {
         this.p_password = p_password;
     }
 
@@ -108,7 +108,7 @@ public abstract class Person {
         this.p_address2 = p_address2;
     }
 
-    public Person(String p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, String p_password, String p_address1, String p_address2) {
+    public Person(String p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, char[] p_password, String p_address1, String p_address2) {
         this.p_ID = p_ID;
         this.p_initials = p_initials;
         this.p_firstname = p_firstname;

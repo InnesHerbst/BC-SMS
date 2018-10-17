@@ -5,7 +5,10 @@
  */
 package UILayer;
 
+import BusinessLayer.Admin;
+import BusinessLayer.Staff;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -552,6 +555,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         char[] uPassword = txtPassword.getPassword();
         String uAddress = txtSAddrress.getText();
 
+        //RADIOBUTTON VALIDATION
         if (!rbnFemale.isSelected() && !rbnMale.isSelected()) {
             JOptionPane.showMessageDialog(this, "Please select a gender", "Input Error", JOptionPane.ERROR_MESSAGE);
             rbnFemale.setFocusable(true);
@@ -563,6 +567,7 @@ public class RegistrationForm extends javax.swing.JFrame {
             uGender = "Male";
         }
 
+        //CMB Validation
         if (cmbPosition.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Please select a position", "Input Error", JOptionPane.ERROR_MESSAGE);
             cmbPosition.setFocusable(true);
@@ -581,8 +586,88 @@ public class RegistrationForm extends javax.swing.JFrame {
             cmbDepartment.requestFocus();
             return;
         }
-        
-        //STILL VALIDATING -- NEXT IS STRINGS
+
+        //STRING VALIDATION
+        if (uID.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid ID.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtStaffID.setFocusable(true);
+            txtStaffID.requestFocus();
+            return;
+        }
+        if (uFName.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid first name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtFirstName.setFocusable(true);
+            txtFirstName.requestFocus();
+            return;
+        }
+        if (uIni.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid initial.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtInitial.setFocusable(true);
+            txtInitial.requestFocus();
+            return;
+        }
+        if (uLName.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid last name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtLastName.setFocusable(true);
+            txtLastName.requestFocus();
+            return;
+        }
+        if (uCell.trim().equals("") || uCell.length() < 10) {
+            JOptionPane.showMessageDialog(this, "Please input a valid cell number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtCellNum.setFocusable(true);
+            txtCellNum.requestFocus();
+            return;
+        }
+        if (uEmail.trim().equals("") || !uEmail.contains("@")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtEmail.setFocusable(true);
+            txtEmail.requestFocus();
+            return;
+        }
+        if (uPassword.length < 8) {
+            JOptionPane.showMessageDialog(this, "Please input a valid password", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtPassword.setFocusable(true);
+            txtPassword.requestFocus();
+            return;
+        }
+        if (uAddress.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid address", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtSAddrress.setFocusable(true);
+            txtSAddrress.requestFocus();
+            return;
+        }
+
+        //REGISTER
+        switch (cmbPosition.getSelectedIndex()) {
+            case 1:
+                //STAFF
+                Staff nStaff = new Staff(0, 0, uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
+                String[] resultStaff = Staff.registerStaff(nStaff);
+
+                if (resultStaff[0].equals("Success")) {
+                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    new LoginForm().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
+                }
+
+                break;
+            case 2:
+                //Admin
+                Admin nAdmin = new Admin(0, uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
+                String[] resultAdmin = Admin.registerAdmin(nAdmin);
+
+                if (resultAdmin[0].equals("Success")) {
+                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    new LoginForm().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+        }
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
