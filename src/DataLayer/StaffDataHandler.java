@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -36,22 +37,22 @@ public class StaffDataHandler extends ConnectionHandler {
         return staffDataHandler;
     }
 
-    public String[] SignIn(String username, String password) throws SQLException {
+    public String[] SignIn(String username, char[] password) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement sCMD = null;
 
         if (ConnectDatabase()) {
             try {
-                sCMD = getDbConnection().prepareStatement("Select EMAIL,PASSWORD from tblStaff where EMAIL = ?");
+                sCMD = getDbConnection().prepareStatement("Select EMAIL,PASSWORD from Staff where Staff_Email = ?");
                 sCMD.setString(1, username);
                 ResultSet result = sCMD.executeQuery();
 
                 while (result.next()) {
-                    String uEmail = result.getString("EMAIL");
-                    String uPWord = result.getString("PASSWORD");
+                    String uEmail = result.getString("Staff_Email");
+                    char[] uPWord = result.getString("Staff_Password").toCharArray();
 
                     if (uEmail.toUpperCase().equals(username.toUpperCase())) {
-                        if (uPWord.equals(password)) {
+                        if (Arrays.equals(uPWord, password)) {
                             //Set the return type to success
                             arg[0] = "Success";
                             arg[1] = "User Can Sign In";
@@ -94,7 +95,7 @@ public class StaffDataHandler extends ConnectionHandler {
 
         if (ConnectDatabase()) {
             try {
-                iCMD = getDbConnection().prepareStatement("INSERT INTO tblRegister VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                iCMD = getDbConnection().prepareStatement("INSERT INTO Registration VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 iCMD.setString(1, nStaff.getP_ID());
                 iCMD.setString(2, nStaff.getP_firstname());
                 iCMD.setString(3, nStaff.getP_initials());
@@ -143,7 +144,7 @@ public class StaffDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                sCMD = getDbConnection().prepareStatement("SELECT * FROM tblStaff");
+                sCMD = getDbConnection().prepareStatement("SELECT * FROM Staff");
 
                 ResultSet result = sCMD.executeQuery();
 
