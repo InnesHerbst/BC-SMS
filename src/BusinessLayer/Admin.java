@@ -1,6 +1,9 @@
 
 package BusinessLayer;
 
+import DataLayer.AdminDataHandler;
+import DataLayer.StaffDataHandler;
+import java.sql.SQLException;
 import java.util.Date;
 
 import java.util.Date;
@@ -28,10 +31,26 @@ public class Admin extends Person{
     }
 
     
-    
-    
-    public void Register_admin(Admin adm)
-    {
+    public static String[] signIn(String username,char[] password){
+        String[] result = null;
+        try {
+            result = AdminDataHandler.getInnstance().SignIn(username, password);
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : "+e.getMessage());
+        }
         
+        return result;
+    }
+    
+    public static String[] registerStaff(Admin nAdmin){
+        String[] result = null;
+        
+        try {
+            result = AdminDataHandler.getInnstance().register(nAdmin);
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : "+e.getMessage());
+        }
+        
+        return result;
     }
 }
