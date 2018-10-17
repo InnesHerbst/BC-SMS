@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /**
@@ -140,6 +141,11 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel5.setText("Date Of Birth : ");
 
         btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -525,6 +531,53 @@ public class RegistrationForm extends javax.swing.JFrame {
             cmbDepartment.setToolTipText("Your department.");
         }
     }//GEN-LAST:event_cmbDepartmentFocusLost
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        //Validation
+
+        String uID = txtStaffID.getText();
+        String uFName = txtFirstName.getText();
+        String uIni = txtInitial.getText();
+        String uLName = txtLastName.getText();
+        Date uDoB = dpkDoB.getDate();
+        String uGender = "";
+        String uCell = txtCellNum.getText();
+        String uEmail = txtEmail.getText();
+        char[] uPassword = txtPassword.getPassword();
+        String uAddress = txtSAddrress.getText();
+
+        if (!rbnFemale.isSelected() && !rbnMale.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Please select a gender", "Input Error", JOptionPane.ERROR_MESSAGE);
+            rbnFemale.setFocusable(true);
+            rbnFemale.requestFocus();
+            return;
+        } else if (rbnFemale.isSelected()) {
+            uGender = "Female";
+        } else {
+            uGender = "Male";
+        }
+
+        if (cmbPosition.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a position", "Input Error", JOptionPane.ERROR_MESSAGE);
+            cmbPosition.setFocusable(true);
+            cmbPosition.requestFocus();
+            return;
+        }
+        if (cmbCampus.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a campus", "Input Error", JOptionPane.ERROR_MESSAGE);
+            cmbCampus.setFocusable(true);
+            cmbCampus.requestFocus();
+            return;
+        }
+        if (cmbDepartment.isEnabled() && cmbDepartment.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a department", "Input Error", JOptionPane.ERROR_MESSAGE);
+            cmbDepartment.setFocusable(true);
+            cmbDepartment.requestFocus();
+            return;
+        }
+        
+        //STILL VALIDATING -- NEXT IS STRINGS
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
