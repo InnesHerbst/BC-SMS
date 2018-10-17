@@ -47,10 +47,10 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="txtPrice" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
                                   <Component id="txtname" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
-                                  <Component id="txtQuantity" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
                                   <Component id="txtCatagory" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
                                   <Component id="txtDiscription" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
                                   <Component id="txtid" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <Component id="spnQuantity" alignment="1" min="-2" pref="161" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="84" max="32767" attributes="0"/>
                           </Group>
@@ -91,7 +91,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtQuantity" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spnQuantity" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -140,14 +140,24 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtname">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrice">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtQuantity">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCatagory">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDiscription">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
@@ -174,6 +184,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="ID"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnQuantity">
     </Component>
   </SubComponents>
 </Form>

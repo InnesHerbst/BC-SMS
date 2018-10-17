@@ -38,9 +38,11 @@ public class AdminDataHandler extends ConnectionHandler {
 
         if (ConnectDatabase()) {
             try {
-                sCMD = getDbConnection().prepareStatement("Select EMAIL,PASSWORD from tblAdmin where EMAIL = ?");
+                sCMD = getDbConnection().prepareStatement("Select Admin_Email,Admin_Password from Administrator where Admin_Email = ?");
                 sCMD.setString(1, username);
                 ResultSet result = sCMD.executeQuery();
+                arg[0] = "null";
+                arg[1] = "null";
 
                 while (result.next()) {
                     String uEmail = result.getString("Admin_Email");

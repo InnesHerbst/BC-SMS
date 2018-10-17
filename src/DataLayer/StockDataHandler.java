@@ -20,7 +20,7 @@ public class StockDataHandler extends ConnectionHandler {
 
     private static StockDataHandler stockDataHandler;
 
-    private StockDataHandler() {
+    public StockDataHandler() {
         super();
     }
 

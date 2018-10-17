@@ -7,6 +7,7 @@ import java.util.List;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,14 +89,14 @@ public class Stock {
     }
 
     public List<Stock> DisplayStock() {
-        //AdminDataHandler ad = new AdminDataHandler();
-        //StockDataHandler sdh = new StockDataHandler();
+
+        StockDataHandler sdh = new StockDataHandler();
         List<Stock> lst = new ArrayList<>();
-//        try {
-//            lst = sdh.fetchStockData();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            lst = sdh.fetchStockData();
+        } catch (SQLException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        }
         lst.add(new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny"));
         lst.add(new Stock(2, "Gold", 38.52, 2, "Jewl", "Yellow"));
         return lst;
@@ -104,14 +105,19 @@ public class Stock {
     public List<Stock> UpdateView(int id) {
         //StockDataHandler sdh = new StockDataHandler();
         List<Stock> lst = new ArrayList<>();
-        //lst = ad.update_view(id);
+        //lst = sdh.fetchStockData();
         lst.add(new Stock(2, "Gold", 38.52, 2, "Jewl", "Yellow"));
         return lst;
     }
 
-    public void UpdateStock(List<Stock> stock) {
-        //AdminDataHandler ad = new AdminDataHandler();
-        //ad.updatestock(stock);
+    public void UpdateStock(int id, int quantity, String name) {
+        //StockDataHandler sdh = new StockDataHandler();
+//        try {
+//            sdh.updateStock(id,quantity);
+        JOptionPane.showMessageDialog(null, "Stock " + name + " Updated", "Update", JOptionPane.INFORMATION_MESSAGE);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
 //    public Stock getStock(int id) throws ClassNotFoundException, SQLException {       //for StockDataHandler
@@ -130,5 +136,24 @@ public class Stock {
 //    public boolean removeStock() throws SQLException, ClassNotFoundException {
 //        return dbConn.DeleteStock(Integer.parseInt(getProduct_ID()));
 //    }
+    public void DeleteStock(int id, String name) {
+        //StockDataHandler sdh = new StockDataHandler();
+//        try {
+//            sdh.deleteStock(id);
+        JOptionPane.showMessageDialog(null, "Stock " + name + " Deleted", "Delete", JOptionPane.INFORMATION_MESSAGE);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
+    }
+
+    public void AddStock(int prodID, int ProdQuant, int deptID, int campID) {
+//        StockDataHandler sdh = new StockDataHandler();
+//        try {
+//            sdh.addStock(prodID, ProdQuant, deptID, campID);
+//            JOptionPane.showMessageDialog(null, "Stock " + name + " Added", "Add", JOptionPane.INFORMATION_MESSAGE);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }
 }

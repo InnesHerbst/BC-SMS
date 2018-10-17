@@ -38,13 +38,13 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtname = new javax.swing.JTextField();
         txtPrice = new javax.swing.JTextField();
-        txtQuantity = new javax.swing.JTextField();
         txtCatagory = new javax.swing.JTextField();
         txtDiscription = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtid = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        spnQuantity = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -62,6 +62,14 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         jLabel4.setText("Cataqory");
 
         jLabel5.setText("Discription");
+
+        txtname.setEditable(false);
+
+        txtPrice.setEditable(false);
+
+        txtCatagory.setEditable(false);
+
+        txtDiscription.setEditable(false);
 
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,10 +112,10 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCatagory, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDiscription, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(84, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +143,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -168,17 +176,22 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
-        List<Stock> ls = new ArrayList<>();
+//        List<Stock> ls = new ArrayList<>();
         int id = Integer.parseInt(txtid.getText());
         String name = txtname.getText();
         Double price = Double.parseDouble(txtPrice.getText());
-        int quantity = Integer.parseInt(txtQuantity.getText());
+        String qu = spnQuantity.getValue().toString();
+        int quantity = Integer.parseInt(qu);
         String catagory = txtCatagory.getText();
         String discription = txtDiscription.getText();
         
-        ls.add(new Stock(id, name, price, quantity, catagory, discription));
+//        ls.add(new Stock(id, name, price, quantity, catagory, discription));
         
-        st.UpdateStock(ls);
+        st.UpdateStock(id,quantity,name);
+        
+        AdministrationForm af = new AdministrationForm();
+        af.setVisible(true);
+        this.setVisible(false);
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -192,7 +205,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         for (Stock l : ls) {
             txtname.setText(l.getName());
             txtPrice.setText(Double.toString(l.getPrice()));
-            txtQuantity.setText(Integer.toString(l.getQuantity()));
+            spnQuantity.setValue(l.getQuantity());
             txtCatagory.setText(l.getCategory());
             txtDiscription.setText(l.getDescription());
         }
@@ -244,10 +257,10 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JSpinner spnQuantity;
     private javax.swing.JTextField txtCatagory;
     private javax.swing.JTextField txtDiscription;
     private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtQuantity;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtname;
     // End of variables declaration//GEN-END:variables
