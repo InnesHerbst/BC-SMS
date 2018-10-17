@@ -94,6 +94,10 @@ public class StaffDataHandler extends ConnectionHandler {
         PreparedStatement iCMD = null;
 
         if (ConnectDatabase()) {
+            StringBuilder uPassword = new StringBuilder();
+            for (int i = 0; i < nStaff.getP_password().length; i++) {
+                uPassword.append(nStaff.getP_password()[i]);
+            }
             try {
                 iCMD = getDbConnection().prepareStatement("INSERT INTO Registration VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 iCMD.setString(1, nStaff.getP_ID());
@@ -108,7 +112,7 @@ public class StaffDataHandler extends ConnectionHandler {
                 iCMD.setString(10, nStaff.getP_address2());
                 iCMD.setInt(11, nStaff.getCampus_id());
                 iCMD.setInt(12, nStaff.getDepartment_id());
-                iCMD.setString(13, nStaff.getP_password());
+                iCMD.setString(13, uPassword.toString());
 
                 int count = iCMD.executeUpdate();
 
@@ -163,7 +167,7 @@ public class StaffDataHandler extends ConnectionHandler {
                     int sDepID = result.getInt("Staff_Department_ID");
                     String sPWord = result.getString("Staff_Password");
 
-                    staff.add(new Staff(sCampID, sDepID, sID, sIni, sName, sLName, sDoB, sGender, sPhone, sEmail, sPWord, sAddr1, sAddr2));
+                    staff.add(new Staff(sCampID, sDepID, sID, sIni, sName, sLName, sDoB, sGender, sPhone, sEmail, sPWord.toCharArray(), sAddr1, sAddr2));
                 }
 
             }
@@ -179,54 +183,108 @@ public class StaffDataHandler extends ConnectionHandler {
         return staff;
     }
 
-    public Staff GetStaff(int id) throws ClassNotFoundException, SQLException {
-        if (ConnectDatabase()) {
-            String GetUsersQ = "SELECT * FROM `staff` WHERE `Staff_ID` = '" + id + "'";
-            Statement st = (Statement) getDbConnection().createStatement();
-            ResultSet rs = st.executeQuery(GetUsersQ);
-            Staff staff = null;
-            while (rs.next()) {
-                staff = new Staff(rs.getInt("Campus_ID"), rs.getInt("Department_ID"), rs.getString("Employee_ID"), rs.getString("First_Name"), rs.getString("Initials"), rs.getString("Last_Name"), rs.getDate("DoB"), rs.getString("Gender"), rs.getString("Phone"), rs.getString("Email"), rs.getString("Address 1"), rs.getString("Address 2"), rs.getString("Password"));
-                return staff;
+    public String[] UpdateStaff(String sID, Staff nStaff) throws SQLException {
+        String[] arg = new String[2];
+        PreparedStatement iCMD = null;
+        try {
+            if (ConnectDatabase()) {
+                StringBuilder uPassword = new StringBuilder();
+                for (int i = 0; i < nStaff.getP_password().length; i++) {
+                    uPassword.append(nStaff.getP_password()[i]);
+                }
+
+                iCMD = getDbConnection().prepareStatement("UPDATE Staff SET "
+                        + "Staff_ID = ?, "
+                        + "Staff_First_Name = ?, "
+                        + "Staff_Initials = ?, "
+                        + "Staff_Last_Name = ?, "
+                        + "Staff_DoB = ?, "
+                        + "Staff_Gender = ?, "
+                        + "Staff_Phone = ?, "
+                        + "Staff_Email = ?, "
+                        + "Staff_Address = ?, "
+                        + "Staff_Address = 'null', "
+                        + "Staff_Campus_ID = ?, "
+                        + "Staff_Department_ID = ?, "
+                        + "Staff_Password = ? "
+                        + "WHERE Staff_ID = ?;");
+                iCMD.setString(1, nStaff.getP_ID());
+                iCMD.setString(2, nStaff.getP_firstname());
+                iCMD.setString(3, nStaff.getP_initials());
+                iCMD.setString(4, nStaff.getP_lastname());
+                iCMD.setDate(5, (Date) nStaff.getP_dob());
+                iCMD.setString(6, nStaff.getP_gender());
+                iCMD.setString(7, nStaff.getP_phone());
+                iCMD.setString(8, nStaff.getP_email());
+                iCMD.setString(9, nStaff.getP_address1());
+                iCMD.setString(10, nStaff.getP_address2());
+                iCMD.setInt(11, nStaff.getCampus_id());
+                iCMD.setInt(12, nStaff.getDepartment_id());
+                iCMD.setString(13, uPassword.toString());
+                iCMD.setString(14, nStaff.getP_ID());
+
+                int done = iCMD.executeUpdate();
+                if (done < 0) {
+                    arg[0] = "Error - SQL";
+                    arg[1] = "Update Statement Incorrect";
+                } else {
+                    arg[0] = "Success";
+                    arg[1] = "Update Statement Correct";
+                }
+            } else {
+                arg[0] = "Error - Database";
+                arg[1] = "Database Could Not Connect.";
             }
+
+        } catch (SQLException e) {
+            arg[0] = "Error - SQL";
+            arg[1] = e.getMessage();
+        } finally {
+            if (iCMD != null) {
+                iCMD.close();
+            }
+
+            DisconnectDatabase();
         }
-        return null;
+
+        return arg;
     }
 
-    public boolean UpdateStaff(Staff nStaff) throws SQLException, ClassNotFoundException {
-        Connection conn = getDbConnection();
-        String RegQ = "";
-        PreparedStatement iCMD;
-        iCMD = conn.prepareStatement(RegQ);
-        iCMD.setString(1, nStaff.getP_firstname());
-        iCMD.setString(2, nStaff.getP_initials());
-        iCMD.setString(3, nStaff.getP_lastname());
-        iCMD.setDate(4, (Date) nStaff.getP_dob());
-        iCMD.setString(5, nStaff.getP_gender());
-        iCMD.setString(6, nStaff.getP_phone());
-        iCMD.setString(7, nStaff.getP_email());
-        iCMD.setString(8, nStaff.getP_address1());
-        iCMD.setString(9, nStaff.getP_address2());
-        iCMD.setInt(10, nStaff.getCampus_id());
-        iCMD.setInt(11, nStaff.getDepartment_id());
-        iCMD.setString(12, nStaff.getP_password());
-        iCMD.setString(13, nStaff.getP_ID());
+    public String[] DeleteStaff(String id) throws SQLException {
+        String[] arg = new String[2];
+        PreparedStatement dCMD = null;
 
-        int done = iCMD.executeUpdate();
-        if (done == 1) {
-            return true;
-        }
-        return false;
-    }
+        if (ConnectDatabase()) {
+            try {
+                dCMD = getDbConnection().prepareStatement("DELTE FROM Staff WHERE Staff_ID = ?;");
+                dCMD.setString(1, id);
 
-    public boolean DeleteStaff(int id) throws SQLException, ClassNotFoundException {
-        Connection conn = getDbConnection();
-        String RegQ = "DELETE FROM `staff` WHERE `Staff_ID` = '" + id + "'";
-        Statement st = conn.createStatement();
-        if (st.executeUpdate(RegQ) == 1) {
-            return true;
+                int count = dCMD.executeUpdate();
+
+                if (count < 1) {
+                    arg[0] = "Error - SQL";
+                    arg[1] = "Delete Statement Incorrect";
+                } else {
+                    arg[0] = "Success";
+                    arg[1] = "Delete Statement Incorrect";
+                }
+            } catch (SQLException e) {
+                arg[0] = "Error - SQL";
+                arg[1] = e.getMessage();
+            } finally {
+                if (dCMD != null) {
+                    dCMD.close();
+                }
+
+                DisconnectDatabase();
+            }
+
+        } else {
+            arg[0] = "Error - Database";
+            arg[1] = "Database Could Not Connect.";
         }
-        return false;
+
+        return arg;
 
     }
 
