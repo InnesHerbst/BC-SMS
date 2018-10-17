@@ -36,7 +36,6 @@ public class AdministrationForm extends javax.swing.JFrame {
 
         tbpAdmin = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblStock = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
@@ -50,18 +49,20 @@ public class AdministrationForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
         setName("frmAdmin"); // NOI18N
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         tbpAdmin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tbpAdmin.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jButton1.setText("Display");
-        jButton1.setActionCommand("Add Stock");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPanel1ComponentShown(evt);
             }
         });
 
@@ -120,10 +121,7 @@ public class AdministrationForm extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jButton1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,12 +133,8 @@ public class AdministrationForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addGap(193, 193, 193)
-                .addComponent(jButton1)
-                .addGap(33, 33, 33))
+                .addGap(249, 249, 249))
         );
-
-        jButton1.getAccessibleContext().setAccessibleName("Add_Stockbtn");
 
         tbpAdmin.addTab("Stock", jPanel1);
 
@@ -232,20 +226,6 @@ public class AdministrationForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
-        List<Stock> ls = st.DisplayStock();
-        
-        
-        DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
-        
-        for (Stock l : ls) {
-            model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex =  jtblStock.getSelectedRow();
@@ -265,6 +245,24 @@ public class AdministrationForm extends javax.swing.JFrame {
         sa.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jPanel1ComponentShown
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
+        List<Stock> ls = st.DisplayStock();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
+        
+        for (Stock l : ls) {
+            model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+        }
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
@@ -306,7 +304,6 @@ public class AdministrationForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

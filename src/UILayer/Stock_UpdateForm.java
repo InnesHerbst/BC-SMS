@@ -43,11 +43,15 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         txtDiscription = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         txtid = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setText("Name");
 
@@ -73,12 +77,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Display");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        txtid.setEditable(false);
 
         jLabel6.setText("ID");
 
@@ -117,10 +116,6 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel6)))
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +148,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap())
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,21 +158,6 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         txtid.setText(Integer.toString(id));
         
     }
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        int num = Integer.parseInt(txtid.getText());
-        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
-        List<Stock> ls = st.UpdateView(num);
-        
-        for (Stock l : ls) {
-            txtname.setText(l.getName());
-            txtPrice.setText(Double.toString(l.getPrice()));
-            txtQuantity.setText(Integer.toString(l.getQuantity()));
-            txtCatagory.setText(l.getCategory());
-            txtDiscription.setText(l.getDescription());
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         AdministrationForm af = new AdministrationForm();
@@ -204,6 +182,21 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        int num = Integer.parseInt(txtid.getText());
+        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
+        List<Stock> ls = st.UpdateView(num);
+        
+        for (Stock l : ls) {
+            txtname.setText(l.getName());
+            txtPrice.setText(Double.toString(l.getPrice()));
+            txtQuantity.setText(Integer.toString(l.getQuantity()));
+            txtCatagory.setText(l.getCategory());
+            txtDiscription.setText(l.getDescription());
+        }
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
@@ -245,7 +238,6 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
