@@ -103,13 +103,17 @@ public class Stock {
 
     public List<Stock> UpdateView(int id) {
         List<Stock> lst = new ArrayList<>();
-        //lst = sdh.fetchStockData();
-        lst.add(new Stock(2, "Gold", 38.52, 2, "Jewl", "Yellow"));
+        try {
+            lst = StockDataHandler.getInstance().viewStockData(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return lst;
     }
 
     public static void UpdateStock(int id, int quantity, String name) {
-        //StockDataHandler sdh = new StockDataHandler();
+        
         try {
             StockDataHandler.getInstance().updateStock(id,quantity);
         JOptionPane.showMessageDialog(null, "Stock " + name + " Updated", "Update", JOptionPane.INFORMATION_MESSAGE);
@@ -144,10 +148,10 @@ public class Stock {
 
     }
 
-    public void AddStock(int prodID, int ProdQuant, int deptID, int campID) {
+    public static void AddStock(int prodID, int ProdQuant, int deptID, int campID) {
         try {
             StockDataHandler.getInstance().addStock(prodID, ProdQuant, deptID, campID);
-            JOptionPane.showMessageDialog(null, "Stock " + name + " Added", "Add", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Stock " + name + " Added", "Add", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
         }

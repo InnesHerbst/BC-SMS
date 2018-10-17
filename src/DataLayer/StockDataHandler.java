@@ -67,6 +67,41 @@ public class StockDataHandler extends ConnectionHandler {
         //stock.add(new Stock(2, "Piet", 18, 5, "new", "new"));
         return stock;
     }
+    
+    public List<Stock> viewStockData(int ID) throws SQLException {
+        List<Stock> stock = new ArrayList<>();
+        PreparedStatement sCMD = null;
+
+        try {
+            if (ConnectDatabase()) {
+                sCMD = getDbConnection().prepareStatement("Execute SP_ViewStock");
+
+                ResultSet result = sCMD.executeQuery();
+
+                while (result.next()) {
+                    int sID = result.getInt("Stock_ID");
+                    String sName = result.getString("Product_Name");
+                    double sPrice = result.getDouble("Product_Price");
+                    int sQuant = result.getInt("product_Quantity");
+                    String sCat = result.getString("Category_Name");
+                    String sCDesc = result.getString("Category_Desc");
+
+                    stock.add(new Stock(sID, sName, sPrice, sQuant, sCat, sCDesc));
+                }
+                
+            }
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : " + e.getMessage());
+        } finally {
+            if (sCMD != null) {
+                sCMD.close();
+            }
+
+            DisconnectDatabase();
+        }
+        //stock.add(new Stock(2, "Piet", 18, 5, "new", "new"));
+        return stock;
+    }
 
     public String[] addStock(int prodID, int ProdQuant, int deptID, int campID) throws SQLException {
         String[] arg = new String[2];

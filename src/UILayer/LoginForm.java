@@ -225,6 +225,7 @@ public class LoginForm extends javax.swing.JFrame {
         switch (cmbPosition.getSelectedIndex()) {
             case 1:
                 //LOGIN AS ADMINASTRATOR
+                System.out.println("Login Form : "+userEmail);
                 String[] resultAdmin = Admin.signIn(userEmail, userPassword);
 
                 if (resultAdmin[0].equals("Success")) {
