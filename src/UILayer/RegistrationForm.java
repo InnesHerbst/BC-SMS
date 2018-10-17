@@ -641,7 +641,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         switch (cmbPosition.getSelectedIndex()) {
             case 1:
                 //STAFF
-                Staff nStaff = new Staff(0, 0, uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
+                Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
                 String[] resultStaff = Staff.registerStaff(nStaff);
 
                 if (resultStaff[0].equals("Success")) {
@@ -655,7 +655,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                 break;
             case 2:
                 //Admin
-                Admin nAdmin = new Admin(0, uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
+                Admin nAdmin = new Admin(cmbCampus.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
                 String[] resultAdmin = Admin.registerAdmin(nAdmin);
 
                 if (resultAdmin[0].equals("Success")) {

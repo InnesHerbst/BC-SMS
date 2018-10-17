@@ -110,12 +110,14 @@ public class StaffDataHandler extends ConnectionHandler {
                 uPassword.append(nStaff.getP_password()[i]);
             }
             try {
+                java.sql.Date uDoB = new Date(nStaff.getP_dob().getTime());
+
                 iCMD = getDbConnection().prepareStatement("INSERT INTO Registration VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 iCMD.setString(1, nStaff.getP_ID());
                 iCMD.setString(2, nStaff.getP_firstname());
                 iCMD.setString(3, nStaff.getP_initials());
                 iCMD.setString(4, nStaff.getP_lastname());
-                iCMD.setDate(5, (Date) nStaff.getP_dob());
+                iCMD.setDate(5, uDoB);
                 iCMD.setString(6, nStaff.getP_gender());
                 iCMD.setString(7, nStaff.getP_phone());
                 iCMD.setString(8, nStaff.getP_email());
@@ -305,7 +307,21 @@ public class StaffDataHandler extends ConnectionHandler {
 
         if (ConnectDatabase()) {
             try {
-                cCMD = getDbConnection().prepareStatement("Insert into Staff Select * from Registration where Employee_ID = ?");
+                cCMD = getDbConnection().prepareStatement("Insert into Staff SELECT "
+                        + "     [Employee_ID] "
+                        + "      ,[Registration_First_Name] "
+                        + "      ,[Registration_Initials] "
+                        + "      ,[Registration_Last_Name] "
+                        + "      ,[Registration_DoB] "
+                        + "      ,[Registration_Gender] "
+                        + "      ,[Registration_Phone] "
+                        + "      ,[Registration_Email] "
+                        + "      ,[Registration_Address_1] "
+                        + "      ,[Registration_Address_2] "
+                        + "      ,[Campus_ID] "
+                        + "      ,[Department_ID] "
+                        + "      ,[Registration_Password] "
+                        + "  FROM [dbo].[Registration] where Employee_ID = ?");
                 cCMD.setString(1, sID);
 
                 int count = cCMD.executeUpdate();

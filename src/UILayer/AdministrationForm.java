@@ -383,17 +383,18 @@ public class AdministrationForm extends javax.swing.JFrame {
 
             if (result[0].equals("Success")) {
                 jtblStaffUn.remove(selectedRowIndex);
+                
+                List<Staff> staff = Staff.fetchStaffData();
 
-                List<Staff> unStaff = Staff.fetchUnAuthStaffData();
+                DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+                staffModel.setRowCount(0);
 
-                DefaultTableModel staffUn = (DefaultTableModel) jtblStaffUn.getModel();
-                staffUn.setRowCount(0);
-
-                for (Staff staff1 : unStaff) {
-                    staffUn.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                for (Staff staff1 : staff) {
+                    staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
                         staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
                         staff1.getP_address1(), staff1.getP_address2()});
                 }
+
             } else {
                 JOptionPane.showMessageDialog(null, result[1], result[0], JOptionPane.WARNING_MESSAGE);
             }
