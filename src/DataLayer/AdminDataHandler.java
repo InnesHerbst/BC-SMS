@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 /**
  *
@@ -31,7 +32,7 @@ public class AdminDataHandler extends ConnectionHandler {
         return adminDataHandler;
     }
 
-    public String[] SignIn(String username, String password) throws SQLException {
+    public String[] SignIn(String username, char[] password) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement sCMD = null;
 
@@ -42,11 +43,14 @@ public class AdminDataHandler extends ConnectionHandler {
                 ResultSet result = sCMD.executeQuery();
 
                 while (result.next()) {
-                    String uEmail = result.getString("EMAIL");
-                    String uPWord = result.getString("PASSWORD");
+                    String uEmail = result.getString("Admin_Email");
+                    char[] uPWord = result.getString("Admin_Password").toCharArray();
+                    
+                    //char[] uPassword = uPWord.toCharArray();
+                    //Changed the method to accomadate the password textfields.
 
                     if (uEmail.toUpperCase().equals(username.toUpperCase())) {
-                        if (uPWord.equals(password)) {
+                        if (Arrays.equals(uPWord, password)) {
                             //Set the return type to success
                             arg[0] = "Success";
                             arg[1] = "User Can Sign In";
