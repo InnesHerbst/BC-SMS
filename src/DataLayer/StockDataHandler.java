@@ -16,8 +16,6 @@ import java.util.List;
  *
  * @author Innes Herbst
  */
-
-
 public class StockDataHandler extends ConnectionHandler {
 
     private static StockDataHandler stockDataHandler;
@@ -186,4 +184,5 @@ public class StockDataHandler extends ConnectionHandler {
 
         return arg;
     }
+
 }
