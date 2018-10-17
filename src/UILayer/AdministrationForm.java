@@ -282,7 +282,7 @@ public class AdministrationForm extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
+
         try {
             int selectedRowIndex = jtblStock.getSelectedRow();
             int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
@@ -294,9 +294,8 @@ public class AdministrationForm extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -314,17 +313,13 @@ public class AdministrationForm extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
 
         // TODO add your handling code here:
-        
         Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
 
         List<Stock> ls = st.DisplayStock();
 
         DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
 
-        
         model.setRowCount(0);
-        
-
 
         for (Stock l : ls) {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
@@ -339,11 +334,11 @@ public class AdministrationForm extends javax.swing.JFrame {
                 staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
                 staff1.getP_address1(), staff1.getP_address2()});
         }
-        
+
         List<Staff> unStaff = Staff.fetchUnAuthStaffData();
-        
+
         DefaultTableModel staffUn = (DefaultTableModel) jtblStaffUn.getModel();
-        
+
         for (Staff staff1 : unStaff) {
             staffUn.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
                 staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
@@ -363,15 +358,13 @@ public class AdministrationForm extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
         }
-        
+
         //Refresh the form
-        
         List<Stock> ls = st.DisplayStock();
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
         model.setRowCount(0);
-        
+
         for (Stock l : ls) {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
         }
@@ -382,6 +375,33 @@ public class AdministrationForm extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //AUTH Staff
+        try {
+            int selectedRowIndex = jtblStaffUn.getSelectedRow();
+            String sID = (String) jtblStaffUn.getModel().getValueAt(selectedRowIndex, 0);
+
+            String[] result = Staff.authStaff(sID);
+
+            if (result[0].equals("Success")) {
+                jtblStaffUn.remove(selectedRowIndex);
+
+                List<Staff> unStaff = Staff.fetchUnAuthStaffData();
+
+                DefaultTableModel staffUn = (DefaultTableModel) jtblStaffUn.getModel();
+                staffUn.setRowCount(0);
+
+                for (Staff staff1 : unStaff) {
+                    staffUn.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                        staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                        staff1.getP_address1(), staff1.getP_address2()});
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, result[1], result[0], JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
