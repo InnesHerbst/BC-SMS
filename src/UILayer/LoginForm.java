@@ -5,9 +5,14 @@
  */
 package UILayer;
 
+import DataLayer.AdminDataHandler;
 import DataLayer.StaffDataHandler;
+import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 /**
  *
@@ -18,19 +23,24 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
-    
-    private static final String[] position = {"--Please Select--","Administrator","Staff Member"};
-    
+    private final Border cmbBorder;
+    private final Border txtBorder;
+
+    private static final String[] arrPosition = {"--Please Select--", "Administrator", "Staff Member"};
+
     public LoginForm() {
         initComponents();
 
+        cmbBorder = cmbPosition.getBorder();
+        txtBorder = txtEmail.getBorder();
+
         lblForgotPassword.setText("<html><u>Forgot Password?</u></html>");
         lblRegister.setText("<html><u>Register</u></html>");
-        
+
         //cmbPosition Items
         cmbPosition.removeAllItems();
-        cmbPosition.setModel(new DefaultComboBoxModel<>(position));
-        
+        cmbPosition.setModel(new DefaultComboBoxModel<>(arrPosition));
+
     }
 
     /**
@@ -64,10 +74,20 @@ public class LoginForm extends javax.swing.JFrame {
 
         txtEmail.setToolTipText("Enter Email Address");
         txtEmail.setName("txtEmail"); // NOI18N
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         jLabel2.setText("Password : ");
 
         txtPassword.setToolTipText("Enter Password");
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
 
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +117,11 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setText("Sign In As : ");
 
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPosition.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbPositionFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
@@ -172,7 +197,69 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:   
-                     
+        String userEmail = txtEmail.getText();
+        char[] userPassword = txtPassword.getPassword();
+
+        //Validation
+        if (cmbPosition.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a valid option.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            cmbPosition.setFocusable(true);
+            cmbPosition.requestFocus();
+            return;
+        }
+
+        if (userEmail.trim().equals("") || !userEmail.contains("@")) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtEmail.setFocusable(true);
+            txtEmail.requestFocus();
+            return;
+        }
+
+        if (userPassword.length < 8) {
+            JOptionPane.showMessageDialog(this, "Password should contain at least 8 characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtPassword.setFocusable(true);
+            txtPassword.requestFocus();
+            return;
+        }
+
+        //LOGIN
+        switch (cmbPosition.getSelectedIndex()) {
+            case 1:
+                //LOGIN AS ADMINASTRATOR
+                AdminDataHandler adh = AdminDataHandler.getInnstance();
+
+                try {
+                    String[] result = adh.SignIn(userEmail, userPassword);
+
+                    if (result[0].equals("Success")) {
+                        new AdministrationForm().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, result[1], result[0], JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (SQLException sqle) {
+                    JOptionPane.showMessageDialog(this, sqle.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case 2:
+                //LOGIN AS STAFF MEMBER
+                StaffDataHandler sdh = StaffDataHandler.getInstance();
+                
+                try {
+                    String[] result = sdh.SignIn(userEmail, userPassword);
+
+                    if (result[0].equals("Success")) {
+                        new StaffForm().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, result[1], result[0], JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (SQLException sqle) {
+                    JOptionPane.showMessageDialog(this, sqle.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+        }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void lblForgot_Password_Click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgot_Password_Click
@@ -185,9 +272,38 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void lblRegister_Click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegister_Click
         // TODO add your handling code here:        
-        new RegistrationForm().setVisible(true);        
+        new RegistrationForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblRegister_Click
+
+    private void cmbPositionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbPositionFocusLost
+        // TODO add your handling code here:
+
+        if (cmbPosition.getSelectedItem().equals(arrPosition[0])) {
+            cmbPosition.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbPosition.setToolTipText("Please select a valid position");
+        } else {
+            cmbPosition.setBorder(cmbBorder);
+            cmbPosition.setToolTipText("Sign in as Staff or Admin");
+        }
+
+    }//GEN-LAST:event_cmbPositionFocusLost
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        // TODO add your handling code here:
+        if (txtEmail.getText().trim().equals("") || !txtEmail.getText().contains("@")) {
+            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtEmail.setToolTipText("Please enter a valid email.");
+        } else {
+            txtEmail.setBorder(txtBorder);
+            txtEmail.setToolTipText("Your registered email.");
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        // TODO add your handling code here:        
+
+    }//GEN-LAST:event_txtPasswordFocusLost
 
     /**
      * @param args the command line arguments
@@ -220,7 +336,7 @@ public class LoginForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new LoginForm().setVisible(true);
         });
- 
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
