@@ -20,7 +20,7 @@ public class StockDataHandler extends ConnectionHandler {
 
     private static StockDataHandler stockDataHandler;
 
-    public StockDataHandler() {
+    private StockDataHandler() {
         super();
     }
 
@@ -39,12 +39,7 @@ public class StockDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                sCMD = getDbConnection().prepareStatement("SELECT s.Stock_ID,p.Product_Name,p.Product_Price,s.product_Quantity,c.Category_Name,c.Category_Desc "
-                        + "FROM Stock s "
-                        + "INNER JOIN "
-                        + "ON (s.product_ID = p.Product_ID) "
-                        + "INNER JOIN "
-                        + "ON (p.Category_ID = c.Category_ID);");
+                sCMD = getDbConnection().prepareStatement("Execute SP_FetchStock");
 
                 ResultSet result = sCMD.executeQuery();
 
@@ -58,6 +53,7 @@ public class StockDataHandler extends ConnectionHandler {
 
                     stock.add(new Stock(sID, sName, sPrice, sQuant, sCat, sCDesc));
                 }
+                
             }
         } catch (SQLException e) {
             System.out.println("Problem Occured : " + e.getMessage());
@@ -68,7 +64,7 @@ public class StockDataHandler extends ConnectionHandler {
 
             DisconnectDatabase();
         }
-
+        //stock.add(new Stock(2, "Piet", 18, 5, "new", "new"));
         return stock;
     }
 
