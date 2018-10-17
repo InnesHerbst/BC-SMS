@@ -6,11 +6,13 @@
 package DataLayer;
 
 import BusinessLayer.Staff;
+import java.sql.Connection;
 import java.util.List;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +24,7 @@ public class StaffDataHandler extends ConnectionHandler {
     //Singleton Implementation
     private static StaffDataHandler staffDataHandler;
 
-    private StaffDataHandler() {
+    public StaffDataHandler() {
         super();
     }
 
@@ -174,6 +176,57 @@ public class StaffDataHandler extends ConnectionHandler {
         }
 
         return staff;
+    }
+
+    public Staff GetStaff(int id) throws ClassNotFoundException, SQLException {
+        if (ConnectDatabase()) {
+            String GetUsersQ = "SELECT * FROM `staff` WHERE `Staff_ID` = '" + id + "'";
+            Statement st = (Statement) getDbConnection().createStatement();
+            ResultSet rs = st.executeQuery(GetUsersQ);
+            Staff staff = null;
+            while (rs.next()) {
+                staff = new Staff(rs.getInt("Campus_ID"), rs.getInt("Department_ID"), rs.getString("Employee_ID"), rs.getString("First_Name"), rs.getString("Initials"), rs.getString("Last_Name"), rs.getDate("DoB"), rs.getString("Gender"), rs.getString("Phone"), rs.getString("Email"), rs.getString("Address 1"), rs.getString("Address 2"), rs.getString("Password"));
+                return staff;
+            }
+        }
+        return null;
+    }
+
+    public boolean UpdateStaff(Staff nStaff) throws SQLException, ClassNotFoundException {
+        Connection conn = getDbConnection();
+        String RegQ = "";
+        PreparedStatement iCMD;
+        iCMD = conn.prepareStatement(RegQ);
+        iCMD.setString(1, nStaff.getP_firstname());
+        iCMD.setString(2, nStaff.getP_initials());
+        iCMD.setString(3, nStaff.getP_lastname());
+        iCMD.setDate(4, (Date) nStaff.getP_dob());
+        iCMD.setString(5, nStaff.getP_gender());
+        iCMD.setString(6, nStaff.getP_phone());
+        iCMD.setString(7, nStaff.getP_email());
+        iCMD.setString(8, nStaff.getP_address1());
+        iCMD.setString(9, nStaff.getP_address2());
+        iCMD.setInt(10, nStaff.getCampus_id());
+        iCMD.setInt(11, nStaff.getDepartment_id());
+        iCMD.setString(12, nStaff.getP_password());
+        iCMD.setString(13, nStaff.getP_ID());
+
+        int done = iCMD.executeUpdate();
+        if (done == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean DeleteStaff(int id) throws SQLException, ClassNotFoundException {
+        Connection conn = getDbConnection();
+        String RegQ = "DELETE FROM `staff` WHERE `Staff_ID` = '" + id + "'";
+        Statement st = conn.createStatement();
+        if (st.executeUpdate(RegQ) == 1) {
+            return true;
+        }
+        return false;
+
     }
 
 }
