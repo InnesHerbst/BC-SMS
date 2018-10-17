@@ -47,6 +47,8 @@ public class AdministrationForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblStaff = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtblStaffUn = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
@@ -198,6 +200,37 @@ public class AdministrationForm extends javax.swing.JFrame {
 
         jButton5.setText("Delete");
 
+        jtblStaffUn.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Initials", "Name", "Surname", "Dob", "Gender", "Phone", "Email", "Address1", "Address2"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jtblStaffUn);
+        if (jtblStaffUn.getColumnModel().getColumnCount() > 0) {
+            jtblStaffUn.getColumnModel().getColumn(0).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jtblStaffUn.getColumnModel().getColumn(1).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(2).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(3).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(4).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(5).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(6).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(7).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(8).setResizable(false);
+            jtblStaffUn.getColumnModel().getColumn(9).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -206,10 +239,9 @@ public class AdministrationForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton5)))
+                    .addComponent(jButton2)
+                    .addComponent(jButton5)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -217,10 +249,12 @@ public class AdministrationForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton5))
+                .addGap(18, 18, 18)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
                 .addGap(66, 66, 66))
         );
 
@@ -290,6 +324,16 @@ public class AdministrationForm extends javax.swing.JFrame {
                 staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
                 staff1.getP_address1(), staff1.getP_address2()});
         }
+        
+        List<Staff> unStaff = Staff.fetchUnAuthStaffData();
+        
+        DefaultTableModel staffUn = (DefaultTableModel) jtblStaffUn.getModel();
+        
+        for (Staff staff1 : unStaff) {
+            staffUn.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                staff1.getP_address1(), staff1.getP_address2()});
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -309,6 +353,7 @@ public class AdministrationForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //AUTH Staff
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
@@ -362,7 +407,9 @@ public class AdministrationForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jtblStaff;
+    private javax.swing.JTable jtblStaffUn;
     private javax.swing.JTable jtblStock;
     private javax.swing.JTabbedPane tbpAdmin;
     // End of variables declaration//GEN-END:variables
