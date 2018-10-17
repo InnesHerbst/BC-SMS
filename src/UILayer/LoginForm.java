@@ -5,10 +5,9 @@
  */
 package UILayer;
 
-import DataLayer.AdminDataHandler;
-import DataLayer.StaffDataHandler;
+import BusinessLayer.Admin;
+import BusinessLayer.Staff;
 import java.awt.Color;
-import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -226,37 +225,26 @@ public class LoginForm extends javax.swing.JFrame {
         switch (cmbPosition.getSelectedIndex()) {
             case 1:
                 //LOGIN AS ADMINASTRATOR
-                AdminDataHandler adh = AdminDataHandler.getInnstance();
+                String[] resultAdmin = Admin.signIn(userEmail, userPassword);
 
-                try {
-                    String[] result = adh.SignIn(userEmail, userPassword);
-
-                    if (result[0].equals("Success")) {
-                        new AdministrationForm().setVisible(true);
-                        this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(this, result[1], result[0], JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (SQLException sqle) {
-                    JOptionPane.showMessageDialog(this, sqle.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                if (resultAdmin[0].equals("Success")) {
+                    new AdministrationForm().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case 2:
                 //LOGIN AS STAFF MEMBER
-                StaffDataHandler sdh = StaffDataHandler.getInstance();
+                String[] resultStaff = Staff.signIn(userEmail, userPassword);
                 
-                try {
-                    String[] result = sdh.SignIn(userEmail, userPassword);
-
-                    if (result[0].equals("Success")) {
-                        new StaffForm().setVisible(true);
-                        this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(this, result[1], result[0], JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (SQLException sqle) {
-                    JOptionPane.showMessageDialog(this, sqle.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                if (resultStaff[0].equals("Success")) {
+                    new StaffForm().setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
                 }
+                
                 break;
         }
 
