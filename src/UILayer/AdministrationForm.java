@@ -5,6 +5,7 @@
  */
 package UILayer;
 
+import BusinessLayer.Staff;
 import BusinessLayer.Stock;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class AdministrationForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtblStock1 = new javax.swing.JTable();
+        jtblStaff = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,10 +152,20 @@ public class AdministrationForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPanel2ComponentShown(evt);
+            }
+        });
 
         jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jtblStock1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -170,19 +181,19 @@ public class AdministrationForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jtblStock1);
-        if (jtblStock1.getColumnModel().getColumnCount() > 0) {
-            jtblStock1.getColumnModel().getColumn(0).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(0).setPreferredWidth(0);
-            jtblStock1.getColumnModel().getColumn(1).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(2).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(3).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(4).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(5).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(6).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(7).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(8).setResizable(false);
-            jtblStock1.getColumnModel().getColumn(9).setResizable(false);
+        jScrollPane2.setViewportView(jtblStaff);
+        if (jtblStaff.getColumnModel().getColumnCount() > 0) {
+            jtblStaff.getColumnModel().getColumn(0).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jtblStaff.getColumnModel().getColumn(1).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(2).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(3).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(4).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(5).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(6).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(7).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(8).setResizable(false);
+            jtblStaff.getColumnModel().getColumn(9).setResizable(false);
         }
 
         jButton5.setText("Delete");
@@ -192,27 +203,25 @@ public class AdministrationForm extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
                         .addComponent(jButton2)
-                        .addGap(118, 118, 118)
+                        .addGap(35, 35, 35)
                         .addComponent(jButton5)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton5))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGap(66, 66, 66))
         );
 
         tbpAdmin.addTab("Employees", jPanel2);
@@ -265,22 +274,36 @@ public class AdministrationForm extends javax.swing.JFrame {
 
     private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jPanel1ComponentShown
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+
         // TODO add your handling code here:
         
-        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
+        Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
+
         List<Stock> ls = st.DisplayStock();
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
+
         
         model.setRowCount(0);
         
+
+
         for (Stock l : ls) {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+        }
+
+        List<Staff> staff = Staff.fetchStaffData();
+
+        DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+
+        for (Staff staff1 : staff) {
+            staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                staff1.getP_address1(), staff1.getP_address2()});
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -311,6 +334,14 @@ public class AdministrationForm extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2ComponentShown
 
     /**
      * @param args the command line arguments
@@ -343,11 +374,9 @@ public class AdministrationForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AdministrationForm().setVisible(true);
-                
-                
+
             }
-            
-            
+
         });
     }
 
@@ -361,8 +390,8 @@ public class AdministrationForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtblStaff;
     private javax.swing.JTable jtblStock;
-    private javax.swing.JTable jtblStock1;
     private javax.swing.JTabbedPane tbpAdmin;
     // End of variables declaration//GEN-END:variables
 }

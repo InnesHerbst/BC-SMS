@@ -43,7 +43,7 @@ public class StaffDataHandler extends ConnectionHandler {
 
         if (ConnectDatabase()) {
             try {
-                sCMD = getDbConnection().prepareStatement("Select EMAIL,PASSWORD from Staff where Staff_Email = ?");
+                sCMD = getDbConnection().prepareStatement("Select Staff_Email,Staff_Password from Staff where Staff_Email = ?");
                 sCMD.setString(1, username);
                 ResultSet result = sCMD.executeQuery();
 
@@ -52,7 +52,16 @@ public class StaffDataHandler extends ConnectionHandler {
                     char[] uPWord = result.getString("Staff_Password").toCharArray();
 
                     if (uEmail.toUpperCase().equals(username.toUpperCase())) {
-                        if (Arrays.equals(uPWord, password)) {
+                        
+                        boolean matches = true;
+                        
+                        for (int i = 0; i < uPWord.length; i++) {
+                            if(uPWord[i] != password[i]){
+                                matches = false;
+                            }
+                        }
+                        
+                        if (matches) {
                             //Set the return type to success
                             arg[0] = "Success";
                             arg[1] = "User Can Sign In";
@@ -63,7 +72,7 @@ public class StaffDataHandler extends ConnectionHandler {
                     }
                 }
 
-                if (!arg[0].equals("Success") || !arg[0].equals("Error - Password")) {
+                if (!arg[0].equals("Success") && !arg[0].equals("Error - Password")) {
                     arg[0] = "Error - User";
                     arg[1] = "User Not Found";
                 }

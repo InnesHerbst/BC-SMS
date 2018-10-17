@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UILayer;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +26,7 @@ public class StaffForm extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblStaff = new javax.swing.JTable();
         btnAddStaff = new javax.swing.JButton();
         btnUpdateStaff = new javax.swing.JButton();
         btnDeleteStaff = new javax.swing.JButton();
@@ -37,12 +34,12 @@ public class StaffForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
-        setName("frmAdmin"); // NOI18N
+        setName("frmStaff\n"); // NOI18N
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Staff Details:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
-        jTable1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), null));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblStaff.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), null));
+        jtblStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +50,7 @@ public class StaffForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtblStaff);
 
         btnAddStaff.setText("Add");
         btnAddStaff.setName("btnAddStaff"); // NOI18N
@@ -80,6 +77,11 @@ public class StaffForm extends javax.swing.JFrame {
         });
 
         btnBack.setLabel("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -151,12 +153,24 @@ public class StaffForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStaffActionPerformed
 
     private void btnUpdateStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStaffActionPerformed
-        // TODO add your handling code here:
+        int selectedRowIndex = jtblStaff.getSelectedRow();
+        int id = (int) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
+
+        JOptionPane.showMessageDialog(null, id, "Test", JOptionPane.WARNING_MESSAGE);
+        StaffForm sa = new StaffForm();
+//        sa.getID(id);
+        sa.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUpdateStaffActionPerformed
 
     private void btnDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStaffActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteStaffActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,6 +216,6 @@ public class StaffForm extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdateStaff;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtblStaff;
     // End of variables declaration//GEN-END:variables
 }

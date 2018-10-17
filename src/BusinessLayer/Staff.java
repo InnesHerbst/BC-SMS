@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,10 +38,8 @@ public class Staff extends Person {
     public void setDepartment_id(int department_id) {
         this.department_id = department_id;
     }
-    
-    
-    //Can not use these, as a staff object has to be made before accessing them.
 
+    //Can not use these, as a staff object has to be made before accessing them.
 //    private StaffDataHandler dbConn = new StaffDataHandler();
 //
 //    public List<Staff> getAll() throws Exception {
@@ -70,28 +70,38 @@ public class Staff extends Person {
 //    public boolean removeStaff() throws SQLException, ClassNotFoundException {
 //        return dbConn.DeleteStaff(Integer.parseInt((getP_ID())));
 //    }
-    
-    public static String[] signIn(String username,char[] password){
+    public static String[] signIn(String username, char[] password) {
         String[] result = null;
         try {
             result = StaffDataHandler.getInstance().SignIn(username, password);
         } catch (SQLException e) {
-            System.out.println("Problem Occured : "+e.getMessage());
+            System.out.println("Problem Occured : " + e.getMessage());
         }
-        
+
         return result;
     }
-    
-    public static String[] registerStaff(Staff nStaff){
+
+    public static String[] registerStaff(Staff nStaff) {
         String[] result = null;
-        
+
         try {
             result = StaffDataHandler.getInstance().Register(nStaff);
         } catch (SQLException e) {
-            System.out.println("Problem Occured : "+e.getMessage());
+            System.out.println("Problem Occured : " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    public static List<Staff> fetchStaffData() {
+        List<Staff> staff = new ArrayList<>();
+        try {
+            staff = StaffDataHandler.getInstance().fetchStaffData();
+        } catch (SQLException ex) {
+            Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return result;
+        return staff;
     }
 
 }
