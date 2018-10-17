@@ -1,6 +1,8 @@
 package BusinessLayer;
 
 import java.util.Date;
+import DataLayer.OrderDataHandler;
+import java.sql.SQLException;
 
 /**
  *
@@ -13,6 +15,7 @@ public class Order {
     private Date orderDate;
     private int orderQty;
     private Date pickUpDate;
+    private OrderDataHandler dbConn;
 
     public Order(int orderID, String orderDesc, Date orderDate, int orderQty, Date pickUpDate) {
         this.orderID = orderID;
@@ -20,6 +23,7 @@ public class Order {
         this.orderDate = orderDate;
         this.orderQty = orderQty;
         this.pickUpDate = pickUpDate;
+        this.dbConn = new OrderDataHandler();
     }
 
     public int getOrderID() {
@@ -60,6 +64,28 @@ public class Order {
 
     public void setPickUpDate(Date pickUpDate) {
         this.pickUpDate = pickUpDate;
+    }
+
+    public Order getOrder(int id) throws ClassNotFoundException, SQLException {
+        Order stock = dbConn.GetOrder(getOrderID());
+        return stock;
+    }
+
+    public boolean addOrder() throws SQLException, ClassNotFoundException {
+        return dbConn.InsertOrder(this);
+    }
+
+    public boolean updateOrder() throws SQLException, ClassNotFoundException {
+        return dbConn.UpdateOrder(this);
+    }
+
+    public boolean removeOrder() throws SQLException, ClassNotFoundException {
+        return dbConn.DeleteOrder(getOrderID());
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "orderID=" + orderID + ", orderDesc=" + orderDesc + ", orderDate=" + orderDate + ", orderQty=" + orderQty + ", pickUpDate=" + pickUpDate + ", dbConn=" + dbConn + '}';
     }
 
 }
