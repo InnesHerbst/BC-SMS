@@ -24,7 +24,7 @@ public class RegistrationForm extends javax.swing.JFrame {
      * Creates new form RegistrationForm
      */
     private final Border tFieldBorder;
-    private final Border cmbBorder;
+    private final Color cmbBorder;
     private final String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
     private final String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
     private final String[] position = new String[]{"--Please Select--", "Staff Member", "Administrator"};
@@ -33,7 +33,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         initComponents();
 
         tFieldBorder = txtFirstName.getBorder();
-        cmbBorder = cmbPosition.getBorder();
+        cmbBorder = cmbPosition.getBackground();
 
         //Set the date for DoB Picker
         SimpleDateFormat sdf = new SimpleDateFormat("dd, MMMM yyyy");
@@ -491,11 +491,13 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void cmbPositionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbPositionFocusLost
 
         if (cmbPosition.getSelectedIndex() == 0) {
-            cmbPosition.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbPosition.setBackground(Color.red);
+            //cmbPosition.setBorder(BorderFactory.createLineBorder(Color.RED));
             cmbPosition.setToolTipText("Please choose a valid position.");
         } else {
             //txtFirstName.setBorder();
-            cmbPosition.setBorder(cmbBorder);
+            //cmbPosition.setBorder(cmbBorder);
+            cmbPosition.setBackground(cmbBorder);
             cmbPosition.setToolTipText("Your position.");
         }
 
@@ -512,22 +514,26 @@ public class RegistrationForm extends javax.swing.JFrame {
 
     private void cmbCampusFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbCampusFocusLost
         if (cmbCampus.getSelectedIndex() == 0) {
-            cmbCampus.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //cmbCampus.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbCampus.setBackground(Color.RED);
             cmbCampus.setToolTipText("Please choose a valid campus.");
         } else {
             //txtFirstName.setBorder();
-            cmbCampus.setBorder(cmbBorder);
+            //cmbCampus.setBorder(cmbBorder);
+            cmbCampus.setBackground(cmbBorder);
             cmbCampus.setToolTipText("Your campus.");
         }
     }//GEN-LAST:event_cmbCampusFocusLost
 
     private void cmbDepartmentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbDepartmentFocusLost
         if (cmbDepartment.getSelectedIndex() == 0) {
-            cmbDepartment.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //cmbDepartment.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbDepartment.setBackground(Color.RED);
             cmbDepartment.setToolTipText("Please choose a valid department.");
         } else {
             //txtFirstName.setBorder();
-            cmbDepartment.setBorder(cmbBorder);
+            //cmbDepartment.setBorder(cmbBorder);
+            cmbDepartment.setBackground(cmbBorder);
             cmbDepartment.setToolTipText("Your department.");
         }
     }//GEN-LAST:event_cmbDepartmentFocusLost
