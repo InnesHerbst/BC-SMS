@@ -1,5 +1,8 @@
 package BusinessLayer;
 
+import DataLayer.ProductDataHandler;
+import java.sql.SQLException;
+
 /**
  *
  * @author Marline
@@ -10,12 +13,14 @@ public class Product {
     private String prodName;
     private double prodPrice;
     private int prodQty;
+    private ProductDataHandler dbConn;
 
     public Product(int prodID, String prodName, double prodPrice, int prodQty) {
         this.prodID = prodID;
         this.prodName = prodName;
         this.prodPrice = prodPrice;
         this.prodQty = prodQty;
+        this.dbConn = new ProductDataHandler();
     }
 
     public int getProdID() {
@@ -48,6 +53,23 @@ public class Product {
 
     public void setProdQty(int prodQty) {
         this.prodQty = prodQty;
+    }
+
+    public Product getProduct(int id) throws ClassNotFoundException, SQLException {
+        Product stock = dbConn.GetProduct(getProdID());
+        return stock;
+    }
+
+    public boolean addStock() throws SQLException, ClassNotFoundException {
+        return dbConn.InsertProduct(this);
+    }
+
+    public boolean updateStock() throws SQLException, ClassNotFoundException {
+        return dbConn.UpdateProduct(this);
+    }
+
+    public boolean removeStock() throws SQLException, ClassNotFoundException {
+        return dbConn.DeleteProduct(getProdID());
     }
 
     @Override
