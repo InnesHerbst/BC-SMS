@@ -5,6 +5,8 @@ import DataLayer.StockDataHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -87,15 +89,20 @@ public class Stock {
 
     public List<Stock> DisplayStock() {
         //AdminDataHandler ad = new AdminDataHandler();
+        //StockDataHandler sdh = new StockDataHandler();
         List<Stock> lst = new ArrayList<>();
-        //lst = ad.View_all();
+//        try {
+//            lst = sdh.fetchStockData();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         lst.add(new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny"));
         lst.add(new Stock(2, "Gold", 38.52, 2, "Jewl", "Yellow"));
         return lst;
     }
 
     public List<Stock> UpdateView(int id) {
-        //AdminDataHandler ad = new AdminDataHandler();
+        //StockDataHandler sdh = new StockDataHandler();
         List<Stock> lst = new ArrayList<>();
         //lst = ad.update_view(id);
         lst.add(new Stock(2, "Gold", 38.52, 2, "Jewl", "Yellow"));
