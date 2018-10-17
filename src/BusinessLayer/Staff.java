@@ -36,36 +36,62 @@ public class Staff extends Person {
     public void setDepartment_id(int department_id) {
         this.department_id = department_id;
     }
+    
+    
+    //Can not use these, as a staff object has to be made before accessing them.
 
-    private StaffDataHandler dbConn = new StaffDataHandler();
-
-    public List<Staff> getAll() throws Exception {
-        return this.dbConn.fetchStaffData();
-    }
-
-    public String[] SignIn(String username, String password) throws Exception {
-        String[] staff = dbConn.SignIn(username, password);
-        if (staff == null) {
-            throw new RuntimeException("Login Failed!");
+//    private StaffDataHandler dbConn = new StaffDataHandler();
+//
+//    public List<Staff> getAll() throws Exception {
+//        return this.dbConn.fetchStaffData();
+//    }
+//
+//    public String[] SignIn(String username, String password) throws Exception {
+//        String[] staff = dbConn.SignIn(username, password);
+//        if (staff == null) {
+//            throw new RuntimeException("Login Failed!");
+//        }
+//        return staff;
+//    }
+//
+//    public Staff getStaff() throws ClassNotFoundException, SQLException {
+//        Staff staff = dbConn.GetStaff(Integer.parseInt((getP_ID())));
+//        return staff;
+//    }
+//
+//    public String[] addStaff() throws SQLException, ClassNotFoundException {
+//        return dbConn.Register(this);
+//    }
+//
+//    public boolean changeStaff() throws SQLException, ClassNotFoundException {
+//        return dbConn.UpdateStaff(this);
+//    }
+//
+//    public boolean removeStaff() throws SQLException, ClassNotFoundException {
+//        return dbConn.DeleteStaff(Integer.parseInt((getP_ID())));
+//    }
+    
+    public static String[] signIn(String username,char[] password){
+        String[] result = null;
+        try {
+            result = StaffDataHandler.getInstance().SignIn(username, password);
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : "+e.getMessage());
         }
-        return staff;
+        
+        return result;
     }
-
-    public Staff getStaff() throws ClassNotFoundException, SQLException {
-        Staff staff = dbConn.GetStaff(Integer.parseInt((getP_ID())));
-        return staff;
-    }
-
-    public String[] addStaff() throws SQLException, ClassNotFoundException {
-        return dbConn.Register(this);
-    }
-
-    public boolean changeStaff() throws SQLException, ClassNotFoundException {
-        return dbConn.UpdateStaff(this);
-    }
-
-    public boolean removeStaff() throws SQLException, ClassNotFoundException {
-        return dbConn.DeleteStaff(Integer.parseInt((getP_ID())));
+    
+    public static String[] registerStaff(Staff nStaff){
+        String[] result = null;
+        
+        try {
+            result = StaffDataHandler.getInstance().Register(nStaff);
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : "+e.getMessage());
+        }
+        
+        return result;
     }
 
 }
