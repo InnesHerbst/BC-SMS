@@ -23,14 +23,16 @@ public class RegistrationForm extends javax.swing.JFrame {
      * Creates new form RegistrationForm
      */
     private final Border tFieldBorder;
-    private final String[] campus = new String[]{"--Please Select--","Pretoria", "Kempton", "Port Elizabeth"};
-    private final String[] department = new String[]{"--Please Select--","Programming","Networking","Information Systems"};
-    private final String[] position = new String[]{"--Please Select--","Staff Member","Administrator"};
+    private final Border cmbBorder;
+    private final String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
+    private final String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
+    private final String[] position = new String[]{"--Please Select--", "Staff Member", "Administrator"};
 
     public RegistrationForm() {
         initComponents();
 
         tFieldBorder = txtFirstName.getBorder();
+        cmbBorder = cmbPosition.getBorder();
 
         //Set the date for DoB Picker
         SimpleDateFormat sdf = new SimpleDateFormat("dd, MMMM yyyy");
@@ -41,7 +43,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         calender.add(Calendar.YEAR, -82);
         dpkDoB.getMonthView().setLowerBound(calender.getTime());
         dpkDoB.setFormats(sdf);
-        
+
         //Campus CMB
         cmbCampus.removeAllItems();
         cmbCampus.setModel(new DefaultComboBoxModel<>(campus));
@@ -157,84 +159,127 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel7.setText("Cell : ");
 
         txtCellNum.setToolTipText("Cell Number");
+        txtCellNum.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCellNumFocusLost(evt);
+            }
+        });
 
         jLabel8.setText("Email : ");
 
         txtEmail.setToolTipText("Email Address");
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
 
         jLabel9.setText("Address : ");
 
         txtSAddrress.setToolTipText("Street Address");
+        txtSAddrress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSAddrressFocusLost(evt);
+            }
+        });
 
         jLabel10.setText("Campus : ");
 
         cmbCampus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCampus.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbCampusFocusLost(evt);
+            }
+        });
 
         jLabel11.setText("Department : ");
 
         cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartment.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbDepartmentFocusLost(evt);
+            }
+        });
 
         jLabel12.setText("Password : ");
 
         txtPassword.setToolTipText("Enter preffered password");
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
 
         jLabel13.setText("Position : ");
 
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPosition.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbPositionFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlRegisterLayout = new javax.swing.GroupLayout(pnlRegister);
         pnlRegister.setLayout(pnlRegisterLayout);
         pnlRegisterLayout.setHorizontalGroup(
             pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRegisterLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
-                        .addComponent(btnCancel)
                         .addGap(18, 18, 18)
-                        .addComponent(btnRegister))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
                         .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
+                            .addComponent(jLabel13)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnlRegisterLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCellNum))
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbCampus, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbPosition, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbDepartment, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pnlRegisterLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                .addComponent(btnCancel)
                                 .addGap(18, 18, 18)
-                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSAddrress)
-                                    .addComponent(cmbCampus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbDepartment, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPassword)
-                                    .addComponent(cmbPosition, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                .addComponent(btnRegister))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
+                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtCellNum))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtInitial, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtStaffID, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                                .addComponent(rbnFemale)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rbnMale))
+                                            .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(dpkDoB, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
+                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
                                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtInitial, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtStaffID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                    .addGroup(pnlRegisterLayout.createSequentialGroup()
-                                        .addComponent(rbnFemale)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbnMale))
-                                    .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(dpkDoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                    .addComponent(txtSAddrress))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlRegisterLayout.setVerticalGroup(
@@ -275,9 +320,17 @@ public class RegistrationForm extends javax.swing.JFrame {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtSAddrress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
                 .addGap(18, 18, 18)
+                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSAddrress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(cmbCampus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -286,14 +339,6 @@ public class RegistrationForm extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister)
                     .addComponent(btnCancel))
@@ -306,8 +351,8 @@ public class RegistrationForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(pnlRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,22 +373,54 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         if (fName.trim().equals("")) {
             txtFirstName.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtFirstName.setToolTipText("Plese enter your first name.");
         } else {
             //txtFirstName.setBorder();
             txtFirstName.setBorder(tFieldBorder);
+            txtFirstName.setToolTipText("Your First Name.");
         }
     }//GEN-LAST:event_txtFirstNameFocusLost
 
     private void txtInitialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInitialFocusLost
         // TODO add your handling code here:
+        String uIni = txtInitial.getText();
+
+        if (uIni.trim().equals("")) {
+            txtInitial.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtInitial.setToolTipText("Please enter your initials.");
+        } else {
+            //txtFirstName.setBorder();
+            txtInitial.setBorder(tFieldBorder);
+            txtInitial.setToolTipText("Your initials.");
+        }
     }//GEN-LAST:event_txtInitialFocusLost
 
     private void txtStaffIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtStaffIDFocusLost
         // TODO add your handling code here:
+        String uID = txtStaffID.getText();
+
+        if (uID.trim().equals("") || (uID.trim().length() != 13)) {
+            txtStaffID.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtStaffID.setToolTipText("Please enter your national ID.(13 Characters)");
+        } else {
+            //txtFirstName.setBorder();
+            txtStaffID.setBorder(tFieldBorder);
+            txtStaffID.setToolTipText("Your national ID.");
+        }
     }//GEN-LAST:event_txtStaffIDFocusLost
 
     private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusLost
         // TODO add your handling code here:
+        String iLName = txtLastName.getText();
+
+        if (iLName.trim().equals("")) {
+            txtLastName.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtLastName.setToolTipText("Please enter your last name.");
+        } else {
+            //txtFirstName.setBorder();
+            txtLastName.setBorder(tFieldBorder);
+            txtLastName.setToolTipText("Your last name.");
+        }
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
@@ -351,6 +428,103 @@ public class RegistrationForm extends javax.swing.JFrame {
         new LoginForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
+
+    private void txtCellNumFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCellNumFocusLost
+        // TODO add your handling code here:
+        String uCNum = txtCellNum.getText();
+
+        if (uCNum.trim().equals("") || (uCNum.trim().length() != 10)) {
+            txtCellNum.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCellNum.setToolTipText("Please enter your cell number.(10 Characters)");
+        } else {
+            //txtFirstName.setBorder();
+            txtCellNum.setBorder(tFieldBorder);
+            txtCellNum.setToolTipText("Your cell number.");
+        }
+    }//GEN-LAST:event_txtCellNumFocusLost
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        String uEmail = txtEmail.getText();
+
+        if (uEmail.trim().equals("") || !uEmail.contains("@")) {
+            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtEmail.setToolTipText("Please enter your email address. eg. john.doe@gmail.co.za");
+        } else {
+            //txtFirstName.setBorder();
+            txtEmail.setBorder(tFieldBorder);
+            txtEmail.setToolTipText("Your email address.");
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        char[] uPword = txtPassword.getPassword();
+
+        if (uPword.length < 8) {
+            txtPassword.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtPassword.setToolTipText("Password should be at least 8 characters.");
+        } else {
+            //txtFirstName.setBorder();
+            txtPassword.setBorder(tFieldBorder);
+            txtPassword.setToolTipText("Your password.");
+        }
+    }//GEN-LAST:event_txtPasswordFocusLost
+
+    private void txtSAddrressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSAddrressFocusLost
+        String uAddress = txtSAddrress.getText();
+
+        if (uAddress.trim().equals("")) {
+            txtSAddrress.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtSAddrress.setToolTipText("Please enter your street address. eg. 123 Somewhere Rd.");
+        } else {
+            //txtFirstName.setBorder();
+            txtSAddrress.setBorder(tFieldBorder);
+            txtSAddrress.setToolTipText("Your street address");
+        }
+    }//GEN-LAST:event_txtSAddrressFocusLost
+
+    private void cmbPositionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbPositionFocusLost
+
+        if (cmbPosition.getSelectedIndex() == 0) {
+            cmbPosition.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbPosition.setToolTipText("Please choose a valid position.");
+        } else {
+            //txtFirstName.setBorder();
+            cmbPosition.setBorder(cmbBorder);
+            cmbPosition.setToolTipText("Your position.");
+        }
+
+        if (cmbPosition.getSelectedItem().equals(position[2])) {
+            if (cmbDepartment.isEnabled()) {
+                cmbDepartment.setEnabled(false);
+            }
+        } else {
+            if (!cmbDepartment.isEnabled()) {
+                cmbDepartment.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_cmbPositionFocusLost
+
+    private void cmbCampusFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbCampusFocusLost
+        if (cmbCampus.getSelectedIndex() == 0) {
+            cmbCampus.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbCampus.setToolTipText("Please choose a valid campus.");
+        } else {
+            //txtFirstName.setBorder();
+            cmbCampus.setBorder(cmbBorder);
+            cmbCampus.setToolTipText("Your campus.");
+        }
+    }//GEN-LAST:event_cmbCampusFocusLost
+
+    private void cmbDepartmentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbDepartmentFocusLost
+        if (cmbDepartment.getSelectedIndex() == 0) {
+            cmbDepartment.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbDepartment.setToolTipText("Please choose a valid department.");
+        } else {
+            //txtFirstName.setBorder();
+            cmbDepartment.setBorder(cmbBorder);
+            cmbDepartment.setToolTipText("Your department.");
+        }
+    }//GEN-LAST:event_cmbDepartmentFocusLost
 
     /**
      * @param args the command line arguments
