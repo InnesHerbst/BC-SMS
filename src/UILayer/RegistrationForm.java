@@ -6,14 +6,17 @@
 package UILayer;
 
 import BusinessLayer.Admin;
+import BusinessLayer.InputValidation;
 import BusinessLayer.Staff;
 import java.awt.Color;
-import java.sql.SQLException;
+import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
@@ -57,7 +60,6 @@ public class RegistrationForm extends javax.swing.JFrame {
         //Position CMB
         cmbPosition.removeAllItems();
         cmbPosition.setModel(new DefaultComboBoxModel<>(position));
-
     }
 
     /**
@@ -101,6 +103,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
         dpkDoB = new org.jdesktop.swingx.JXDatePicker();
+        chbShowPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register");
@@ -228,6 +231,13 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
         });
 
+        chbShowPassword.setText("Show");
+        chbShowPassword.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbShowPasswordItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlRegisterLayout = new javax.swing.GroupLayout(pnlRegister);
         pnlRegister.setLayout(pnlRegisterLayout);
         pnlRegisterLayout.setHorizontalGroup(
@@ -286,10 +296,13 @@ public class RegistrationForm extends javax.swing.JFrame {
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
-                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                    .addComponent(txtSAddrress))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSAddrress, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlRegisterLayout.createSequentialGroup()
+                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chbShowPassword)))))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         pnlRegisterLayout.setVerticalGroup(
             pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,12 +343,13 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(chbShowPassword))
                 .addGap(18, 18, 18)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSAddrress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -360,7 +374,7 @@ public class RegistrationForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -380,9 +394,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:        
         String fName = txtFirstName.getText();
 
-        if (fName.trim().equals("")) {
+        if (fName.trim().equals("") || !InputValidation.isString(fName)) {
             txtFirstName.setBorder(BorderFactory.createLineBorder(Color.RED));
-            txtFirstName.setToolTipText("Plese enter your first name.");
+            txtFirstName.setToolTipText("Plese enter your first name. Alphabet characters only.");
         } else {
             //txtFirstName.setBorder();
             txtFirstName.setBorder(tFieldBorder);
@@ -394,9 +408,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String uIni = txtInitial.getText();
 
-        if (uIni.trim().equals("")) {
+        if (uIni.trim().equals("") || !InputValidation.isString(uIni)) {
             txtInitial.setBorder(BorderFactory.createLineBorder(Color.RED));
-            txtInitial.setToolTipText("Please enter your initials.");
+            txtInitial.setToolTipText("Please enter your initials. Alphabet characters only.");
         } else {
             //txtFirstName.setBorder();
             txtInitial.setBorder(tFieldBorder);
@@ -408,9 +422,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String uID = txtStaffID.getText();
 
-        if (uID.trim().equals("") || (uID.trim().length() != 13)) {
+        if (uID.trim().equals("") || (uID.trim().length() != 13) || !InputValidation.isNumeric(uID)) {
             txtStaffID.setBorder(BorderFactory.createLineBorder(Color.RED));
-            txtStaffID.setToolTipText("Please enter your national ID.(13 Characters)");
+            txtStaffID.setToolTipText("Please enter your national ID.(13 Numerical Characters)");
         } else {
             //txtFirstName.setBorder();
             txtStaffID.setBorder(tFieldBorder);
@@ -422,9 +436,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String iLName = txtLastName.getText();
 
-        if (iLName.trim().equals("")) {
+        if (iLName.trim().equals("") || !InputValidation.isString(iLName)) {
             txtLastName.setBorder(BorderFactory.createLineBorder(Color.RED));
-            txtLastName.setToolTipText("Please enter your last name.");
+            txtLastName.setToolTipText("Please enter your last name. Alphabet characters only.");
         } else {
             //txtFirstName.setBorder();
             txtLastName.setBorder(tFieldBorder);
@@ -442,9 +456,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String uCNum = txtCellNum.getText();
 
-        if (uCNum.trim().equals("") || (uCNum.trim().length() != 10)) {
+        if (uCNum.trim().equals("") || (uCNum.trim().length() != 10) || !InputValidation.isNumeric(uCNum)) {
             txtCellNum.setBorder(BorderFactory.createLineBorder(Color.RED));
-            txtCellNum.setToolTipText("Please enter your cell number.(10 Characters)");
+            txtCellNum.setToolTipText("Please enter your cell number.(10 Numerical Characters)");
         } else {
             //txtFirstName.setBorder();
             txtCellNum.setBorder(tFieldBorder);
@@ -455,7 +469,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         String uEmail = txtEmail.getText();
 
-        if (uEmail.trim().equals("") || !uEmail.contains("@")) {
+        if (uEmail.trim().equals("") || !InputValidation.isEmail(uEmail)) {
             txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
             txtEmail.setToolTipText("Please enter your email address. eg. john.doe@gmail.co.za");
         } else {
@@ -470,7 +484,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         if (uPword.length < 8) {
             txtPassword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            txtPassword.setToolTipText("Password should be at least 8 characters.");
+            txtPassword.setToolTipText("Password should be at least 8 characters long.");
         } else {
             //txtFirstName.setBorder();
             txtPassword.setBorder(tFieldBorder);
@@ -481,7 +495,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void txtSAddrressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSAddrressFocusLost
         String uAddress = txtSAddrress.getText();
 
-        if (uAddress.trim().equals("")) {
+        if (uAddress.trim().equals("") || !InputValidation.isAlphaNum(uAddress)) {
             txtSAddrress.setBorder(BorderFactory.createLineBorder(Color.RED));
             txtSAddrress.setToolTipText("Please enter your street address. eg. 123 Somewhere Rd.");
         } else {
@@ -588,31 +602,31 @@ public class RegistrationForm extends javax.swing.JFrame {
         }
 
         //STRING VALIDATION
-        if (uID.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please input a valid ID.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (uID.trim().equals("") || uID.length() != 13 || !InputValidation.isNumeric(uID)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid ID.\nID should be 13 numerical characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtStaffID.setFocusable(true);
             txtStaffID.requestFocus();
             return;
         }
-        if (uFName.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please input a valid first name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (uFName.trim().equals("") || !InputValidation.isString(uFName)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid first name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtFirstName.setFocusable(true);
             txtFirstName.requestFocus();
             return;
         }
-        if (uIni.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please input a valid initial.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (uIni.trim().equals("") || !InputValidation.isString(uIni)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid initial. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtInitial.setFocusable(true);
             txtInitial.requestFocus();
             return;
         }
-        if (uLName.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please input a valid last name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (uLName.trim().equals("") || !InputValidation.isString(uLName)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid last name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtLastName.setFocusable(true);
             txtLastName.requestFocus();
             return;
         }
-        if (uCell.trim().equals("") || uCell.length() < 10) {
+        if (uCell.trim().equals("") || uCell.length() < 10 || !InputValidation.isNumeric(uCell)) {
             JOptionPane.showMessageDialog(this, "Please input a valid cell number.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtCellNum.setFocusable(true);
             txtCellNum.requestFocus();
@@ -624,14 +638,16 @@ public class RegistrationForm extends javax.swing.JFrame {
             txtEmail.requestFocus();
             return;
         }
-        if (uPassword.length < 8) {
-            JOptionPane.showMessageDialog(this, "Please input a valid password", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (uPassword.length < 8 || !InputValidation.isPassword(uPassword)) {
+            JOptionPane.showMessageDialog(this, "Password should :\n• Be at least 8 characters.\n•"
+                    + " Contain at least 1 special character.\n• Contain at least 1 numerical "
+                    + "character.\n• Contain Uppercase and Lowercase letters.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtPassword.setFocusable(true);
             txtPassword.requestFocus();
             return;
         }
-        if (uAddress.trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please input a valid address", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (uAddress.trim().equals("") || !InputValidation.isAlphaNum(uAddress)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid address.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtSAddrress.setFocusable(true);
             txtSAddrress.requestFocus();
             return;
@@ -669,6 +685,14 @@ public class RegistrationForm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void chbShowPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbShowPasswordItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            txtPassword.setEchoChar((char) 0);
+        } else {
+            txtPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_chbShowPasswordItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -709,6 +733,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bgpGender;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JCheckBox chbShowPassword;
     private javax.swing.JComboBox<String> cmbCampus;
     private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbPosition;
