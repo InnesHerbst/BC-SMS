@@ -22,7 +22,7 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
-    private final Border cmbBorder;
+    private final Color cmbBorder;
     private final Border txtBorder;
 
     private static final String[] arrPosition = {"--Please Select--", "Administrator", "Staff Member"};
@@ -30,7 +30,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
 
-        cmbBorder = cmbPosition.getBorder();
+        cmbBorder = cmbPosition.getBackground();
         txtBorder = txtEmail.getBorder();
 
         lblForgotPassword.setText("<html><u>Forgot Password?</u></html>");
@@ -269,10 +269,11 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (cmbPosition.getSelectedItem().equals(arrPosition[0])) {
-            cmbPosition.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //cmbPosition.setBorder(BorderFactory.createLineBorder(Color.RED));
+            cmbPosition.setBackground(Color.RED);
             cmbPosition.setToolTipText("Please select a valid position");
         } else {
-            cmbPosition.setBorder(cmbBorder);
+            cmbPosition.setBackground(cmbBorder);
             cmbPosition.setToolTipText("Sign in as Staff or Admin");
         }
 
