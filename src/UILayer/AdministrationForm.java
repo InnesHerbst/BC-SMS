@@ -7,8 +7,14 @@ package UILayer;
 
 import BusinessLayer.Staff;
 import BusinessLayer.Stock;
+import BusinessLayer.StockQuantComparator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,11 +25,76 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdministrationForm extends javax.swing.JFrame {
 
+    enum SortMethod {
+        NoSort,
+        NameSort,
+        QuantSort;
+    }
+
+    private final String[] sort = new String[]{"No Sorting", "By Name", "By Quantity"};
+    private int cmbPrevIndex = 0;
+
     /**
      * Creates new form AdministrationForm
      */
     public AdministrationForm() {
         initComponents();
+
+        cmbSort.removeAllItems();
+        cmbSort.setModel(new DefaultComboBoxModel<>(sort));
+        cmbSort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(cmbSort.getSelectedIndex() != cmbPrevIndex){
+                    displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()],"null");
+                    cmbPrevIndex = cmbSort.getSelectedIndex();
+                }
+            }
+        });
+    }
+
+    private void displayStockTableData(SortMethod sort,String searchStatement) {
+        List<Stock> stock = Stock.DisplayStock();
+        List<Stock> definedStock = null;
+        if(!searchStatement.equals("null")){
+            definedStock = stock;
+            stock = definedStock.stream()
+                    .filter(item -> item.getName().contains(searchStatement))
+                    .collect(Collectors.toList());
+        }
+        
+        switch (sort) {
+            case NoSort:
+                DefaultTableModel noSortModel = (DefaultTableModel) jtblStock.getModel();
+
+                noSortModel.setRowCount(0);
+
+                for (Stock l : stock) {
+                    noSortModel.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+                }
+                break;
+            case NameSort:
+                Collections.sort(stock);
+                DefaultTableModel nameSortModel = (DefaultTableModel) jtblStock.getModel();
+
+                nameSortModel.setRowCount(0);
+
+                for (Stock l : stock) {
+                    nameSortModel.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+                }
+                break;
+            case QuantSort:
+                StockQuantComparator sqc = new StockQuantComparator();
+                Collections.sort(stock,sqc);
+                DefaultTableModel quantSortModel = (DefaultTableModel) jtblStock.getModel();
+
+                quantSortModel.setRowCount(0);
+
+                for (Stock l : stock) {
+                    quantSortModel.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+                }
+                break;
+        }
     }
 
     /**
@@ -42,6 +113,11 @@ public class AdministrationForm extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        cmbSort = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -119,35 +195,66 @@ public class AdministrationForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Sort By : ");
+
+        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setText("Search : ");
+
+        btnSearch.setText("GO!");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtSearch)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnSearch))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
+                    .addComponent(jButton3)
                     .addComponent(jButton1))
-                .addGap(201, 201, 201))
+                .addContainerGap())
         );
 
         tbpAdmin.addTab("Stock", jPanel1);
@@ -313,9 +420,9 @@ public class AdministrationForm extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
 
         // TODO add your handling code here:
-        Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
+        //Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
 
-        List<Stock> ls = st.DisplayStock();
+        List<Stock> ls = Stock.DisplayStock();
 
         DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
 
@@ -383,7 +490,7 @@ public class AdministrationForm extends javax.swing.JFrame {
 
             if (result[0].equals("Success")) {
                 jtblStaffUn.remove(selectedRowIndex);
-                
+
                 List<Staff> staff = Staff.fetchStaffData();
 
                 DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
@@ -408,6 +515,16 @@ public class AdministrationForm extends javax.swing.JFrame {
     private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2ComponentShown
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        String searchStatement = txtSearch.getText();
+        
+        if(!searchStatement.trim().equals("")){
+            displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], searchStatement);
+        }else{
+            displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], "null");
+        }
+    }//GEN-LAST:event_btnSearchMouseClicked
 
     /**
      * @param args the command line arguments
@@ -447,11 +564,15 @@ public class AdministrationForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnSearch;
+    private javax.swing.JComboBox<String> cmbSort;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -461,5 +582,6 @@ public class AdministrationForm extends javax.swing.JFrame {
     private javax.swing.JTable jtblStaffUn;
     private javax.swing.JTable jtblStock;
     private javax.swing.JTabbedPane tbpAdmin;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
