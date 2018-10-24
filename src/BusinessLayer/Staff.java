@@ -126,5 +126,15 @@ public class Staff extends Person {
         
         return result;
     }
+    
+    public static void DeleteStaff(String id){
+        try {
+            StaffDataHandler sd = new StaffDataHandler();
+            sd.DeleteStaff(id);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

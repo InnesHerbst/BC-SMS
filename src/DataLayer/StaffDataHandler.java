@@ -263,13 +263,13 @@ public class StaffDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] DeleteStaff(String id) throws SQLException {
+    public void DeleteStaff(String id) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement dCMD = null;
 
         if (ConnectDatabase()) {
             try {
-                dCMD = getDbConnection().prepareStatement("DELTE FROM Staff WHERE Staff_ID = ?;");
+                dCMD = getDbConnection().prepareStatement("DELETE FROM [dbo].[Staff] WHERE Staff_ID = ?;");
                 dCMD.setString(1, id);
 
                 int count = dCMD.executeUpdate();
@@ -284,6 +284,7 @@ public class StaffDataHandler extends ConnectionHandler {
             } catch (SQLException e) {
                 arg[0] = "Error - SQL";
                 arg[1] = e.getMessage();
+                System.out.println(e.getMessage());
             } finally {
                 if (dCMD != null) {
                     dCMD.close();
@@ -297,7 +298,6 @@ public class StaffDataHandler extends ConnectionHandler {
             arg[1] = "Database Could Not Connect.";
         }
 
-        return arg;
 
     }
 

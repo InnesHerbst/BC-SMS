@@ -45,24 +45,24 @@ public class AdministrationForm extends javax.swing.JFrame {
         cmbSort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cmbSort.getSelectedIndex() != cmbPrevIndex){
-                    displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()],"null");
+                if (cmbSort.getSelectedIndex() != cmbPrevIndex) {
+                    displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], "null");
                     cmbPrevIndex = cmbSort.getSelectedIndex();
                 }
             }
         });
     }
 
-    private void displayStockTableData(SortMethod sort,String searchStatement) {
+    private void displayStockTableData(SortMethod sort, String searchStatement) {
         List<Stock> stock = Stock.DisplayStock();
         List<Stock> definedStock = null;
-        if(!searchStatement.equals("null")){
+        if (!searchStatement.equals("null")) {
             definedStock = stock;
             stock = definedStock.stream()
                     .filter(item -> item.getName().contains(searchStatement))
                     .collect(Collectors.toList());
         }
-        
+
         switch (sort) {
             case NoSort:
                 DefaultTableModel noSortModel = (DefaultTableModel) jtblStock.getModel();
@@ -85,7 +85,7 @@ public class AdministrationForm extends javax.swing.JFrame {
                 break;
             case QuantSort:
                 StockQuantComparator sqc = new StockQuantComparator();
-                Collections.sort(stock,sqc);
+                Collections.sort(stock, sqc);
                 DefaultTableModel quantSortModel = (DefaultTableModel) jtblStock.getModel();
 
                 quantSortModel.setRowCount(0);
@@ -207,6 +207,11 @@ public class AdministrationForm extends javax.swing.JFrame {
                 btnSearchMouseClicked(evt);
             }
         });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -293,7 +298,6 @@ public class AdministrationForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jtblStaff);
         if (jtblStaff.getColumnModel().getColumnCount() > 0) {
             jtblStaff.getColumnModel().getColumn(0).setResizable(false);
-            jtblStaff.getColumnModel().getColumn(0).setPreferredWidth(0);
             jtblStaff.getColumnModel().getColumn(1).setResizable(false);
             jtblStaff.getColumnModel().getColumn(2).setResizable(false);
             jtblStaff.getColumnModel().getColumn(3).setResizable(false);
@@ -306,6 +310,11 @@ public class AdministrationForm extends javax.swing.JFrame {
         }
 
         jButton5.setText("Delete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jtblStaffUn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -326,7 +335,6 @@ public class AdministrationForm extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jtblStaffUn);
         if (jtblStaffUn.getColumnModel().getColumnCount() > 0) {
             jtblStaffUn.getColumnModel().getColumn(0).setResizable(false);
-            jtblStaffUn.getColumnModel().getColumn(0).setPreferredWidth(0);
             jtblStaffUn.getColumnModel().getColumn(1).setResizable(false);
             jtblStaffUn.getColumnModel().getColumn(2).setResizable(false);
             jtblStaffUn.getColumnModel().getColumn(3).setResizable(false);
@@ -421,7 +429,6 @@ public class AdministrationForm extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         //Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
-
         List<Stock> ls = Stock.DisplayStock();
 
         DefaultTableModel model = (DefaultTableModel) jtblStock.getModel();
@@ -517,14 +524,46 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2ComponentShown
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        String searchStatement = txtSearch.getText();
-        
-        if(!searchStatement.trim().equals("")){
+        String searchStatement = txtSearch.getText().toUpperCase();
+
+        if (!searchStatement.trim().equals("")) {
             displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], searchStatement);
-        }else{
+        } else {
             displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], "null");
         }
     }//GEN-LAST:event_btnSearchMouseClicked
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int selectedRowIndex = jtblStaff.getSelectedRow();
+            String sID = (String) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
+
+            Staff.DeleteStaff(sID);
+
+            String[] result = Staff.authStaff(sID);
+
+            List<Staff> staff = Staff.fetchStaffData();
+
+            DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+            staffModel.setRowCount(0);
+
+            for (Staff staff1 : staff) {
+                staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                    staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                    staff1.getP_address1(), staff1.getP_address2()});
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
+            System.out.println(e.getMessage());
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
