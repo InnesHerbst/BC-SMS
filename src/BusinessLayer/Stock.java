@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Adria
  */
-public class Stock {
+public class Stock implements Comparable<Stock>{
 
     private int id;
     private String name;
@@ -88,7 +88,7 @@ public class Stock {
 //        this.dbConn = new StockDataHandler();     //for StockDataHandler
     }
 
-    public List<Stock> DisplayStock() {
+    public static List<Stock> DisplayStock() {
 
         
         List<Stock> lst = new ArrayList<>();
@@ -155,5 +155,10 @@ public class Stock {
         } catch (SQLException ex) {
             Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int compareTo(Stock o) {
+        return this.getName().compareTo(o.getName());
     }
 }
