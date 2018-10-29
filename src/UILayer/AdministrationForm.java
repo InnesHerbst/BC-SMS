@@ -118,6 +118,7 @@ public class AdministrationForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JToggleButton();
+        jButton6 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -213,6 +214,13 @@ public class AdministrationForm extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("Log out");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -220,33 +228,44 @@ public class AdministrationForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtSearch)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnSearch))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(124, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearch))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 114, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -395,36 +414,6 @@ public class AdministrationForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-
-        try {
-            int selectedRowIndex = jtblStock.getSelectedRow();
-            int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
-            String name = (String) jtblStock.getModel().getValueAt(selectedRowIndex, 1);
-            Stock_UpdateForm su = new Stock_UpdateForm();
-            su.getID(id);
-            su.setVisible(true);
-            this.setVisible(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        Stock_AddForm sa = new Stock_AddForm();
-        sa.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jPanel1ComponentShown
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
 
         // TODO add your handling code here:
@@ -460,6 +449,91 @@ public class AdministrationForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formComponentShown
 
+    private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2ComponentShown
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int selectedRowIndex = jtblStaff.getSelectedRow();
+            String sID = (String) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
+
+            Staff.DeleteStaff(sID);
+
+            String[] result = Staff.authStaff(sID);
+
+            List<Staff> staff = Staff.fetchStaffData();
+
+            DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+            staffModel.setRowCount(0);
+
+            for (Staff staff1 : staff) {
+                staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                    staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                    staff1.getP_address1(), staff1.getP_address2()});
+        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
+            System.out.println(e.getMessage());
+        }
+
+        RefreshStaff();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        //AUTH Staff
+        try {
+            int selectedRowIndex = jtblStaffUn.getSelectedRow();
+            String sID = (String) jtblStaffUn.getModel().getValueAt(selectedRowIndex, 0);
+
+            String[] result = Staff.authStaff(sID);
+
+            if (result[0].equals("Success")) {
+                jtblStaffUn.remove(selectedRowIndex);
+
+                List<Staff> staff = Staff.fetchStaffData();
+
+                DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+                staffModel.setRowCount(0);
+
+                for (Staff staff1 : staff) {
+                    staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                        staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                        staff1.getP_address1(), staff1.getP_address2()});
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, result[1], result[0], JOptionPane.WARNING_MESSAGE);
+        }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        RefreshStaff();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1ComponentShown
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        String searchStatement = txtSearch.getText().toUpperCase();
+
+        if (!searchStatement.trim().equals("")) {
+            displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], searchStatement);
+        } else {
+            displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], "null");
+        }
+    }//GEN-LAST:event_btnSearchMouseClicked
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //When Delte is pressd
@@ -483,87 +557,38 @@ public class AdministrationForm extends javax.swing.JFrame {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
         }
 
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        //AUTH Staff
+        Stock_AddForm sa = new Stock_AddForm();
+        sa.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+
         try {
-            int selectedRowIndex = jtblStaffUn.getSelectedRow();
-            String sID = (String) jtblStaffUn.getModel().getValueAt(selectedRowIndex, 0);
-
-            String[] result = Staff.authStaff(sID);
-
-            if (result[0].equals("Success")) {
-                jtblStaffUn.remove(selectedRowIndex);
-
-                List<Staff> staff = Staff.fetchStaffData();
-
-                DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
-                staffModel.setRowCount(0);
-
-                for (Staff staff1 : staff) {
-                    staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
-                        staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
-                        staff1.getP_address1(), staff1.getP_address2()});
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, result[1], result[0], JOptionPane.WARNING_MESSAGE);
-            }
-
+            int selectedRowIndex = jtblStock.getSelectedRow();
+            int id = (int) jtblStock.getModel().getValueAt(selectedRowIndex, 0);
+            String name = (String) jtblStock.getModel().getValueAt(selectedRowIndex, 1);
+            Stock_UpdateForm su = new Stock_UpdateForm();
+            su.getID(id);
+            su.setVisible(true);
+            this.setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
         }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2ComponentShown
-
-    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        String searchStatement = txtSearch.getText().toUpperCase();
-
-        if (!searchStatement.trim().equals("")) {
-            displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], searchStatement);
-        } else {
-            displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], "null");
-        }
-    }//GEN-LAST:event_btnSearchMouseClicked
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        try {
-            int selectedRowIndex = jtblStaff.getSelectedRow();
-            String sID = (String) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
-
-            Staff.DeleteStaff(sID);
-
-            String[] result = Staff.authStaff(sID);
-
-            List<Staff> staff = Staff.fetchStaffData();
-
-            DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
-            staffModel.setRowCount(0);
-
-            for (Staff staff1 : staff) {
-                staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
-                    staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
-                    staff1.getP_address1(), staff1.getP_address2()});
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
-            System.out.println(e.getMessage());
-        }
-
-    }//GEN-LAST:event_jButton5ActionPerformed
+        LoginForm lf = new LoginForm();
+        lf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -602,6 +627,37 @@ public class AdministrationForm extends javax.swing.JFrame {
         });
     }
 
+    public void RefreshStaff() {
+        
+
+
+        //Autherised staff
+        List<Staff> staff = Staff.fetchStaffData();
+
+        DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+        staffModel.setRowCount(0);
+
+        for (Staff staff1 : staff) {
+            staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                staff1.getP_address1(), staff1.getP_address2()});
+        }
+        
+        //un Autherised staff
+
+        List<Staff> unStaff = Staff.fetchUnAuthStaffData();
+
+        DefaultTableModel staffUn = (DefaultTableModel) jtblStaffUn.getModel();
+        staffUn.setRowCount(0);
+
+        for (Staff staff1 : unStaff) {
+            staffUn.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                staff1.getP_address1(), staff1.getP_address2()});
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnSearch;
     private javax.swing.JComboBox<String> cmbSort;
@@ -610,6 +666,7 @@ public class AdministrationForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -112,7 +112,7 @@ public class StaffDataHandler extends ConnectionHandler {
             try {
                 java.sql.Date uDoB = new Date(nStaff.getP_dob().getTime());
 
-                iCMD = getDbConnection().prepareStatement("INSERT INTO Registration VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                iCMD = getDbConnection().prepareStatement("INSERT INTO Staff VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 iCMD.setString(1, nStaff.getP_ID());
                 iCMD.setString(2, nStaff.getP_firstname());
                 iCMD.setString(3, nStaff.getP_initials());
@@ -126,6 +126,7 @@ public class StaffDataHandler extends ConnectionHandler {
                 iCMD.setInt(11, nStaff.getCampus_id());
                 iCMD.setInt(12, nStaff.getDepartment_id());
                 iCMD.setString(13, uPassword.toString());
+                iCMD.setString(14, "No");
 
                 int count = iCMD.executeUpdate();
 
@@ -161,7 +162,7 @@ public class StaffDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                sCMD = getDbConnection().prepareStatement("SELECT * FROM Staff");
+                sCMD = getDbConnection().prepareStatement("SELECT * FROM Staff Where Staff_Confirm = 'Yes'");
 
                 ResultSet result = sCMD.executeQuery();
 
@@ -298,7 +299,6 @@ public class StaffDataHandler extends ConnectionHandler {
             arg[1] = "Database Could Not Connect.";
         }
 
-
     }
 
     public String[] authStaff(String sID) throws SQLException {
@@ -307,21 +307,7 @@ public class StaffDataHandler extends ConnectionHandler {
 
         if (ConnectDatabase()) {
             try {
-                cCMD = getDbConnection().prepareStatement("Insert into Staff SELECT "
-                        + "     [Employee_ID] "
-                        + "      ,[Registration_First_Name] "
-                        + "      ,[Registration_Initials] "
-                        + "      ,[Registration_Last_Name] "
-                        + "      ,[Registration_DoB] "
-                        + "      ,[Registration_Gender] "
-                        + "      ,[Registration_Phone] "
-                        + "      ,[Registration_Email] "
-                        + "      ,[Registration_Address_1] "
-                        + "      ,[Registration_Address_2] "
-                        + "      ,[Campus_ID] "
-                        + "      ,[Department_ID] "
-                        + "      ,[Registration_Password] "
-                        + "  FROM [dbo].[Registration] where Employee_ID = ?");
+                cCMD = getDbConnection().prepareStatement("UPDATE Staff SET Staff_Confirm = 'Yes' where Staff_ID = ?");
                 cCMD.setString(1, sID);
 
                 int count = cCMD.executeUpdate();
@@ -367,24 +353,24 @@ public class StaffDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                sCMD = getDbConnection().prepareStatement("Select * from Registration");
+                sCMD = getDbConnection().prepareStatement("Select * from Staff where Staff_Confirm = 'No'");
 
                 ResultSet result = sCMD.executeQuery();
 
                 while (result.next()) {
-                    String sID = result.getString("Employee_ID");
-                    String sName = result.getString("Registration_First_Name");
-                    String sIni = result.getString("Registration_Initials");
-                    String sLName = result.getString("Registration_Last_Name");
-                    Date sDoB = result.getDate("Registration_DoB");
-                    String sGender = result.getString("Registration_Gender");
-                    String sPhone = result.getString("Registration_Phone");
-                    String sEmail = result.getString("Registration_Email");
-                    String sAddr1 = result.getString("Registration_Address_1");
-                    String sAddr2 = result.getString("Registration_Address_2");
-                    int sCampID = result.getInt("Campus_ID");
-                    int sDepID = result.getInt("Department_ID");
-                    String sPWord = result.getString("Registration_Password");
+                    String sID = result.getString("Staff_ID");
+                    String sName = result.getString("Staff_First_Name");
+                    String sIni = result.getString("Staff_Initials");
+                    String sLName = result.getString("Staff_Last_Name");
+                    Date sDoB = result.getDate("Staff_DoB");
+                    String sGender = result.getString("Staff_Gender");
+                    String sPhone = result.getString("Staff_Phone");
+                    String sEmail = result.getString("Staff_Email");
+                    String sAddr1 = result.getString("Staff_Address_1");
+                    String sAddr2 = result.getString("Staff_Address_2");
+                    int sCampID = result.getInt("Staff_Campus_ID");
+                    int sDepID = result.getInt("Staff_Department_ID");
+                    String sPWord = result.getString("Staff_Password");
 
                     staff.add(new Staff(sCampID, sDepID, sID, sIni, sName, sLName, sDoB, sGender, sPhone, sEmail, sPWord.toCharArray(), sAddr1, sAddr2));
                 }
