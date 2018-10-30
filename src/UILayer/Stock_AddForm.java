@@ -5,10 +5,17 @@
  */
 package UILayer;
 
+import BusinessLayer.IStock;
 import BusinessLayer.Product;
 import BusinessLayer.Stock;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -20,8 +27,12 @@ public class Stock_AddForm extends javax.swing.JFrame {
     /**
      * Creates new form Stock_AddForm
      */
-    public Stock_AddForm() {
+    private IStock stock;
+    public Stock_AddForm() throws RemoteException, NotBoundException {
         initComponents();
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+           stock = (IStock) reg.lookup("StockService");
+           
     }
 
     /**
@@ -193,7 +204,7 @@ public class Stock_AddForm extends javax.swing.JFrame {
         String qu = spnQuantity.getValue().toString();
         int quantity = Integer.parseInt(qu);
         
-        Stock.AddStock(productid, quantity, depid, campusid);
+        stock.AddStock(productid, quantity, depid, campusid);
         
         AdministrationForm af = new AdministrationForm();
         af.setVisible(true);
@@ -230,7 +241,13 @@ public class Stock_AddForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Stock_AddForm().setVisible(true);
+                try {
+                    new Stock_AddForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Stock_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(Stock_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

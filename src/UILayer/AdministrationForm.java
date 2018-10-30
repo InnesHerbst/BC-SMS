@@ -472,7 +472,7 @@ public class AdministrationForm extends javax.swing.JFrame {
                 staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
                     staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
                     staff1.getP_address1(), staff1.getP_address2()});
-        }
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
@@ -503,11 +503,11 @@ public class AdministrationForm extends javax.swing.JFrame {
                     staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
                         staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
                         staff1.getP_address1(), staff1.getP_address2()});
-            }
+                }
 
-        } else {
-            JOptionPane.showMessageDialog(null, result[1], result[0], JOptionPane.WARNING_MESSAGE);
-        }
+            } else {
+                JOptionPane.showMessageDialog(null, result[1], result[0], JOptionPane.WARNING_MESSAGE);
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pleas Select a item", "Error", JOptionPane.WARNING_MESSAGE);
@@ -628,8 +628,6 @@ public class AdministrationForm extends javax.swing.JFrame {
     }
 
     public void RefreshStaff() {
-        
-
 
         //Autherised staff
         List<Staff> staff = Staff.fetchStaffData();
@@ -642,9 +640,8 @@ public class AdministrationForm extends javax.swing.JFrame {
                 staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
                 staff1.getP_address1(), staff1.getP_address2()});
         }
-        
-        //un Autherised staff
 
+        //un Autherised staff
         List<Staff> unStaff = Staff.fetchUnAuthStaffData();
 
         DefaultTableModel staffUn = (DefaultTableModel) jtblStaffUn.getModel();

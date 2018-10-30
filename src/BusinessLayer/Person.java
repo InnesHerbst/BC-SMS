@@ -122,6 +122,9 @@ public abstract class Person {
         this.p_address2 = p_address2;
     }
 
+    public Person() {
+    }
+
     @Override
     public String toString() {
         return "Person{" + "p_ID=" + p_ID + ", p_initials=" + p_initials + ", p_firstname=" + p_firstname + ", p_lastname=" + p_lastname + ", p_dob=" + p_dob + ", p_gender=" + p_gender + ", p_phone=" + p_phone + ", p_email=" + p_email + ", p_password=" + p_password + ", p_address1=" + p_address1 + ", p_address2=" + p_address2 + '}';

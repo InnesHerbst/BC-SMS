@@ -5,9 +5,16 @@
  */
 package UILayer;
 
+import BusinessLayer.IStock;
 import BusinessLayer.Stock;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,8 +25,12 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
     /**
      * Creates new form Stock_UpdateForm
      */
-    public Stock_UpdateForm() {
+    private IStock stock;
+    public Stock_UpdateForm() throws RemoteException, NotBoundException {
         initComponents();
+         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+           stock = (IStock) reg.lookup("StockService");
+         
     }
 
     /**
@@ -185,7 +196,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         String discription = txtDiscription.getText();
         
 //        ls.add(new Stock(id, name, price, quantity, catagory, discription));
-        Stock.UpdateStock(id, quantity, name);
+        stock.UpdateStock(id, quantity, name);
         
         AdministrationForm af = new AdministrationForm();
         af.setVisible(true);
@@ -198,7 +209,7 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         int num = Integer.parseInt(txtid.getText());
         Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
-        List<Stock> ls = st.UpdateView(num);
+        List<Stock> ls = stock.UpdateView(num);
         
         for (Stock l : ls) {
             txtname.setText(l.getName());
@@ -239,7 +250,13 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Stock_UpdateForm().setVisible(true);
+                try {
+                    new Stock_UpdateForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
         });

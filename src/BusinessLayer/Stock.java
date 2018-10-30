@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Adria
  */
-public class Stock implements Comparable<Stock>{
+public class Stock implements Comparable<Stock> {
 
     private int id;
     private String name;
@@ -90,7 +90,6 @@ public class Stock implements Comparable<Stock>{
 
     public static List<Stock> DisplayStock() {
 
-        
         List<Stock> lst = new ArrayList<>();
         try {
             lst = StockDataHandler.getInstance().fetchStockData();
@@ -101,22 +100,22 @@ public class Stock implements Comparable<Stock>{
         return lst;
     }
 
-    public List<Stock> UpdateView(int id) {
+    public static List<Stock> UpdateView(int id) {
         List<Stock> lst = new ArrayList<>();
         try {
             lst = StockDataHandler.getInstance().viewStockData(id);
         } catch (SQLException ex) {
             Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return lst;
     }
 
     public static void UpdateStock(int id, int quantity, String name) {
-        
+
         try {
-            StockDataHandler.getInstance().updateStock(id,quantity);
-        JOptionPane.showMessageDialog(null, "Stock " + name + " Updated", "Update", JOptionPane.INFORMATION_MESSAGE);
+            StockDataHandler.getInstance().updateStock(id, quantity);
+            JOptionPane.showMessageDialog(null, "Stock " + name + " Updated", "Update", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,7 +140,7 @@ public class Stock implements Comparable<Stock>{
     public void DeleteStock(int id, String name) {
         try {
             StockDataHandler.getInstance().deleteStock(id);
-        JOptionPane.showMessageDialog(null, "Stock " + name + " Deleted", "Delete", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Stock " + name + " Deleted", "Delete", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -155,6 +154,9 @@ public class Stock implements Comparable<Stock>{
         } catch (SQLException ex) {
             Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Stock() {
     }
 
     @Override

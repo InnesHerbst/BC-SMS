@@ -38,7 +38,8 @@ public class Staff extends Person {
     public void setDepartment_id(int department_id) {
         this.department_id = department_id;
     }
-
+//  Staff st = new Staff(txtbox1, txtbox2,txtbox3);
+//  st.addStaff();
     //Can not use these, as a staff object has to be made before accessing them.
 //    private StaffDataHandler dbConn = new StaffDataHandler();
 //
@@ -100,10 +101,10 @@ public class Staff extends Person {
         } catch (SQLException ex) {
             Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return staff;
     }
-    
+
     public static List<Staff> fetchUnAuthStaffData() {
         List<Staff> staff = new ArrayList<>();
         try {
@@ -111,23 +112,23 @@ public class Staff extends Person {
         } catch (SQLException ex) {
             Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return staff;
     }
-    
-    public static String[] authStaff(String sID){
+
+    public static String[] authStaff(String sID) {
         String[] result = null;
-        
+
         try {
             result = StaffDataHandler.getInstance().authStaff(sID);
         } catch (SQLException e) {
             System.out.println("");
         }
-        
+
         return result;
     }
-    
-    public static void DeleteStaff(String id){
+
+    public static void DeleteStaff(String id) {
         try {
             StaffDataHandler sd = new StaffDataHandler();
             sd.DeleteStaff(id);
@@ -137,4 +138,6 @@ public class Staff extends Person {
         }
     }
 
+    public Staff() {
+    }
 }

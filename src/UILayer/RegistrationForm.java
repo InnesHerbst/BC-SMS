@@ -6,13 +6,21 @@
 package UILayer;
 
 import BusinessLayer.Admin;
+import BusinessLayer.IAdmin;
+import BusinessLayer.IStaff;
 import BusinessLayer.InputValidation;
 import BusinessLayer.Staff;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -34,10 +42,14 @@ public class RegistrationForm extends javax.swing.JFrame {
     private final String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
     private final String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
     private final String[] position = new String[]{"--Please Select--", "Staff Member", "Administrator"};
+    private IStaff staff;
+    private IAdmin admin;
 
-    public RegistrationForm() {
+    public RegistrationForm() throws RemoteException, NotBoundException {
         initComponents();
-
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        staff = (IStaff) reg.lookup("StaffService");
+        admin = (IAdmin) reg.lookup("AdminService");
         tFieldBorder = txtFirstName.getBorder();
         cmbBorder = cmbPosition.getBackground();
 
@@ -447,8 +459,14 @@ public class RegistrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        // TODO add your handling code here:
-        new LoginForm().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new LoginForm().setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
@@ -658,12 +676,18 @@ public class RegistrationForm extends javax.swing.JFrame {
             case 1:
                 //STAFF
                 Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
-                String[] resultStaff = Staff.registerStaff(nStaff);
+                String[] resultStaff = staff.registerStaff(nStaff);
 
                 if (resultStaff[0].equals("Success")) {
-                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    new LoginForm().setVisible(true);
-                    this.dispose();
+                    try {
+                        JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        new LoginForm().setVisible(true);
+                        this.dispose();
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (NotBoundException ex) {
+                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
                 }
@@ -672,12 +696,18 @@ public class RegistrationForm extends javax.swing.JFrame {
             case 2:
                 //Admin
                 Admin nAdmin = new Admin(cmbCampus.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
-                String[] resultAdmin = Admin.registerAdmin(nAdmin);
+                String[] resultAdmin = admin.registerAdmin(nAdmin);
 
                 if (resultAdmin[0].equals("Success")) {
-                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    new LoginForm().setVisible(true);
-                    this.dispose();
+                    try {
+                        JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        new LoginForm().setVisible(true);
+                        this.dispose();
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (NotBoundException ex) {
+                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
                 }
@@ -724,7 +754,13 @@ public class RegistrationForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrationForm().setVisible(true);
+                try {
+                    new RegistrationForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

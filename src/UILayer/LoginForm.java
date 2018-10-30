@@ -6,8 +6,16 @@
 package UILayer;
 
 import BusinessLayer.Admin;
+import BusinessLayer.IAdmin;
+import BusinessLayer.IStaff;
 import BusinessLayer.Staff;
 import java.awt.Color;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -26,9 +34,14 @@ public class LoginForm extends javax.swing.JFrame {
     private final Border txtBorder;
 
     private static final String[] arrPosition = {"--Please Select--", "Administrator", "Staff Member"};
-
-    public LoginForm() {
+    private IStaff staff;
+    private IAdmin admin;
+    public LoginForm() throws RemoteException, NotBoundException {
         initComponents();
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        staff = (IStaff) reg.lookup("StaffService");
+        admin = (IAdmin) reg.lookup("AdminService");   
+       
 
         cmbBorder = cmbPosition.getBackground();
         txtBorder = txtEmail.getBorder();
@@ -226,7 +239,7 @@ public class LoginForm extends javax.swing.JFrame {
             case 1:
                 //LOGIN AS ADMINASTRATOR
                 System.out.println("Login Form : "+userEmail);
-                String[] resultAdmin = Admin.signIn(userEmail, userPassword);
+                String[] resultAdmin = admin.signIn(userEmail, userPassword);
 
                 if (resultAdmin[0].equals("Success")) {
                     new AdministrationForm().setVisible(true);
@@ -237,10 +250,16 @@ public class LoginForm extends javax.swing.JFrame {
                 break;
             case 2:
                 //LOGIN AS STAFF MEMBER
-                String[] resultStaff = Staff.signIn(userEmail, userPassword);
+                String[] resultStaff = staff.signIn(userEmail, userPassword);
                 
                 if (resultStaff[0].equals("Success")) {
-                    new StaffForm().setVisible(true);
+            try {
+                new StaffForm().setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
@@ -260,8 +279,14 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblForgot_Password_Click
 
     private void lblRegister_Click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegister_Click
-        // TODO add your handling code here:        
-        new RegistrationForm().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new RegistrationForm().setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_lblRegister_Click
 
@@ -324,7 +349,13 @@ public class LoginForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new LoginForm().setVisible(true);
+            try {
+                new LoginForm().setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
 
     }
