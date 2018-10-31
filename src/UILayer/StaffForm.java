@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
 import BusinessLayer.IStaff;
+import BusinessLayer.Staff;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,12 +22,13 @@ public class StaffForm extends javax.swing.JFrame {
      * Creates new form AdministrationForm
      */
     IStaff staff;
+    private Staff currStaff;
 
-    public StaffForm() throws RemoteException, NotBoundException {
+    public StaffForm(Staff currStaff) throws RemoteException, NotBoundException {
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
         staff = (IStaff) reg.lookup("StaffService");
-
+        this.currStaff = currStaff;
     }
 
     /**
@@ -38,106 +40,110 @@ public class StaffForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtblStaff = new javax.swing.JTable();
-        btnAddStaff = new javax.swing.JButton();
-        btnUpdateStaff = new javax.swing.JButton();
-        btnDeleteStaff = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pnlStock = new javax.swing.JPanel();
+        pnlSDet = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
         setName("frmStaff\n"); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Staff Details:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        jtblStaff.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), null));
-        jtblStaff.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jtblStaff);
+        pnlStock.setBackground(new java.awt.Color(102, 102, 102));
+        pnlStock.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        btnAddStaff.setText("Add");
-        btnAddStaff.setName("btnAddStaff"); // NOI18N
-        btnAddStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStaffActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout pnlStockLayout = new javax.swing.GroupLayout(pnlStock);
+        pnlStock.setLayout(pnlStockLayout);
+        pnlStockLayout.setHorizontalGroup(
+            pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 479, Short.MAX_VALUE)
+        );
+        pnlStockLayout.setVerticalGroup(
+            pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 468, Short.MAX_VALUE)
+        );
 
-        btnUpdateStaff.setLabel("Update");
-        btnUpdateStaff.setName("btnUpdateStaff"); // NOI18N
-        btnUpdateStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateStaffActionPerformed(evt);
-            }
-        });
+        jTabbedPane1.addTab("Stock", pnlStock);
 
-        btnDeleteStaff.setLabel("Delete");
-        btnDeleteStaff.setName("btnDeleteStaff"); // NOI18N
-        btnDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteStaffActionPerformed(evt);
-            }
-        });
+        pnlSDet.setBackground(new java.awt.Color(102, 102, 102));
 
-        btnBack.setLabel("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("ID Number : ");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jLabel2.setText("First Name : ");
+
+        jLabel3.setText("Initials : ");
+
+        jLabel4.setText("Date of Birth : ");
+
+        jLabel5.setText("Gender : ");
+
+        jLabel6.setText("Email : ");
+
+        jLabel7.setText("Phone Number : ");
+
+        jLabel8.setText("Address : ");
+
+        jLabel9.setText("Campus : ");
+
+        jLabel10.setText("Department : ");
+
+        javax.swing.GroupLayout pnlSDetLayout = new javax.swing.GroupLayout(pnlSDet);
+        pnlSDet.setLayout(pnlSDetLayout);
+        pnlSDetLayout.setHorizontalGroup(
+            pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSDetLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddStaff)
-                            .addComponent(btnUpdateStaff))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnDeleteStaff)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBack)))
-                .addContainerGap())
+                .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addContainerGap(392, Short.MAX_VALUE))
+        );
+        pnlSDetLayout.setVerticalGroup(
+            pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSDetLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddStaff, btnBack, btnDeleteStaff, btnUpdateStaff});
-
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(btnAddStaff)
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdateStaff)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteStaff)
-                    .addComponent(btnBack))
-                .addContainerGap())
-        );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddStaff, btnDeleteStaff, btnUpdateStaff});
-
-        btnBack.getAccessibleContext().setAccessibleName("btnBack");
+        jTabbedPane1.addTab("My Details", pnlSDet);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,66 +151,19 @@ public class StaffForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
-        jPanel3.getAccessibleContext().setAccessibleName("Staff");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStaffActionPerformed
-        try {
-            new RegistrationForm().setVisible(true);
-        } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-    }//GEN-LAST:event_btnAddStaffActionPerformed
-
-    private void btnUpdateStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStaffActionPerformed
-        int selectedRowIndex = jtblStaff.getSelectedRow();
-        int id = (int) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
-
-        JOptionPane.showMessageDialog(null, id, "Test", JOptionPane.WARNING_MESSAGE);
-        StaffForm sa = null;
-        try {
-
-            sa = new StaffForm();
-        } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        sa.getID(id);
-        sa.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnUpdateStaffActionPerformed
-
-    private void btnDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStaffActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStaffActionPerformed
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        try {
-            new LoginForm().setVisible(true);
-            this.dispose();
-        } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,13 +196,13 @@ public class StaffForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new StaffForm().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NotBoundException ex) {
-                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    new StaffForm().setVisible(true);
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (NotBoundException ex) {
+//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         });
     }
@@ -251,11 +210,45 @@ public class StaffForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddStaff;
+    private javax.swing.JButton btnAddStaff1;
+    private javax.swing.JButton btnAddStaff2;
+    private javax.swing.JButton btnAddStaff3;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnBack2;
+    private javax.swing.JButton btnBack3;
     private javax.swing.JButton btnDeleteStaff;
+    private javax.swing.JButton btnDeleteStaff1;
+    private javax.swing.JButton btnDeleteStaff2;
+    private javax.swing.JButton btnDeleteStaff3;
     private javax.swing.JButton btnUpdateStaff;
+    private javax.swing.JButton btnUpdateStaff1;
+    private javax.swing.JButton btnUpdateStaff2;
+    private javax.swing.JButton btnUpdateStaff3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jtblStaff;
+    private javax.swing.JTable jtblStaff1;
+    private javax.swing.JTable jtblStaff2;
+    private javax.swing.JTable jtblStaff3;
+    private javax.swing.JPanel pnlSDet;
+    private javax.swing.JPanel pnlStock;
     // End of variables declaration//GEN-END:variables
 }

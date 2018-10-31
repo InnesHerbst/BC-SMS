@@ -71,10 +71,10 @@ public class Staff extends Person {
 //    public boolean removeStaff() throws SQLException, ClassNotFoundException {
 //        return dbConn.DeleteStaff(Integer.parseInt((getP_ID())));
 //    }
-    public static String[] signIn(String username, char[] password) {
-        String[] result = null;
-        try {
-            result = StaffDataHandler.getInstance().SignIn(username, password);
+    public static Object[] signIn(String username, char[] password) {
+        Object[] result = null;
+        try {            
+            result = StaffDataHandler.getInstance().SignIn(username, password);            
         } catch (SQLException e) {
             System.out.println("Problem Occured : " + e.getMessage());
         }

@@ -39,21 +39,34 @@ public class StaffDataHandler extends ConnectionHandler {
         return staffDataHandler;
     }
 
-    public String[] SignIn(String username, char[] password) throws SQLException {
+    public Object[] SignIn(String username, char[] password) throws SQLException {
+        Object[] param = new Object[2];
         String[] arg = new String[2];
+        Staff lStaff = null;
         PreparedStatement sCMD = null;
 
         if (ConnectDatabase()) {
             try {
-                sCMD = getDbConnection().prepareStatement("Select Staff_Email,Staff_Password from Staff where Staff_Email = ?");
+                sCMD = getDbConnection().prepareStatement("Select * from Staff where Staff_Email = ?");
                 sCMD.setString(1, username);
                 ResultSet result = sCMD.executeQuery();
 
                 while (result.next()) {
-                    String uEmail = result.getString("Staff_Email");
+                    String sID = result.getString("Staff_ID");
+                    String sName = result.getString("Staff_First_Name");
+                    String sIni = result.getString("Staff_Initials");
+                    String sLName = result.getString("Staff_Last_Name");
+                    Date sDoB = result.getDate("Staff_DoB");
+                    String sGender = result.getString("Staff_Gender");
+                    String sPhone = result.getString("Staff_Phone");
+                    String sEmail = result.getString("Staff_Email");
+                    String sAddr1 = result.getString("Staff_Address_1");
+                    String sAddr2 = result.getString("Staff_Address_2");
+                    int sCampID = result.getInt("Staff_Campus_ID");
+                    int sDepID = result.getInt("Staff_Department_ID");                    
                     char[] uPWord = result.getString("Staff_Password").toCharArray();
 
-                    if (uEmail.toUpperCase().equals(username.toUpperCase())) {
+                    if (sEmail.toUpperCase().equals(username.toUpperCase())) {
 
                         boolean matches = true;
 
@@ -67,6 +80,7 @@ public class StaffDataHandler extends ConnectionHandler {
                             //Set the return type to success
                             arg[0] = "Success";
                             arg[1] = "User Can Sign In";
+                            lStaff = new Staff(sCampID, sDepID, sID, sIni, sName, sLName, sDoB, sGender, sPhone, sEmail, uPWord, sAddr1, sAddr2);
                         } else {
                             arg[0] = "Error - Password";
                             arg[1] = "Password Incorrect";
@@ -96,8 +110,11 @@ public class StaffDataHandler extends ConnectionHandler {
         }
 
         DisconnectDatabase();
+        
+        param[0] = arg;
+        param[1] = lStaff;
 
-        return arg;
+        return param;
     }
 
     public String[] Register(Staff nStaff) throws SQLException {

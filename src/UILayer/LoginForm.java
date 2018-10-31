@@ -36,12 +36,12 @@ public class LoginForm extends javax.swing.JFrame {
     private static final String[] arrPosition = {"--Please Select--", "Administrator", "Staff Member"};
     private IStaff staff;
     private IAdmin admin;
+
     public LoginForm() throws RemoteException, NotBoundException {
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
         staff = (IStaff) reg.lookup("StaffService");
-        admin = (IAdmin) reg.lookup("AdminService");   
-       
+        admin = (IAdmin) reg.lookup("AdminService");
 
         cmbBorder = cmbPosition.getBackground();
         txtBorder = txtEmail.getBorder();
@@ -238,7 +238,7 @@ public class LoginForm extends javax.swing.JFrame {
         switch (cmbPosition.getSelectedIndex()) {
             case 1:
                 //LOGIN AS ADMINASTRATOR
-                System.out.println("Login Form : "+userEmail);
+                System.out.println("Login Form : " + userEmail);
                 String[] resultAdmin = admin.signIn(userEmail, userPassword);
 
                 if (resultAdmin[0].equals("Success")) {
@@ -250,21 +250,22 @@ public class LoginForm extends javax.swing.JFrame {
                 break;
             case 2:
                 //LOGIN AS STAFF MEMBER
-                String[] resultStaff = staff.signIn(userEmail, userPassword);
-                
-                if (resultStaff[0].equals("Success")) {
-            try {
-                new StaffForm().setVisible(true);
-            } catch (RemoteException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NotBoundException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                Object[] resultStaff = staff.signIn(userEmail, userPassword);
+                String[] arg = (String[]) resultStaff[0];
+
+                if (arg[0].equals("Success")) {
+                    try {
+                        new StaffForm((Staff) resultStaff[1]).setVisible(true);
+                    } catch (RemoteException ex) {
+                        JOptionPane.showMessageDialog(this, "Staff form error : "+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    } catch (NotBoundException ex) {
+                        JOptionPane.showMessageDialog(this, "Staff form error : "+ex.getMessage(),"ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, arg[1], arg[0], JOptionPane.ERROR_MESSAGE);
                 }
-                
+
                 break;
         }
 

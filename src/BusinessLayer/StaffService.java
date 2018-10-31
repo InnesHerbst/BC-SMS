@@ -14,7 +14,7 @@ import java.util.List;
 public class StaffService implements IStaff{
     //This class implements the methods of the staff class for the interface.
 
-    public String[] signIn(String username, char[] password) {
+    public Object[] signIn(String username, char[] password) {
         return Staff.signIn(username, password);
     }
 
