@@ -64,6 +64,12 @@ public class StaffForm extends javax.swing.JFrame {
         rgpGender = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlStock = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSotck = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        btnQuant = new javax.swing.JButton();
+        btnRequest = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
         pnlSDet = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -90,6 +96,8 @@ public class StaffForm extends javax.swing.JFrame {
         rbnFemale = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
         txtLName = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuLogout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
@@ -100,15 +108,60 @@ public class StaffForm extends javax.swing.JFrame {
         pnlStock.setBackground(new java.awt.Color(102, 102, 102));
         pnlStock.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        tblSotck.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblSotck);
+
+        jLabel12.setText("Stock Available");
+
+        btnQuant.setText("Update Quantity");
+
+        btnRequest.setText("Request Stock");
+
+        btnReport.setText("Generate Report");
+
         javax.swing.GroupLayout pnlStockLayout = new javax.swing.GroupLayout(pnlStock);
         pnlStock.setLayout(pnlStockLayout);
         pnlStockLayout.setHorizontalGroup(
             pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addGroup(pnlStockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addGroup(pnlStockLayout.createSequentialGroup()
+                        .addGroup(pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addGroup(pnlStockLayout.createSequentialGroup()
+                                .addComponent(btnQuant)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRequest)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnReport)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlStockLayout.setVerticalGroup(
             pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
+            .addGroup(pnlStockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnQuant)
+                    .addComponent(btnRequest)
+                    .addComponent(btnReport))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Stock", pnlStock);
@@ -145,8 +198,18 @@ public class StaffForm extends javax.swing.JFrame {
         cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnEdit.setText("Edit");
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
+        });
 
         btnSave.setText("Save");
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveMouseClicked(evt);
+            }
+        });
 
         rbnMale.setBackground(new java.awt.Color(102, 102, 102));
         rgpGender.add(rbnMale);
@@ -256,7 +319,7 @@ public class StaffForm extends javax.swing.JFrame {
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit)
                     .addComponent(btnSave))
@@ -264,6 +327,16 @@ public class StaffForm extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("My Details", pnlSDet);
+
+        mnuLogout.setText("Log Out");
+        mnuLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuLogoutMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(mnuLogout);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -307,50 +380,32 @@ public class StaffForm extends javax.swing.JFrame {
         setFields(false);
     }//GEN-LAST:event_pnlSDetComponentShown
 
-    private void btnAddStaffActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            new RegistrationForm().setVisible(true);
-        } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-    }
-
-    private void btnUpdateStaffActionPerformed(java.awt.event.ActionEvent evt) {
-        int selectedRowIndex = jtblStaff.getSelectedRow();
-        int id = (int) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
-
-        JOptionPane.showMessageDialog(null, id, "Test", JOptionPane.WARNING_MESSAGE);
-        StaffForm sa = null;
-
-        try {
-            sa = new StaffForm();
-        } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        sa.getID(id);
-        sa.setVisible(true);
-        this.setVisible(false);
-    }
-
-    private void btnDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
+    private void mnuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuLogoutMouseClicked
         try {
             new LoginForm().setVisible(true);
             this.dispose();
         } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Log Out Error : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         } catch (NotBoundException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Log Out Error : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
-    }
+    }//GEN-LAST:event_mnuLogoutMouseClicked
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        setFields(true);
+    }//GEN-LAST:event_btnEditMouseClicked
+
+    private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
+        //Gather information
+        
+        //Update Database
+        
+        //Refresh values
+        
+        //Set Fields False        
+        setFields(false);
+    }//GEN-LAST:event_btnSaveMouseClicked
+           
 
     /**
      * @param args the command line arguments
@@ -396,30 +451,18 @@ public class StaffForm extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddStaff;
-    private javax.swing.JButton btnAddStaff1;
-    private javax.swing.JButton btnAddStaff2;
-    private javax.swing.JButton btnAddStaff3;
-    private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnBack1;
-    private javax.swing.JButton btnBack2;
-    private javax.swing.JButton btnBack3;
-    private javax.swing.JButton btnDeleteStaff;
-    private javax.swing.JButton btnDeleteStaff1;
-    private javax.swing.JButton btnDeleteStaff2;
-    private javax.swing.JButton btnDeleteStaff3;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnQuant;
+    private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnRequest;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpdateStaff;
-    private javax.swing.JButton btnUpdateStaff1;
-    private javax.swing.JButton btnUpdateStaff2;
-    private javax.swing.JButton btnUpdateStaff3;
     private javax.swing.JComboBox<String> cmbCampus;
     private javax.swing.JComboBox<String> cmbDepartment;
     private org.jdesktop.swingx.JXDatePicker dtpDoB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -428,24 +471,16 @@ public class StaffForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jtblStaff;
-    private javax.swing.JTable jtblStaff1;
-    private javax.swing.JTable jtblStaff2;
-    private javax.swing.JTable jtblStaff3;
+    private javax.swing.JMenu mnuLogout;
     private javax.swing.JPanel pnlSDet;
     private javax.swing.JPanel pnlStock;
     private javax.swing.JRadioButton rbnFemale;
     private javax.swing.JRadioButton rbnMale;
     private javax.swing.ButtonGroup rgpGender;
+    private javax.swing.JTable tblSotck;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCellNum;
     private javax.swing.JTextField txtEmail;
