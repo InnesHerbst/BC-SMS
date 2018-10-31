@@ -1,5 +1,7 @@
 package BusinessLayer;
 
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -16,6 +18,7 @@ public class ServerSide extends Thread implements Runnable {
     public void run() {
         try {
             Registry reg = LocateRegistry.createRegistry(1099);
+
             StaffService staffs = new StaffService();
             StockService stocks = new StockService();
             ProductService prods = new ProductService();
@@ -24,12 +27,14 @@ public class ServerSide extends Thread implements Runnable {
             reg.bind("Product", prods);
             reg.bind("Stock", stocks);
             reg.bind("StaffService", staffs);
-            reg.bind("StaffService", admins);
-            
+            reg.bind("AdminService", admins);
+
             //Naming.bind("MyCalc", rem);
             System.out.println("Server is running");
 
-        } catch (Exception e) {
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+        } catch (AlreadyBoundException e) {
             System.out.println(e.getMessage());
         }
     }

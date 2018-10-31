@@ -36,12 +36,13 @@ public class LoginForm extends javax.swing.JFrame {
     private static final String[] arrPosition = {"--Please Select--", "Administrator", "Staff Member"};
     private IStaff staff;
     private IAdmin admin;
+
     public LoginForm() throws RemoteException, NotBoundException {
+
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
         staff = (IStaff) reg.lookup("StaffService");
-        admin = (IAdmin) reg.lookup("AdminService");   
-       
+        admin = (IAdmin) reg.lookup("AdminService");
 
         cmbBorder = cmbPosition.getBackground();
         txtBorder = txtEmail.getBorder();
@@ -238,7 +239,7 @@ public class LoginForm extends javax.swing.JFrame {
         switch (cmbPosition.getSelectedIndex()) {
             case 1:
                 //LOGIN AS ADMINASTRATOR
-                System.out.println("Login Form : "+userEmail);
+                System.out.println("Login Form : " + userEmail);
                 String[] resultAdmin = admin.signIn(userEmail, userPassword);
 
                 if (resultAdmin[0].equals("Success")) {
@@ -251,20 +252,20 @@ public class LoginForm extends javax.swing.JFrame {
             case 2:
                 //LOGIN AS STAFF MEMBER
                 String[] resultStaff = staff.signIn(userEmail, userPassword);
-                
+
                 if (resultStaff[0].equals("Success")) {
-            try {
-                new StaffForm().setVisible(true);
-            } catch (RemoteException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NotBoundException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        new StaffForm().setVisible(true);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (NotBoundException ex) {
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
                 }
-                
+
                 break;
         }
 
