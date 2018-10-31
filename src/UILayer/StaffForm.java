@@ -7,7 +7,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
 import BusinessLayer.IStaff;
+import BusinessLayer.InputValidation;
 import BusinessLayer.Staff;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -45,10 +47,10 @@ public class StaffForm extends javax.swing.JFrame {
     }
 
     public void setFields(boolean enabled) {
-        txtID.setEnabled(enabled);
-        txtFName.setEnabled(enabled);
-        txtIni.setEnabled(enabled);
-        txtLName.setEnabled(enabled);
+        txtStaffID.setEnabled(enabled);
+        txtFirstName.setEnabled(enabled);
+        txtInitials.setEnabled(enabled);
+        txtLastName.setEnabled(enabled);
         dtpDoB.setEnabled(enabled);
         rbnMale.setEnabled(enabled);
         rbnFemale.setEnabled(enabled);
@@ -90,9 +92,9 @@ public class StaffForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        txtFName = new javax.swing.JTextField();
-        txtIni = new javax.swing.JTextField();
+        txtStaffID = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
+        txtInitials = new javax.swing.JTextField();
         txtCellNum = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
@@ -104,7 +106,7 @@ public class StaffForm extends javax.swing.JFrame {
         rbnMale = new javax.swing.JRadioButton();
         rbnFemale = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
-        txtLName = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuLogout = new javax.swing.JMenu();
 
@@ -202,9 +204,30 @@ public class StaffForm extends javax.swing.JFrame {
 
         jLabel10.setText("Department : ");
 
+        txtStaffID.setName("txtStaffID"); // NOI18N
+        txtStaffID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStaffIDActionPerformed(evt);
+            }
+        });
+
+        txtFirstName.setName("txtFirstName"); // NOI18N
+
+        txtInitials.setName("txtInitials"); // NOI18N
+
+        txtCellNum.setName("txtCellNum"); // NOI18N
+
+        txtEmail.setName("txtEmail"); // NOI18N
+
+        txtAddress.setName("txtAddress"); // NOI18N
+
         cmbCampus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCampus.setName("cmbCampus"); // NOI18N
 
         cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartment.setName("cmbDept"); // NOI18N
+
+        dtpDoB.setName("dpkDoB"); // NOI18N
 
         btnEdit.setText("Edit");
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -230,6 +253,8 @@ public class StaffForm extends javax.swing.JFrame {
 
         jLabel11.setText("Last Name : ");
 
+        txtLastName.setName("txtLastName"); // NOI18N
+
         javax.swing.GroupLayout pnlSDetLayout = new javax.swing.GroupLayout(pnlSDet);
         pnlSDet.setLayout(pnlSDetLayout);
         pnlSDetLayout.setHorizontalGroup(
@@ -245,10 +270,10 @@ public class StaffForm extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(txtFName)
-                            .addComponent(txtIni)
-                            .addComponent(txtLName))
+                            .addComponent(txtStaffID, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(txtFirstName)
+                            .addComponent(txtInitials)
+                            .addComponent(txtLastName))
                         .addGap(0, 234, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSDetLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -286,19 +311,19 @@ public class StaffForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtStaffID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInitials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlSDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -368,10 +393,10 @@ public class StaffForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnlSDetComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlSDetComponentShown
-        txtID.setText(currStaff.getP_ID());
-        txtFName.setText(currStaff.getP_firstname());
-        txtLName.setText(currStaff.getP_lastname());
-        txtIni.setText(currStaff.getP_initials());
+        txtStaffID.setText(currStaff.getP_ID());
+        txtFirstName.setText(currStaff.getP_firstname());
+        txtLastName.setText(currStaff.getP_lastname());
+        txtInitials.setText(currStaff.getP_initials());
         //DOB
         switch (currStaff.getP_gender()) {
             case "Male":
@@ -400,13 +425,96 @@ public class StaffForm extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         //Gather information
+        String sID = txtStaffID.getText();
+        String sFName = txtFirstName.getText();
+        String sIni = txtInitials.getText();
+        String sLName = txtLastName.getText();
+        Date sDoB = dtpDoB.getDate();
+        String sGender = "";
+        String sCell = txtCellNum.getText();
+        String sEmail = txtEmail.getText();
+        String sAddress = txtAddress.getText();
+
+        //RADIOBUTTON VALIDATION
+        if (!rbnFemale.isSelected() && !rbnMale.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Please select a gender", "Input Error", JOptionPane.ERROR_MESSAGE);
+            rbnFemale.setFocusable(true);
+            rbnFemale.requestFocus();
+            return;
+        } else if (rbnFemale.isSelected()) {
+            sGender = "Female";
+        } else {
+            sGender = "Male";
+        }
+
+        //CMB Validation
+        if (cmbCampus.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a campus", "Input Error", JOptionPane.ERROR_MESSAGE);
+            cmbCampus.setFocusable(true);
+            cmbCampus.requestFocus();
+            return;
+        }
+        if (cmbDepartment.isEnabled() && cmbDepartment.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a department", "Input Error", JOptionPane.ERROR_MESSAGE);
+            cmbDepartment.setFocusable(true);
+            cmbDepartment.requestFocus();
+            return;
+        }
+
+        //STRING VALIDATION
+        if (sID.trim().equals("") || sID.length() != 13 || !InputValidation.isNumeric(sID)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid ID.\nID should be 13 numerical characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtStaffID.setFocusable(true);
+            txtStaffID.requestFocus();
+            return;
+        }
+        if (sFName.trim().equals("") || !InputValidation.isString(sFName)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid first name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtFirstName.setFocusable(true);
+            txtFirstName.requestFocus();
+            return;
+        }
+        if (sIni.trim().equals("") || !InputValidation.isString(sIni)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid initial. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtInitials.setFocusable(true);
+            txtInitials.requestFocus();
+            return;
+        }
+        if (sLName.trim().equals("") || !InputValidation.isString(sLName)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid last name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtLastName.setFocusable(true);
+            txtLastName.requestFocus();
+            return;
+        }
+        if (sCell.trim().equals("") || sCell.length() < 10 || !InputValidation.isNumeric(sCell)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid cell number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtCellNum.setFocusable(true);
+            txtCellNum.requestFocus();
+            return;
+        }
+        if (sEmail.trim().equals("") || !sEmail.contains("@")) {
+            JOptionPane.showMessageDialog(this, "Please input a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtEmail.setFocusable(true);
+            txtEmail.requestFocus();
+            return;
+        }
         
+        if (sAddress.trim().equals("") || !InputValidation.isAlphaNum(sAddress)) {
+            JOptionPane.showMessageDialog(this, "Please input a valid address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            txtAddress.setFocusable(true);
+            txtAddress.requestFocus();
+            return;
+        }
         //Update Database
-        
+
         //Refresh values
         //Set Fields False        
         setFields(false);
     }//GEN-LAST:event_btnSaveMouseClicked
+
+    private void txtStaffIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStaffIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStaffIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,9 +593,9 @@ public class StaffForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCellNum;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFName;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtIni;
-    private javax.swing.JTextField txtLName;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtInitials;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtStaffID;
     // End of variables declaration//GEN-END:variables
 }
