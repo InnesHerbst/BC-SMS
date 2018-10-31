@@ -434,6 +434,7 @@ public class StaffForm extends javax.swing.JFrame {
         String sCell = txtCellNum.getText();
         String sEmail = txtEmail.getText();
         String sAddress = txtAddress.getText();
+        char[] sPassword = currStaff.getP_password();
 
         //RADIOBUTTON VALIDATION
         if (!rbnFemale.isSelected() && !rbnMale.isSelected()) {
@@ -498,7 +499,7 @@ public class StaffForm extends javax.swing.JFrame {
             txtEmail.requestFocus();
             return;
         }
-        
+
         if (sAddress.trim().equals("") || !InputValidation.isAlphaNum(sAddress)) {
             JOptionPane.showMessageDialog(this, "Please input a valid address.", "Input Error", JOptionPane.ERROR_MESSAGE);
             txtAddress.setFocusable(true);
@@ -506,7 +507,17 @@ public class StaffForm extends javax.swing.JFrame {
             return;
         }
         //Update Database
+        Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), sID, sIni, sFName, sLName, sDoB, sGender, sCell, sEmail, sPassword, sAddress, "null");
+        String[] resultStaff = staff.registerStaff(nStaff);
+        String id = currStaff.getP_ID();
 
+        if (resultStaff[0].equals("Success")) {
+            JOptionPane.showMessageDialog(this, "Save Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+            new LoginForm().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
+        }
         //Refresh values
         //Set Fields False        
         setFields(false);
