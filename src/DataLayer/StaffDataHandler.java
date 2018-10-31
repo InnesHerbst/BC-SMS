@@ -214,7 +214,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return staff;
     }
 
-    public String[] UpdateStaff(String sID, Staff nStaff) throws SQLException {
+    public String[] UpdateStaff(String sID, Staff nStaff){
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
         try {
@@ -272,7 +272,11 @@ public class StaffDataHandler extends ConnectionHandler {
             arg[1] = e.getMessage();
         } finally {
             if (iCMD != null) {
-                iCMD.close();
+                try {
+                    iCMD.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StaffDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             DisconnectDatabase();

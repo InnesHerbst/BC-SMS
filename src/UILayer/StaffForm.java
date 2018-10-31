@@ -400,8 +400,9 @@ public class StaffForm extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         //Gather information
-
+        
         //Update Database
+        
         //Refresh values
         //Set Fields False        
         setFields(false);
