@@ -171,13 +171,21 @@ public class Stock_AddForm extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        String[] product = new String[]{"--Please Select--", "PC", "C#"};
+        int i = 1;
         String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
         String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
-        List<Product> lp = new ArrayList<>();
+        List<Product> lp = Product.getProduct();
+        String[] products = new String[lp.size() + 1];
+        products[0] = "--Please Select--";
+        for (Product product : lp) {
+            products[i] = product.getProdName();
+            i++;
+        }
+        
+        
         
         cmbProduct.removeAllItems();
-        cmbProduct.setModel(new DefaultComboBoxModel<>(product));
+        cmbProduct.setModel(new DefaultComboBoxModel<>(products));
        
         //Campus combo box
         cmbCampus.removeAllItems();
@@ -204,7 +212,13 @@ public class Stock_AddForm extends javax.swing.JFrame {
         String qu = spnQuantity.getValue().toString();
         int quantity = Integer.parseInt(qu);
         
-        stock.AddStock(productid, quantity, depid, campusid);
+        try {
+            Stock.AddStock(productid, quantity, depid, campusid);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
         
         AdministrationForm af = new AdministrationForm();
         af.setVisible(true);
@@ -239,11 +253,11 @@ public class Stock_AddForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Stock_AddForm().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Stock_AddForm().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

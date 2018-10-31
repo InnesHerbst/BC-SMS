@@ -50,7 +50,7 @@ public class ProductDataHandler extends ConnectionHandler {
     }
 
     //Get All Stock
-    public List<Product> fetchProductData() throws SQLException {
+    public synchronized List<Product> fetchProductData() throws SQLException {
         List<Product> product = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -83,7 +83,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return product;
     }
 
-    public List<Product> viewProductData(int ID) throws SQLException {
+    public synchronized List<Product> viewProductData(int ID) throws SQLException {
         List<Product> product = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -115,7 +115,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return product;
     }
 
-    public String[] addProduct(String prodName, double prodPrice, int catagoryID) throws SQLException {
+    public synchronized String[] addProduct(String prodName, double prodPrice, int catagoryID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
 
@@ -152,7 +152,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] updateProduct(int sID, int sQuant) throws SQLException {
+    public synchronized String[] updateProduct(int sID, int sQuant) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement uCMD = null;
 
@@ -190,7 +190,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] deleteProduct(int sID) throws SQLException {
+    public synchronized String[] deleteProduct(int sID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement dCMD = null;
 
@@ -226,4 +226,38 @@ public class ProductDataHandler extends ConnectionHandler {
 
         return arg;
     }
+    
+    public synchronized List<Product> getproduct() throws SQLException{
+        List<Product> product = new ArrayList<>();
+        PreparedStatement sCMD = null;
+
+        try {
+            if (ConnectDatabase()) {
+                sCMD = getDbConnection().prepareStatement("Select * from Product");
+
+                ResultSet result = sCMD.executeQuery();
+
+                while (result.next()) {
+                    int sID = result.getInt("Product_ID");
+                    String sName = result.getString("Product_Name");
+                    double sPrice = result.getDouble("Product_Price");
+
+                    product.add(new Product(sID, sName, sPrice, 5));
+
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : " + e.getMessage());
+        } finally {
+            if (sCMD != null) {
+                sCMD.close();
+            }
+
+            DisconnectDatabase();
+        }
+        return product;
+    }
+    
+    
 }

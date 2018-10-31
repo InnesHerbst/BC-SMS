@@ -32,7 +32,7 @@ public class AdminDataHandler extends ConnectionHandler {
         return adminDataHandler;
     }
 
-    public String[] SignIn(String username, char[] password) throws SQLException {
+    public synchronized String[] SignIn(String username, char[] password) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement sCMD = null;
 
@@ -104,7 +104,7 @@ public class AdminDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] register(Admin nAdmin) throws SQLException {
+    public synchronized String[] register(Admin nAdmin) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
 

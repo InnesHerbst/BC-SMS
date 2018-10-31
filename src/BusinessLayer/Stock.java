@@ -152,7 +152,7 @@ public class Stock implements Comparable<Stock> {
             StockDataHandler.getInstance().addStock(prodID, ProdQuant, deptID, campID);
             //JOptionPane.showMessageDialog(null, "Stock " + name + " Added", "Add", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
-            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
