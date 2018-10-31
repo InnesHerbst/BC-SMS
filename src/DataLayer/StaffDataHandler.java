@@ -39,7 +39,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return staffDataHandler;
     }
 
-    public Object[] SignIn(String username, char[] password) throws SQLException {
+    public synchronized Object[] SignIn(String username, char[] password) throws SQLException {
         Object[] param = new Object[2];
         String[] arg = new String[2];
         Staff lStaff = null;
@@ -117,7 +117,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return param;
     }
 
-    public String[] Register(Staff nStaff) throws SQLException {
+    public synchronized String[] Register(Staff nStaff) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
 
@@ -173,7 +173,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public List<Staff> fetchStaffData() throws SQLException {
+    public synchronized List<Staff> fetchStaffData() throws SQLException {
         List<Staff> staff = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -214,7 +214,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return staff;
     }
 
-    public String[] UpdateStaff(String sID, Staff nStaff){
+    public synchronized String[] UpdateStaff(String sID, Staff nStaff){
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
         try {
@@ -285,7 +285,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public void DeleteStaff(String id) throws SQLException {
+    public synchronized void DeleteStaff(String id) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement dCMD = null;
 
@@ -322,7 +322,7 @@ public class StaffDataHandler extends ConnectionHandler {
 
     }
 
-    public String[] authStaff(String sID) throws SQLException {
+    public synchronized String[] authStaff(String sID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement cCMD = null;
 
@@ -368,7 +368,7 @@ public class StaffDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public List<Staff> getUnAuthStaff() throws SQLException {
+    public synchronized List<Staff> getUnAuthStaff() throws SQLException {
         List<Staff> staff = new ArrayList<>();
         PreparedStatement sCMD = null;
 
