@@ -226,4 +226,38 @@ public class ProductDataHandler extends ConnectionHandler {
 
         return arg;
     }
+    
+    public List<Product> getproduct() throws SQLException{
+        List<Product> product = new ArrayList<>();
+        PreparedStatement sCMD = null;
+
+        try {
+            if (ConnectDatabase()) {
+                sCMD = getDbConnection().prepareStatement("Select * from Product");
+
+                ResultSet result = sCMD.executeQuery();
+
+                while (result.next()) {
+                    int sID = result.getInt("Product_ID");
+                    String sName = result.getString("Product_Name");
+                    double sPrice = result.getDouble("Product_Price");
+
+                    product.add(new Product(sID, sName, sPrice, 5));
+
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Problem Occured : " + e.getMessage());
+        } finally {
+            if (sCMD != null) {
+                sCMD.close();
+            }
+
+            DisconnectDatabase();
+        }
+        return product;
+    }
+    
+    
 }

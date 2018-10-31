@@ -132,4 +132,16 @@ public class Product {
 
     public Product() {
     }
+    
+    public static List<Product> getProduct(){
+        ProductDataHandler ph = new ProductDataHandler();
+        List<Product> pr = new ArrayList<>();
+        
+        try {
+            pr = ph.getproduct();
+        } catch (Exception e) {
+        }
+        
+        return pr;
+    }
 }
