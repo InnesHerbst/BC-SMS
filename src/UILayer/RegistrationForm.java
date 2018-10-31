@@ -84,7 +84,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void initComponents() {
 
         bgpGender = new javax.swing.ButtonGroup();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         pnlRegister = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
@@ -114,8 +114,8 @@ public class RegistrationForm extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         jLabel13 = new javax.swing.JLabel();
         cmbPosition = new javax.swing.JComboBox<>();
-        dpkDoB = new org.jdesktop.swingx.JXDatePicker();
         chbShowPassword = new javax.swing.JCheckBox();
+        dpkDoB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register");
@@ -294,7 +294,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                                     .addGroup(pnlRegisterLayout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtInitial, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtInitial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                                             .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtStaffID, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(pnlRegisterLayout.createSequentialGroup()
@@ -302,7 +302,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(rbnMale))
                                             .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(dpkDoB, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))))
+                                            .addComponent(dpkDoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegisterLayout.createSequentialGroup()
                                 .addGroup(pnlRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel12)
@@ -459,14 +459,8 @@ public class RegistrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        try {
-            // TODO add your handling code here:
-            new LoginForm().setVisible(true);
-        } catch (RemoteException ex) {
-            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
-            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        new LoginForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
@@ -679,15 +673,9 @@ public class RegistrationForm extends javax.swing.JFrame {
                 String[] resultStaff = staff.registerStaff(nStaff);
 
                 if (resultStaff[0].equals("Success")) {
-                    try {
-                        JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        new LoginForm().setVisible(true);
-                        this.dispose();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (NotBoundException ex) {
-                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    new LoginForm().setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
                 }
@@ -699,15 +687,9 @@ public class RegistrationForm extends javax.swing.JFrame {
                 String[] resultAdmin = admin.registerAdmin(nAdmin);
 
                 if (resultAdmin[0].equals("Success")) {
-                    try {
-                        JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        new LoginForm().setVisible(true);
-                        this.dispose();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (NotBoundException ex) {
-                        Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    new LoginForm().setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
                 }
@@ -787,7 +769,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private javax.swing.JPanel pnlRegister;
     private javax.swing.JRadioButton rbnFemale;
     private javax.swing.JRadioButton rbnMale;

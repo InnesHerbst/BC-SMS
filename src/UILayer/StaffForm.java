@@ -390,14 +390,8 @@ public class StaffForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlSDetComponentShown
 
     private void mnuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuLogoutMouseClicked
-        try {
-            new LoginForm().setVisible(true);
-            this.dispose();
-        } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(this, "Log Out Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-        } catch (NotBoundException ex) {
-            JOptionPane.showMessageDialog(this, "Log Out Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-        }
+        new LoginForm().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_mnuLogoutMouseClicked
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
@@ -442,17 +436,17 @@ public class StaffForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new StaffForm().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NotBoundException ex) {
-                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    new StaffForm().setVisible(true);
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (NotBoundException ex) {
+//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
     }
 
 

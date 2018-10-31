@@ -28,8 +28,8 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
     private IStock stock;
     public Stock_UpdateForm() throws RemoteException, NotBoundException {
         initComponents();
-         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-           stock = (IStock) reg.lookup("StockService");
+//         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+//           stock = (IStock) reg.lookup("StockService");
          
     }
 
@@ -248,18 +248,18 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new Stock_UpdateForm().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NotBoundException ex) {
-                    Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    new Stock_UpdateForm().setVisible(true);
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (NotBoundException ex) {
+//                    Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//            
+//        });
         
     }
 

@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="bgpGender">
     </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker2">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -109,7 +109,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtInitial" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="txtInitial" alignment="1" pref="305" max="32767" attributes="0"/>
                                               <Component id="txtFirstName" alignment="1" max="32767" attributes="0"/>
                                               <Component id="txtStaffID" alignment="1" max="32767" attributes="0"/>
                                               <Group type="102" attributes="0">
@@ -118,7 +118,7 @@
                                                   <Component id="rbnMale" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="txtLastName" alignment="1" max="32767" attributes="0"/>
-                                              <Component id="dpkDoB" pref="305" max="32767" attributes="0"/>
+                                              <Component id="dpkDoB" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -429,8 +429,6 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="dpkDoB">
-        </Component>
         <Component class="javax.swing.JCheckBox" name="chbShowPassword">
           <Properties>
             <Property name="text" type="java.lang.String" value="Show"/>
@@ -438,6 +436,8 @@
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chbShowPasswordItemStateChanged"/>
           </Events>
+        </Component>
+        <Component class="org.jdesktop.swingx.JXDatePicker" name="dpkDoB">
         </Component>
       </SubComponents>
     </Container>

@@ -28,10 +28,10 @@ public class Stock_AddForm extends javax.swing.JFrame {
      * Creates new form Stock_AddForm
      */
     private IStock stock;
-    public Stock_AddForm() throws RemoteException, NotBoundException {
+    public Stock_AddForm(){
         initComponents();
-        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-           stock = (IStock) reg.lookup("StockService");
+//        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+//           stock = (IStock) reg.lookup("StockService");
            
     }
 
@@ -239,17 +239,11 @@ public class Stock_AddForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new Stock_AddForm().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Stock_AddForm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NotBoundException ex) {
-                    Logger.getLogger(Stock_AddForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Stock_AddForm().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

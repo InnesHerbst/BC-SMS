@@ -37,12 +37,12 @@ public class LoginForm extends javax.swing.JFrame {
     private IStaff staff;
     private IAdmin admin;
 
-    public LoginForm() throws RemoteException, NotBoundException {
+    public LoginForm() {
 
         initComponents();
-        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-        staff = (IStaff) reg.lookup("StaffService");
-        admin = (IAdmin) reg.lookup("AdminService");
+//        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+//        staff = (IStaff) reg.lookup("StaffService");
+//        admin = (IAdmin) reg.lookup("AdminService");
 
         cmbBorder = cmbPosition.getBackground();
         txtBorder = txtEmail.getBorder();
@@ -240,7 +240,7 @@ public class LoginForm extends javax.swing.JFrame {
             case 1:
                 //LOGIN AS ADMINASTRATOR
                 System.out.println("Login Form : " + userEmail);
-                String[] resultAdmin = admin.signIn(userEmail, userPassword);
+                String[] resultAdmin = Admin.signIn(userEmail, userPassword);
 
                 if (resultAdmin[0].equals("Success")) {
                     new AdministrationForm().setVisible(true);
@@ -256,10 +256,8 @@ public class LoginForm extends javax.swing.JFrame {
                 if (resultStaff[0].equals("Success")) {
                     try {
                         new StaffForm().setVisible(true);
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (NotBoundException ex) {
-                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }catch(Exception e){
+                        
                     }
                     this.dispose();
                 } else {
@@ -349,13 +347,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new LoginForm().setVisible(true);
-            } catch (RemoteException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NotBoundException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            new LoginForm().setVisible(true);
         });
 
     }
