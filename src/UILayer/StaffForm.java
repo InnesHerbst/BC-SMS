@@ -15,19 +15,23 @@ import java.util.logging.Logger;
  *
  * @author Innes Herbst
  */
-
 public class StaffForm extends javax.swing.JFrame {
 
     /**
      * Creates new form AdministrationForm
      */
     IStaff staff;
+
     private Staff currStaff;
 
-    public StaffForm(Staff currStaff) throws RemoteException, NotBoundException {
+    public StaffForm() throws RemoteException, NotBoundException {
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
         staff = (IStaff) reg.lookup("StaffService");
+
+    }
+
+    private StaffForm(Staff currStaff) {
         this.currStaff = currStaff;
     }
     
@@ -303,6 +307,51 @@ public class StaffForm extends javax.swing.JFrame {
         setFields(false);
     }//GEN-LAST:event_pnlSDetComponentShown
 
+    private void btnAddStaffActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            new RegistrationForm().setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+    }
+
+    private void btnUpdateStaffActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRowIndex = jtblStaff.getSelectedRow();
+        int id = (int) jtblStaff.getModel().getValueAt(selectedRowIndex, 0);
+
+        JOptionPane.showMessageDialog(null, id, "Test", JOptionPane.WARNING_MESSAGE);
+        StaffForm sa = null;
+
+        try {
+            sa = new StaffForm();
+        } catch (RemoteException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        sa.getID(id);
+        sa.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void btnDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            new LoginForm().setVisible(true);
+            this.dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -334,13 +383,13 @@ public class StaffForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                try {
-//                    new StaffForm().setVisible(true);
-//                } catch (RemoteException ex) {
-//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (NotBoundException ex) {
-//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                try {
+                    new StaffForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

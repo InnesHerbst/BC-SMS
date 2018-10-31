@@ -38,6 +38,7 @@ public class LoginForm extends javax.swing.JFrame {
     private IAdmin admin;
 
     public LoginForm() throws RemoteException, NotBoundException {
+
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
         staff = (IStaff) reg.lookup("StaffService");
@@ -250,22 +251,20 @@ public class LoginForm extends javax.swing.JFrame {
                 break;
             case 2:
                 //LOGIN AS STAFF MEMBER
-                Object[] resultStaff = staff.signIn(userEmail, userPassword);
-                String[] arg = (String[]) resultStaff[0];
+                String[] resultStaff = (String[]) staff.signIn(userEmail, userPassword);
 
-                if (arg[0].equals("Success")) {
+                if (resultStaff[0].equals("Success")) {
                     try {
-                        new StaffForm((Staff) resultStaff[1]).setVisible(true);
+                        new StaffForm().setVisible(true);
                     } catch (RemoteException ex) {
-                        JOptionPane.showMessageDialog(this, "Staff form error : "+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (NotBoundException ex) {
-                        JOptionPane.showMessageDialog(this, "Staff form error : "+ex.getMessage(),"ERROR", JOptionPane.ERROR_MESSAGE);
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, arg[1], arg[0], JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
                 }
-
                 break;
         }
 
