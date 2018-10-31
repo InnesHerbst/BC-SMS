@@ -205,10 +205,10 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtID" pref="129" max="32767" attributes="0"/>
-                                  <Component id="txtFName" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtIni" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtLName" max="32767" attributes="0"/>
+                                  <Component id="txtStaffID" pref="129" max="32767" attributes="0"/>
+                                  <Component id="txtFirstName" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtInitials" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtLastName" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="234" max="32767" attributes="0"/>
                           </Group>
@@ -256,22 +256,22 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtStaffID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIni" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtInitials" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtLName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLastName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -370,17 +370,38 @@
                 <Property name="text" type="java.lang.String" value="Department : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtID">
+            <Component class="javax.swing.JTextField" name="txtStaffID">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtStaffID" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtStaffIDActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFName">
+            <Component class="javax.swing.JTextField" name="txtFirstName">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtFirstName" noResource="true"/>
+              </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtIni">
+            <Component class="javax.swing.JTextField" name="txtInitials">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtInitials" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCellNum">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtCellNum" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEmail">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtEmail" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAddress">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtAddress" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cmbCampus">
               <Properties>
@@ -392,6 +413,7 @@
                     <StringItem index="3" value="Item 4"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="cmbCampus" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -407,12 +429,16 @@
                     <StringItem index="3" value="Item 4"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="cmbDept" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
             <Component class="org.jdesktop.swingx.JXDatePicker" name="dtpDoB">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="dpkDoB" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnEdit">
               <Properties>
@@ -457,7 +483,10 @@
                 <Property name="text" type="java.lang.String" value="Last Name : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtLName">
+            <Component class="javax.swing.JTextField" name="txtLastName">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="txtLastName" noResource="true"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

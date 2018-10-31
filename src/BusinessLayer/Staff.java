@@ -137,6 +137,10 @@ public class Staff extends Person {
             Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static String[] UpdateStaff(String sID, Staff nStaff){
+        return StaffDataHandler.getInstance().UpdateStaff(sID, nStaff);
+    }
 
     public Staff() {
     }
