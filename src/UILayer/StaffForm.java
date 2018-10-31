@@ -9,10 +9,13 @@ import javax.swing.JOptionPane;
 import BusinessLayer.IStaff;
 import BusinessLayer.InputValidation;
 import BusinessLayer.Staff;
+import BusinessLayer.Stock;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,10 +32,10 @@ public class StaffForm extends javax.swing.JFrame {
     private final String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
     private final String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
 
-    public StaffForm() throws RemoteException, NotBoundException {
+    public StaffForm(){
         initComponents();
-        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-        staff = (IStaff) reg.lookup("StaffService");
+//        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+//        staff = (IStaff) reg.lookup("StaffService");
 
         //Campus CMB
         cmbCampus.removeAllItems();
@@ -113,6 +116,11 @@ public class StaffForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
         setName("frmStaff\n"); // NOI18N
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -121,13 +129,10 @@ public class StaffForm extends javax.swing.JFrame {
 
         tblSotck.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Name", "Price", "Quantity", "Catagory", "Description"
             }
         ));
         jScrollPane1.setViewportView(tblSotck);
@@ -137,6 +142,11 @@ public class StaffForm extends javax.swing.JFrame {
         btnQuant.setText("Update Quantity");
 
         btnRequest.setText("Request Stock");
+        btnRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestActionPerformed(evt);
+            }
+        });
 
         btnReport.setText("Generate Report");
 
@@ -526,6 +536,26 @@ public class StaffForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStaffIDActionPerformed
 
+    private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
+        // TODO add your handling code here:
+        Staff_AddStockForm saf = new Staff_AddStockForm();
+        saf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRequestActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        List<Stock> ls = Stock.DisplayStock();
+
+        DefaultTableModel model = (DefaultTableModel) tblSotck.getModel();
+
+        model.setRowCount(0);
+
+        for (Stock l : ls) {
+            model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+        }
+    }//GEN-LAST:event_formComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -555,17 +585,11 @@ public class StaffForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    new StaffForm().setVisible(true);
-//                } catch (RemoteException ex) {
-//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (NotBoundException ex) {
-//                    Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new StaffForm().setVisible(true);
+            }
+        });
     }
 
 

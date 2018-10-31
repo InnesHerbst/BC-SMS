@@ -109,11 +109,12 @@ public class StockDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                iCMD = getDbConnection().prepareStatement("INSERT INTO Stock (product_ID,product_Quantity,department_ID,campus_ID ) VALUES(?,?,?,?)");
+                iCMD = getDbConnection().prepareStatement("INSERT INTO Stock (product_ID,product_Quantity,department_ID,campus_ID,Stock_Confirmation ) VALUES(?,?,?,?,?)");
                 iCMD.setInt(1, prodID);
                 iCMD.setInt(2, ProdQuant);
                 iCMD.setInt(3, deptID);
                 iCMD.setInt(4, campID);
+                iCMD.setString(5, "Yes");
 
                 int count = iCMD.executeUpdate();
 
