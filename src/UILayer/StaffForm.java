@@ -10,6 +10,7 @@ import BusinessLayer.IStaff;
 import BusinessLayer.Staff;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -23,19 +24,27 @@ public class StaffForm extends javax.swing.JFrame {
     IStaff staff;
 
     private Staff currStaff;
+    private final String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
+    private final String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
 
     public StaffForm() throws RemoteException, NotBoundException {
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
         staff = (IStaff) reg.lookup("StaffService");
 
+        //Campus CMB
+        cmbCampus.removeAllItems();
+        cmbCampus.setModel(new DefaultComboBoxModel<>(campus));
+        //Department CMB
+        cmbDepartment.removeAllItems();
+        cmbDepartment.setModel(new DefaultComboBoxModel<>(department));
     }
 
     private StaffForm(Staff currStaff) {
         this.currStaff = currStaff;
     }
-    
-    public void setFields(boolean enabled){
+
+    public void setFields(boolean enabled) {
         txtID.setEnabled(enabled);
         txtFName.setEnabled(enabled);
         txtIni.setEnabled(enabled);
@@ -385,9 +394,9 @@ public class StaffForm extends javax.swing.JFrame {
             new LoginForm().setVisible(true);
             this.dispose();
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(this, "Log Out Error : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Log Out Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         } catch (NotBoundException ex) {
-            JOptionPane.showMessageDialog(this, "Log Out Error : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Log Out Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_mnuLogoutMouseClicked
 
@@ -397,15 +406,12 @@ public class StaffForm extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         //Gather information
-        
+
         //Update Database
-        
         //Refresh values
-        
         //Set Fields False        
         setFields(false);
     }//GEN-LAST:event_btnSaveMouseClicked
-           
 
     /**
      * @param args the command line arguments
