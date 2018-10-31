@@ -12,9 +12,9 @@ import java.util.List;
  *
  * @author Marline
  */
-public interface IStaff extends Remote{
-    
-     Object[] signIn(String username, char[] password);
+public interface IStaff extends Remote {
+
+    Object[] signIn(String username, char[] password);
 
     String[] registerStaff(Staff nStaff);
 
@@ -23,6 +23,8 @@ public interface IStaff extends Remote{
     List<Staff> fetchUnAuthStaffData();
 
     String[] authStaff(String sID);
+
+    String[] UpdateStaff(String sID, Staff nStaff);
 
     void DeleteStaff(String id);
 }

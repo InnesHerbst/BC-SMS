@@ -508,8 +508,7 @@ public class StaffForm extends javax.swing.JFrame {
         }
         //Update Database
         Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), sID, sIni, sFName, sLName, sDoB, sGender, sCell, sEmail, sPassword, sAddress, "null");
-        String[] resultStaff = staff.registerStaff(nStaff);
-        String id = currStaff.getP_ID();
+        String[] resultStaff = staff.UpdateStaff(sID, nStaff);
 
         if (resultStaff[0].equals("Success")) {
             JOptionPane.showMessageDialog(this, "Save Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
