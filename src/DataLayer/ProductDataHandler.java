@@ -50,7 +50,7 @@ public class ProductDataHandler extends ConnectionHandler {
     }
 
     //Get All Stock
-    public List<Product> fetchProductData() throws SQLException {
+    public synchronized List<Product> fetchProductData() throws SQLException {
         List<Product> product = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -83,7 +83,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return product;
     }
 
-    public List<Product> viewProductData(int ID) throws SQLException {
+    public synchronized List<Product> viewProductData(int ID) throws SQLException {
         List<Product> product = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -115,7 +115,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return product;
     }
 
-    public String[] addProduct(String prodName, double prodPrice, int catagoryID) throws SQLException {
+    public synchronized String[] addProduct(String prodName, double prodPrice, int catagoryID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
 
@@ -152,7 +152,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] updateProduct(int sID, int sQuant) throws SQLException {
+    public synchronized String[] updateProduct(int sID, int sQuant) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement uCMD = null;
 
@@ -190,7 +190,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] deleteProduct(int sID) throws SQLException {
+    public synchronized String[] deleteProduct(int sID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement dCMD = null;
 
@@ -227,7 +227,7 @@ public class ProductDataHandler extends ConnectionHandler {
         return arg;
     }
     
-    public List<Product> getproduct() throws SQLException{
+    public synchronized List<Product> getproduct() throws SQLException{
         List<Product> product = new ArrayList<>();
         PreparedStatement sCMD = null;
 
