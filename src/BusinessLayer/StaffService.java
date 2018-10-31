@@ -5,6 +5,7 @@
  */
 package BusinessLayer;
 
+import DataLayer.StaffDataHandler;
 import java.util.List;
 
 /**
@@ -34,6 +35,10 @@ public class StaffService implements IStaff{
         return Staff.authStaff(sID);
     }
 
+    public String[] UpdateStaff(String sID, Staff nStaff){
+        return Staff.UpdateStaff(sID, nStaff);
+    }
+    
     public void DeleteStaff(String id) {
         Staff.DeleteStaff(id);
     }

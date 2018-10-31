@@ -33,7 +33,7 @@ public class StockDataHandler extends ConnectionHandler {
     }
 
     //Get All Stock
-    public List<Stock> fetchStockData() throws SQLException {
+    public synchronized List<Stock> fetchStockData() throws SQLException {
         List<Stock> stock = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -68,7 +68,7 @@ public class StockDataHandler extends ConnectionHandler {
         return stock;
     }
     
-    public List<Stock> viewStockData(int ID) throws SQLException {
+    public synchronized List<Stock> viewStockData(int ID) throws SQLException {
         List<Stock> stock = new ArrayList<>();
         PreparedStatement sCMD = null;
 
@@ -103,7 +103,7 @@ public class StockDataHandler extends ConnectionHandler {
         return stock;
     }
 
-    public String[] addStock(int prodID, int ProdQuant, int deptID, int campID) throws SQLException {
+    public synchronized String[] addStock(int prodID, int ProdQuant, int deptID, int campID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
 
@@ -141,7 +141,7 @@ public class StockDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] updateStock(int sID, int sQuant) throws SQLException {
+    public synchronized String[] updateStock(int sID, int sQuant) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement uCMD = null;
 
@@ -179,7 +179,7 @@ public class StockDataHandler extends ConnectionHandler {
         return arg;
     }
 
-    public String[] deleteStock(int sID) throws SQLException {
+    public synchronized String[] deleteStock(int sID) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement dCMD = null;
 
