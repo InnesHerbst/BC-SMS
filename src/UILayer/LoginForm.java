@@ -251,7 +251,7 @@ public class LoginForm extends javax.swing.JFrame {
                 break;
             case 2:
                 //LOGIN AS STAFF MEMBER
-                String[] resultStaff = staff.signIn(userEmail, userPassword);
+                String[] resultStaff = (String[]) staff.signIn(userEmail, userPassword);
 
                 if (resultStaff[0].equals("Success")) {
                     try {
@@ -265,7 +265,6 @@ public class LoginForm extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
                 }
-
                 break;
         }
 

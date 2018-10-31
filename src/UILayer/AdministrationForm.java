@@ -10,9 +10,13 @@ import BusinessLayer.Stock;
 import BusinessLayer.StockQuantComparator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -560,10 +564,16 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        Stock_AddForm sa = new Stock_AddForm();
-        sa.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            Stock_AddForm sa = new Stock_AddForm();
+            sa.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, "New Stock Form Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        } catch (NotBoundException ex) {
+            JOptionPane.showMessageDialog(null, "New Stock Form Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -584,10 +594,16 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        LoginForm lf = new LoginForm();
-        lf.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            LoginForm lf = new LoginForm();
+            lf.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, "New Login Form Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        } catch (NotBoundException ex) {
+            JOptionPane.showMessageDialog(null, "New Login Form Error : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

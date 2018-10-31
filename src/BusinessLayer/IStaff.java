@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IStaff extends Remote{
     
-     String[] signIn(String username, char[] password);
+     Object[] signIn(String username, char[] password);
 
     String[] registerStaff(Staff nStaff);
 
