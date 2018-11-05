@@ -4,6 +4,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,12 +32,17 @@ public class ServerSide extends Thread implements Runnable {
             reg.bind("AdminService", admins);
 
             //Naming.bind("MyCalc", rem);
-            System.out.println("Server is running");
+            System.out.println("Server is running...");
+            while (true) {
+                Thread.sleep(100);
+            }
 
         } catch (RemoteException e) {
             System.out.println(e.getMessage());
         } catch (AlreadyBoundException e) {
             System.out.println(e.getMessage());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ServerSide.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

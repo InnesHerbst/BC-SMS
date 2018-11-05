@@ -1,12 +1,13 @@
 package BusinessLayer;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
 /**
  *
  * @author Marline
  */
-public class ProductService implements IProduct{
+public class ProductService implements IProduct, Serializable{
 
     public Product UpdateView(int id) {
         return Product.UpdateView(id).get(0);

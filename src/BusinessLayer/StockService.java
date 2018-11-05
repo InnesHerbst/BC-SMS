@@ -5,19 +5,14 @@
  */
 package BusinessLayer;
 
-import DataLayer.StockDataHandler;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Marline
  */
-public class StockService implements IStock{
+public class StockService implements IStock, Serializable {
 
     public List<Stock> DisplayStock() {
         return Stock.DisplayStock();
@@ -37,7 +32,6 @@ public class StockService implements IStock{
         Stock.AddStock(prodID, ProdQuant, deptID, campID);
     }
 
-    
     public List<Stock> UpdateView(int id) {
         return Stock.UpdateView(id);
     }

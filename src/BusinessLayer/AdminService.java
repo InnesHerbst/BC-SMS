@@ -5,11 +5,12 @@
  */
 package BusinessLayer;
 
+import java.io.Serializable;
+
 /**
- *
  * @author Marline
  */
-public class AdminService implements IAdmin{
+public class AdminService implements IAdmin, Serializable{
 
     @Override
     public String[] signIn(String username, char[] password) {
