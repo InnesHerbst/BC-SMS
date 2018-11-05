@@ -1,10 +1,12 @@
 package BusinessLayer;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marline
  */
-public class Department {
+public class Department implements Serializable{
 
     private int deptID;
     private String deptName;

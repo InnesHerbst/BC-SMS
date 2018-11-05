@@ -1,6 +1,7 @@
 package BusinessLayer;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
@@ -8,7 +9,11 @@ import java.sql.SQLException;
  *
  * @author Marline
  */
-public class ProductService extends UnicastRemoteObject implements IProduct, Serializable{
+public class ProductService extends UnicastRemoteObject implements IProduct, Serializable {
+
+    public ProductService() throws RemoteException {
+        super();
+    }
 
     public Product UpdateView(int id) {
         return Product.UpdateView(id).get(0);
@@ -25,5 +30,5 @@ public class ProductService extends UnicastRemoteObject implements IProduct, Ser
     public void DeleteProduct(int id, String name) {
         Product.DeleteProduct(id, name);
     }
-    
+
 }

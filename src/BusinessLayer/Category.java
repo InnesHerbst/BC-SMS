@@ -1,10 +1,12 @@
 package BusinessLayer;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marline
  */
-public class Category {
+public class Category implements Serializable{
 
     private int categoryID;
     private String categoryName;

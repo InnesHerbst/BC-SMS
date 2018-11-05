@@ -1,12 +1,13 @@
 package BusinessLayer;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Innes Herbst
  */
-public abstract class Person {
+public abstract class Person implements Serializable{
 
     private String p_ID;
     private String p_initials;

@@ -2,6 +2,7 @@ package BusinessLayer;
 
 import DataLayer.AdminDataHandler;
 import DataLayer.StockDataHandler;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Adria
  */
-public class Stock implements Comparable<Stock> {
+public class Stock implements Comparable<Stock>, Serializable {
 
     private int id;
     private String name;

@@ -6,6 +6,7 @@
 package BusinessLayer;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
@@ -14,6 +15,10 @@ import java.util.List;
  * @author Marline
  */
 public class StockService extends UnicastRemoteObject implements IStock, Serializable {
+
+    public StockService() throws RemoteException {
+        super();
+    }
 
     public List<Stock> DisplayStock() {
         return Stock.DisplayStock();

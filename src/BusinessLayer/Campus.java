@@ -1,10 +1,12 @@
 package BusinessLayer;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marline
  */
-public class Campus {
+public class Campus implements Serializable{
 
     private int campusID;
     private String campusName;

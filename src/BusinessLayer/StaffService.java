@@ -7,6 +7,7 @@ package BusinessLayer;
 
 import DataLayer.StaffDataHandler;
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
@@ -16,6 +17,10 @@ import java.util.List;
  */
 public class StaffService extends UnicastRemoteObject implements IStaff, Serializable{
     //This class implements the methods of the staff class for the interface.
+
+    public StaffService() throws RemoteException {
+        super();
+    }
 
     public Object[] signIn(String username, char[] password) {
         return Staff.signIn(username, password);

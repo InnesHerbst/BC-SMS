@@ -2,13 +2,14 @@ package BusinessLayer;
 
 import java.util.Date;
 import DataLayer.OrderDataHandler;
+import java.io.Serializable;
 import java.sql.SQLException;
 
 /**
  *
  * @author Marline
  */
-public class Order {
+public class Order implements Serializable{
 
     private int orderID;
     private String orderDesc;

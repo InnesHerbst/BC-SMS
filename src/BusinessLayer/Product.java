@@ -1,6 +1,7 @@
 package BusinessLayer;
 
 import DataLayer.ProductDataHandler;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Marline
  */
-public class Product {
+public class Product implements Serializable{
 
     private int prodID;
     private String prodName;

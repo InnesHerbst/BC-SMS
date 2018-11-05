@@ -3,6 +3,7 @@ package BusinessLayer;
 
 import DataLayer.AdminDataHandler;
 import DataLayer.StaffDataHandler;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  *
  * @author Adria
  */
-public class Admin extends Person{
+public class Admin extends Person implements Serializable{
     private int Campus_ID;
 
     public Admin(int Campus_ID, String p_ID, String p_initials, String p_firstname, String p_lastname, Date p_dob, String p_gender, String p_phone, String p_email, char[] p_password, String p_address1, String p_address2) {
