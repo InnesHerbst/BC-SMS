@@ -6,7 +6,7 @@
 package BusinessLayer;
 
 import java.rmi.Remote;
-import java.sql.SQLException;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -14,11 +14,11 @@ import java.sql.SQLException;
  */
 public interface IProduct extends Remote {
 
-    Product UpdateView(int id);
+    Product UpdateView(int id) throws RemoteException;
 
-    void AddProduct(String prodName, double prodPrice, int catID);
+    void AddProduct(String prodName, double prodPrice, int catID) throws RemoteException;
 
-    void UpdateProduct(int id, int quantity, String name);
+    void UpdateProduct(int id, int quantity, String name) throws RemoteException;
 
-    void DeleteProduct(int id, String name);
+    void DeleteProduct(int id, String name) throws RemoteException;
 }

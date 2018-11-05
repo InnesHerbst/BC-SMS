@@ -1,13 +1,14 @@
 package BusinessLayer;
 
 import java.io.Serializable;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
 /**
  *
  * @author Marline
  */
-public class ProductService implements IProduct, Serializable{
+public class ProductService extends UnicastRemoteObject implements IProduct, Serializable{
 
     public Product UpdateView(int id) {
         return Product.UpdateView(id).get(0);

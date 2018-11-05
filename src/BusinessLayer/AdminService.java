@@ -6,11 +6,12 @@
 package BusinessLayer;
 
 import java.io.Serializable;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author Marline
  */
-public class AdminService implements IAdmin, Serializable{
+public class AdminService extends UnicastRemoteObject implements  IAdmin, Serializable{
 
     @Override
     public String[] signIn(String username, char[] password) {

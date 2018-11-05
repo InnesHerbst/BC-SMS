@@ -6,6 +6,7 @@
 package BusinessLayer;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -14,17 +15,17 @@ import java.util.List;
  */
 public interface IStaff extends Remote {
 
-    Object[] signIn(String username, char[] password);
+    Object[] signIn(String username, char[] password) throws RemoteException;
 
-    String[] registerStaff(Staff nStaff);
+    String[] registerStaff(Staff nStaff) throws RemoteException;
 
-    List<Staff> fetchStaffData();
+    List<Staff> fetchStaffData() throws RemoteException;
 
-    List<Staff> fetchUnAuthStaffData();
+    List<Staff> fetchUnAuthStaffData() throws RemoteException;
 
-    String[] authStaff(String sID);
+    String[] authStaff(String sID) throws RemoteException;
 
-    String[] UpdateStaff(String sID, Staff nStaff);
+    String[] UpdateStaff(String sID, Staff nStaff) throws RemoteException;
 
-    void DeleteStaff(String id);
+    void DeleteStaff(String id) throws RemoteException;
 }

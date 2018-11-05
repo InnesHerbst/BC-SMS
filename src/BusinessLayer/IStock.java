@@ -6,6 +6,7 @@
 package BusinessLayer;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -14,13 +15,13 @@ import java.util.List;
  */
 public interface IStock extends Remote {
 
-    List<Stock> DisplayStock();
-    
-    List<Stock> UpdateView(int id);
+    List<Stock> DisplayStock() throws RemoteException;
 
-    void UpdateStock(int id, int quantity, String name);
+    List<Stock> UpdateView(int id) throws RemoteException;
 
-    void DeleteStock(int id, String name);
+    void UpdateStock(int id, int quantity, String name) throws RemoteException;
 
-    void AddStock(int prodID, int ProdQuant, int deptID, int campID);
+    void DeleteStock(int id, String name) throws RemoteException;
+
+    void AddStock(int prodID, int ProdQuant, int deptID, int campID) throws RemoteException;
 }
