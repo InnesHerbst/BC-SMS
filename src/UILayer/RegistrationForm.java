@@ -459,8 +459,14 @@ public class RegistrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        // TODO add your handling code here:
-        new LoginForm().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new LoginForm().setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
@@ -568,132 +574,138 @@ public class RegistrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbDepartmentFocusLost
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        //Validation
+        try {
+            //Validation
 
-        String uID = txtStaffID.getText();
-        String uFName = txtFirstName.getText();
-        String uIni = txtInitial.getText();
-        String uLName = txtLastName.getText();
-        Date uDoB = dpkDoB.getDate();
-        String uGender = "";
-        String uCell = txtCellNum.getText();
-        String uEmail = txtEmail.getText();
-        char[] uPassword = txtPassword.getPassword();
-        String uAddress = txtSAddrress.getText();
+            String uID = txtStaffID.getText();
+            String uFName = txtFirstName.getText();
+            String uIni = txtInitial.getText();
+            String uLName = txtLastName.getText();
+            Date uDoB = dpkDoB.getDate();
+            String uGender = "";
+            String uCell = txtCellNum.getText();
+            String uEmail = txtEmail.getText();
+            char[] uPassword = txtPassword.getPassword();
+            String uAddress = txtSAddrress.getText();
 
-        //RADIOBUTTON VALIDATION
-        if (!rbnFemale.isSelected() && !rbnMale.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Please select a gender", "Input Error", JOptionPane.ERROR_MESSAGE);
-            rbnFemale.setFocusable(true);
-            rbnFemale.requestFocus();
-            return;
-        } else if (rbnFemale.isSelected()) {
-            uGender = "Female";
-        } else {
-            uGender = "Male";
-        }
+            //RADIOBUTTON VALIDATION
+            if (!rbnFemale.isSelected() && !rbnMale.isSelected()) {
+                JOptionPane.showMessageDialog(this, "Please select a gender", "Input Error", JOptionPane.ERROR_MESSAGE);
+                rbnFemale.setFocusable(true);
+                rbnFemale.requestFocus();
+                return;
+            } else if (rbnFemale.isSelected()) {
+                uGender = "Female";
+            } else {
+                uGender = "Male";
+            }
 
-        //CMB Validation
-        if (cmbPosition.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Please select a position", "Input Error", JOptionPane.ERROR_MESSAGE);
-            cmbPosition.setFocusable(true);
-            cmbPosition.requestFocus();
-            return;
-        }
-        if (cmbCampus.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Please select a campus", "Input Error", JOptionPane.ERROR_MESSAGE);
-            cmbCampus.setFocusable(true);
-            cmbCampus.requestFocus();
-            return;
-        }
-        if (cmbDepartment.isEnabled() && cmbDepartment.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Please select a department", "Input Error", JOptionPane.ERROR_MESSAGE);
-            cmbDepartment.setFocusable(true);
-            cmbDepartment.requestFocus();
-            return;
-        }
+            //CMB Validation
+            if (cmbPosition.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Please select a position", "Input Error", JOptionPane.ERROR_MESSAGE);
+                cmbPosition.setFocusable(true);
+                cmbPosition.requestFocus();
+                return;
+            }
+            if (cmbCampus.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Please select a campus", "Input Error", JOptionPane.ERROR_MESSAGE);
+                cmbCampus.setFocusable(true);
+                cmbCampus.requestFocus();
+                return;
+            }
+            if (cmbDepartment.isEnabled() && cmbDepartment.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Please select a department", "Input Error", JOptionPane.ERROR_MESSAGE);
+                cmbDepartment.setFocusable(true);
+                cmbDepartment.requestFocus();
+                return;
+            }
 
-        //STRING VALIDATION
-        if (uID.trim().equals("") || uID.length() != 13 || !InputValidation.isNumeric(uID)) {
-            JOptionPane.showMessageDialog(this, "Please input a valid ID.\nID should be 13 numerical characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtStaffID.setFocusable(true);
-            txtStaffID.requestFocus();
-            return;
-        }
-        if (uFName.trim().equals("") || !InputValidation.isString(uFName)) {
-            JOptionPane.showMessageDialog(this, "Please input a valid first name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtFirstName.setFocusable(true);
-            txtFirstName.requestFocus();
-            return;
-        }
-        if (uIni.trim().equals("") || !InputValidation.isString(uIni)) {
-            JOptionPane.showMessageDialog(this, "Please input a valid initial. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtInitial.setFocusable(true);
-            txtInitial.requestFocus();
-            return;
-        }
-        if (uLName.trim().equals("") || !InputValidation.isString(uLName)) {
-            JOptionPane.showMessageDialog(this, "Please input a valid last name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtLastName.setFocusable(true);
-            txtLastName.requestFocus();
-            return;
-        }
-        if (uCell.trim().equals("") || uCell.length() < 10 || !InputValidation.isNumeric(uCell)) {
-            JOptionPane.showMessageDialog(this, "Please input a valid cell number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtCellNum.setFocusable(true);
-            txtCellNum.requestFocus();
-            return;
-        }
-        if (uEmail.trim().equals("") || !uEmail.contains("@")) {
-            JOptionPane.showMessageDialog(this, "Please input a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtEmail.setFocusable(true);
-            txtEmail.requestFocus();
-            return;
-        }
-        if (uPassword.length < 8 || !InputValidation.isPassword(uPassword)) {
-            JOptionPane.showMessageDialog(this, "Password should :\n• Be at least 8 characters.\n•"
-                    + " Contain at least 1 special character.\n• Contain at least 1 numerical "
-                    + "character.\n• Contain Uppercase and Lowercase letters.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtPassword.setFocusable(true);
-            txtPassword.requestFocus();
-            return;
-        }
-        if (uAddress.trim().equals("") || !InputValidation.isAlphaNum(uAddress)) {
-            JOptionPane.showMessageDialog(this, "Please input a valid address.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtSAddrress.setFocusable(true);
-            txtSAddrress.requestFocus();
-            return;
-        }
+            //STRING VALIDATION
+            if (uID.trim().equals("") || uID.length() != 13 || !InputValidation.isNumeric(uID)) {
+                JOptionPane.showMessageDialog(this, "Please input a valid ID.\nID should be 13 numerical characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtStaffID.setFocusable(true);
+                txtStaffID.requestFocus();
+                return;
+            }
+            if (uFName.trim().equals("") || !InputValidation.isString(uFName)) {
+                JOptionPane.showMessageDialog(this, "Please input a valid first name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtFirstName.setFocusable(true);
+                txtFirstName.requestFocus();
+                return;
+            }
+            if (uIni.trim().equals("") || !InputValidation.isString(uIni)) {
+                JOptionPane.showMessageDialog(this, "Please input a valid initial. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtInitial.setFocusable(true);
+                txtInitial.requestFocus();
+                return;
+            }
+            if (uLName.trim().equals("") || !InputValidation.isString(uLName)) {
+                JOptionPane.showMessageDialog(this, "Please input a valid last name. Alphabet letters only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtLastName.setFocusable(true);
+                txtLastName.requestFocus();
+                return;
+            }
+            if (uCell.trim().equals("") || uCell.length() < 10 || !InputValidation.isNumeric(uCell)) {
+                JOptionPane.showMessageDialog(this, "Please input a valid cell number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtCellNum.setFocusable(true);
+                txtCellNum.requestFocus();
+                return;
+            }
+            if (uEmail.trim().equals("") || !uEmail.contains("@")) {
+                JOptionPane.showMessageDialog(this, "Please input a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtEmail.setFocusable(true);
+                txtEmail.requestFocus();
+                return;
+            }
+            if (uPassword.length < 8 || !InputValidation.isPassword(uPassword)) {
+                JOptionPane.showMessageDialog(this, "Password should :\n• Be at least 8 characters.\n•"
+                        + " Contain at least 1 special character.\n• Contain at least 1 numerical "
+                        + "character.\n• Contain Uppercase and Lowercase letters.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtPassword.setFocusable(true);
+                txtPassword.requestFocus();
+                return;
+            }
+            if (uAddress.trim().equals("") || !InputValidation.isAlphaNum(uAddress)) {
+                JOptionPane.showMessageDialog(this, "Please input a valid address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtSAddrress.setFocusable(true);
+                txtSAddrress.requestFocus();
+                return;
+            }
 
-        //REGISTER
-        switch (cmbPosition.getSelectedIndex()) {
-            case 1:
-                //STAFF
-                Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
-                String[] resultStaff = staff.registerStaff(nStaff);
+            //REGISTER
+            switch (cmbPosition.getSelectedIndex()) {
+                case 1:
+                    //STAFF
+                    Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
+                    String[] resultStaff = staff.registerStaff(nStaff);
 
-                if (resultStaff[0].equals("Success")) {
-                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    new LoginForm().setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
-                }
+                    if (resultStaff[0].equals("Success")) {
+                        JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        new LoginForm().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
+                    }
 
-                break;
-            case 2:
-                //Admin
-                Admin nAdmin = new Admin(cmbCampus.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
-                String[] resultAdmin = admin.registerAdmin(nAdmin);
+                    break;
+                case 2:
+                    //Admin
+                    Admin nAdmin = new Admin(cmbCampus.getSelectedIndex(), uID, uIni, uFName, uLName, uDoB, uGender, uCell, uEmail, uPassword, uAddress, "null");
+                    String[] resultAdmin = admin.registerAdmin(nAdmin);
 
-                if (resultAdmin[0].equals("Success")) {
-                    JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    new LoginForm().setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
-                }
-                break;
+                    if (resultAdmin[0].equals("Success")) {
+                        JOptionPane.showMessageDialog(this, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        new LoginForm().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnRegisterActionPerformed

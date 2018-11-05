@@ -37,12 +37,12 @@ public class LoginForm extends javax.swing.JFrame {
     private IStaff staff;
     private IAdmin admin;
 
-    public LoginForm() {
+    public LoginForm() throws RemoteException, NotBoundException {
 
         initComponents();
-//        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-//        staff = (IStaff) reg.lookup("StaffService");
-//        admin = (IAdmin) reg.lookup("AdminService");
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        staff = (IStaff) reg.lookup("StaffService");
+        admin = (IAdmin) reg.lookup("AdminService");
 
         cmbBorder = cmbPosition.getBackground();
         txtBorder = txtEmail.getBorder();
@@ -209,61 +209,61 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:   
-        String userEmail = txtEmail.getText();
-        char[] userPassword = txtPassword.getPassword();
+        try {
+            // TODO add your handling code here:
+            String userEmail = txtEmail.getText();
+            char[] userPassword = txtPassword.getPassword();
 
-        //Validation
-        if (cmbPosition.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Please select a valid option.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            cmbPosition.setFocusable(true);
-            cmbPosition.requestFocus();
-            return;
-        }
+            //Validation
+            if (cmbPosition.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Please select a valid option.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                cmbPosition.setFocusable(true);
+                cmbPosition.requestFocus();
+                return;
+            }
 
-        if (userEmail.trim().equals("") || !userEmail.contains("@")) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtEmail.setFocusable(true);
-            txtEmail.requestFocus();
-            return;
-        }
+            if (userEmail.trim().equals("") || !userEmail.contains("@")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtEmail.setFocusable(true);
+                txtEmail.requestFocus();
+                return;
+            }
 
-        if (userPassword.length < 8) {
-            JOptionPane.showMessageDialog(this, "Password should contain at least 8 characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            txtPassword.setFocusable(true);
-            txtPassword.requestFocus();
-            return;
-        }
+            if (userPassword.length < 8) {
+                JOptionPane.showMessageDialog(this, "Password should contain at least 8 characters.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                txtPassword.setFocusable(true);
+                txtPassword.requestFocus();
+                return;
+            }
 
-        //LOGIN
-        switch (cmbPosition.getSelectedIndex()) {
-            case 1:
-                //LOGIN AS ADMINASTRATOR
-                System.out.println("Login Form : " + userEmail);
-                String[] resultAdmin = Admin.signIn(userEmail, userPassword);
+            //LOGIN
+            switch (cmbPosition.getSelectedIndex()) {
+                case 1:
+                    //LOGIN AS ADMINASTRATOR
+                    System.out.println("Login Form : " + userEmail);
+                    String[] resultAdmin = admin.signIn(userEmail, userPassword);
 
-                if (resultAdmin[0].equals("Success")) {
-                    new AdministrationForm().setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
-                }
-                break;
-            case 2:
-                //LOGIN AS STAFF MEMBER
-                String[] resultStaff = (String[]) staff.signIn(userEmail, userPassword);
-
-                if (resultStaff[0].equals("Success")) {
-                    try {
-                        new StaffForm().setVisible(true);
-                    }catch(Exception e){
-                        
+                    if (resultAdmin[0].equals("Success")) {
+                        new AdministrationForm().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, resultAdmin[1], resultAdmin[0], JOptionPane.ERROR_MESSAGE);
                     }
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
-                }
-                break;
+                    break;
+                case 2:
+                    //LOGIN AS STAFF MEMBER
+                    String[] resultStaff = (String[]) staff.signIn(userEmail, userPassword);
+
+                    if (resultStaff[0].equals("Success")) {
+                        new StaffForm().setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+            }
+        } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
         }
 
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -347,7 +347,13 @@ public class LoginForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new LoginForm().setVisible(true);
+            try {
+                new LoginForm().setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
 
     }
