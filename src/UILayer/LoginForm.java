@@ -264,6 +264,8 @@ public class LoginForm extends javax.swing.JFrame {
             }
         } catch (RemoteException ex) {
             System.out.println(ex.getMessage());
+        } catch (NotBoundException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnLoginActionPerformed

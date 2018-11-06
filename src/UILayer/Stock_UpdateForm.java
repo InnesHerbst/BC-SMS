@@ -26,11 +26,12 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
      * Creates new form Stock_UpdateForm
      */
     private IStock stock;
+
     public Stock_UpdateForm() throws RemoteException, NotBoundException {
         initComponents();
-//         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-//           stock = (IStock) reg.lookup("StockService");
-         
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        stock = (IStock) reg.lookup("StockService");
+
     }
 
     /**
@@ -173,9 +174,9 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void getID(int id){
+    public void getID(int id) {
         txtid.setText(Integer.toString(id));
-        
+
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -185,38 +186,46 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
 //        List<Stock> ls = new ArrayList<>();
-        int id = Integer.parseInt(txtid.getText());
-        String name = txtname.getText();
-        Double price = Double.parseDouble(txtPrice.getText());
-        String qu = spnQuantity.getValue().toString();
-        int quantity = Integer.parseInt(qu);
-        String catagory = txtCatagory.getText();
-        String discription = txtDiscription.getText();
-        
+            int id = Integer.parseInt(txtid.getText());
+            String name = txtname.getText();
+            Double price = Double.parseDouble(txtPrice.getText());
+            String qu = spnQuantity.getValue().toString();
+            int quantity = Integer.parseInt(qu);
+            String catagory = txtCatagory.getText();
+            String discription = txtDiscription.getText();
+
 //        ls.add(new Stock(id, name, price, quantity, catagory, discription));
-        stock.UpdateStock(id, quantity, name);
-        
-        AdministrationForm af = new AdministrationForm();
-        af.setVisible(true);
-        this.setVisible(false);
-        
-        
+            stock.UpdateStock(id, quantity, name);
+
+            AdministrationForm af = new AdministrationForm();
+            af.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        // TODO add your handling code here:
-        int num = Integer.parseInt(txtid.getText());
-        Stock st = new Stock(1,"Dimond", 20.52, 7, "Jewl", "Shiny");
-        List<Stock> ls = stock.UpdateView(num);
-        
-        for (Stock l : ls) {
-            txtname.setText(l.getName());
-            txtPrice.setText(Double.toString(l.getPrice()));
-            spnQuantity.setValue(l.getQuantity());
-            txtCatagory.setText(l.getCategory());
-            txtDiscription.setText(l.getDescription());
+        try {
+            // TODO add your handling code here:
+            int num = Integer.parseInt(txtid.getText());
+            Stock st = new Stock(1, "Dimond", 20.52, 7, "Jewl", "Shiny");
+            List<Stock> ls = stock.UpdateView(num);
+
+            for (Stock l : ls) {
+                txtname.setText(l.getName());
+                txtPrice.setText(Double.toString(l.getPrice()));
+                spnQuantity.setValue(l.getQuantity());
+                txtCatagory.setText(l.getCategory());
+                txtDiscription.setText(l.getDescription());
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Stock_UpdateForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -260,7 +269,6 @@ public class Stock_UpdateForm extends javax.swing.JFrame {
 //            }
 //            
 //        });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

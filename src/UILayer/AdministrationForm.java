@@ -575,10 +575,16 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        Stock_AddForm sa = new Stock_AddForm();
-        sa.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            Stock_AddForm sa = new Stock_AddForm();
+            sa.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(AdministrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(AdministrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -599,10 +605,16 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        LoginForm lf = new LoginForm();
-        lf.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            LoginForm lf = new LoginForm();
+            lf.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(AdministrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(AdministrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

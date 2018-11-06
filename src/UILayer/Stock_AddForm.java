@@ -28,11 +28,11 @@ public class Stock_AddForm extends javax.swing.JFrame {
      * Creates new form Stock_AddForm
      */
     private IStock stock;
-    public Stock_AddForm(){
+
+    public Stock_AddForm() throws RemoteException, NotBoundException {
         initComponents();
-//        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-//           stock = (IStock) reg.lookup("StockService");
-           
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        stock = (IStock) reg.lookup("StockService");
     }
 
     /**
@@ -181,27 +181,19 @@ public class Stock_AddForm extends javax.swing.JFrame {
             products[i] = product.getProdName();
             i++;
         }
-        
-        
-        
+
         cmbProduct.removeAllItems();
         cmbProduct.setModel(new DefaultComboBoxModel<>(products));
-       
+
         //Campus combo box
         cmbCampus.removeAllItems();
         cmbCampus.setModel(new DefaultComboBoxModel<>(campus));
-        
+
         //Department CMB
         cmbDepartment.removeAllItems();
         cmbDepartment.setModel(new DefaultComboBoxModel<>(department));
-        
-        
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_formComponentShown
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -211,15 +203,13 @@ public class Stock_AddForm extends javax.swing.JFrame {
         int depid = cmbDepartment.getSelectedIndex();
         String qu = spnQuantity.getValue().toString();
         int quantity = Integer.parseInt(qu);
-        
+
         try {
-            Stock.AddStock(productid, quantity, depid, campusid);
+            stock.AddStock(productid, quantity, depid, campusid);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
-        
-        
+
         AdministrationForm af = new AdministrationForm();
         af.setVisible(true);
         this.setVisible(false);
@@ -255,7 +245,13 @@ public class Stock_AddForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Stock_AddForm().setVisible(true);
+                try {
+                    new Stock_AddForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Stock_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(Stock_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

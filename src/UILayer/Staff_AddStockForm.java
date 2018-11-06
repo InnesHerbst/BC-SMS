@@ -5,7 +5,15 @@
  */
 package UILayer;
 
+import BusinessLayer.IStaff;
+import BusinessLayer.IStock;
 import BusinessLayer.Stock;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,8 +24,12 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
     /**
      * Creates new form Staff_AddStockForm
      */
-    public Staff_AddStockForm() {
+    private IStock stock;
+
+    public Staff_AddStockForm() throws RemoteException, NotBoundException {
         initComponents();
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        stock = (IStock) reg.lookup("StaffService");
     }
 
     /**
@@ -142,7 +154,7 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
         int quantity = Integer.parseInt(qu);
 
         try {
-            Stock.AddStock(productid, quantity, depid, campusid);
+            stock.AddStock(productid, quantity, depid, campusid);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -153,10 +165,16 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        StaffForm af = new StaffForm();
-        af.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            StaffForm af = new StaffForm();
+            af.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -189,7 +207,13 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Staff_AddStockForm().setVisible(true);
+                try {
+                    new Staff_AddStockForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

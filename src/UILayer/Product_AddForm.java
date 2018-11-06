@@ -5,9 +5,17 @@
  */
 package UILayer;
 
+import BusinessLayer.IProduct;
+import BusinessLayer.IStock;
 import BusinessLayer.Product;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -19,8 +27,12 @@ public class Product_AddForm extends javax.swing.JFrame {
     /**
      * Creates new form Product_AddForm
      */
-    public Product_AddForm() {
+    private IProduct product;
+
+    public Product_AddForm() throws RemoteException, NotBoundException {
         initComponents();
+        Registry reg = LocateRegistry.getRegistry("localhost", 1099);
+        product = (IProduct) reg.lookup("ProductService");
     }
 
     /**
@@ -128,26 +140,29 @@ public class Product_AddForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
 
-        String name = txt_name.getText();
-        int Categoryid = cmbCampus.getSelectedIndex();
-        double price = Double.parseDouble(txtPrice.getText());
+            String name = txt_name.getText();
+            int Categoryid = cmbCampus.getSelectedIndex();
+            double price = Double.parseDouble(txtPrice.getText());
 
-        //Stationery.AddStationery(ls, campusid);
-        Product.AddProduct(name, price, Categoryid);
+            //Stationery.AddStationery(ls, campusid);
+            product.AddProduct(name, price, Categoryid);
 
-        AdministrationForm af = new AdministrationForm();
-        af.setVisible(true);
+            AdministrationForm af = new AdministrationForm();
+            af.setVisible(true);
 
-        this.setVisible(false);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Product_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
         String[] campus = new String[]{"--Please Select--", "Hardwere", "Software", "Stationery"};
-        
-        
+
         cmbCampus.removeAllItems();
         cmbCampus.setModel(new DefaultComboBoxModel<>(campus));
     }//GEN-LAST:event_formComponentShown
@@ -182,7 +197,13 @@ public class Product_AddForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Product_AddForm().setVisible(true);
+                try {
+                    new Product_AddForm().setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Product_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(Product_AddForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
