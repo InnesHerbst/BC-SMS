@@ -553,10 +553,16 @@ public class StaffForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtStaffIDActionPerformed
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
-        // TODO add your handling code here:
-        Staff_AddStockForm saf = new Staff_AddStockForm();
-        saf.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            Staff_AddStockForm saf = new Staff_AddStockForm();
+            saf.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRequestActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown

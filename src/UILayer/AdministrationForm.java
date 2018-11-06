@@ -618,10 +618,16 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        Product_AddForm pa = new Product_AddForm();
-        pa.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            Product_AddForm pa = new Product_AddForm();
+            pa.setVisible(true);
+            this.setVisible(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(AdministrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(AdministrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
