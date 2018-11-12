@@ -23,5 +23,5 @@ public interface IStock extends Remote {
 
     void DeleteStock(int id, String name) throws RemoteException;
 
-    void AddStock(int prodID, int ProdQuant, int deptID, int campID) throws RemoteException;
+    void AddStock(int prodID, int ProdQuant, int deptID, int campID, String confirmValue) throws RemoteException;
 }

@@ -154,7 +154,7 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
         int quantity = Integer.parseInt(qu);
 
         try {
-            stock.AddStock(productid, quantity, depid, campusid);
+            stock.AddStock(productid, quantity, depid, campusid,"No");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

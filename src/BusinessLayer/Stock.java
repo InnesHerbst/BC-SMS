@@ -149,9 +149,9 @@ public class Stock implements Comparable<Stock>, Serializable {
 
     }
 
-    public static void AddStock(int prodID, int ProdQuant, int deptID, int campID) {
+    public static void AddStock(int prodID, int ProdQuant, int deptID, int campID,String sdflkm) {
         try {
-            StockDataHandler.getInstance().addStock(prodID, ProdQuant, deptID, campID);
+            StockDataHandler.getInstance().addStock(prodID, ProdQuant, deptID, campID,sdflkm);
             //JOptionPane.showMessageDialog(null, "Stock " + name + " Added", "Add", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

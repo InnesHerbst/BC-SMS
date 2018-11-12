@@ -34,8 +34,8 @@ public class StockService extends UnicastRemoteObject implements IStock, Seriali
 
     }
 
-    public void AddStock(int prodID, int ProdQuant, int deptID, int campID) {
-        Stock.AddStock(prodID, ProdQuant, deptID, campID);
+    public void AddStock(int prodID, int ProdQuant, int deptID, int campID, String confirmValue) {
+        Stock.AddStock(prodID, ProdQuant, deptID, campID, confirmValue);
     }
 
     public List<Stock> UpdateView(int id) {

@@ -103,7 +103,7 @@ public class StockDataHandler extends ConnectionHandler {
         return stock;
     }
 
-    public synchronized String[] addStock(int prodID, int ProdQuant, int deptID, int campID) throws SQLException {
+    public synchronized String[] addStock(int prodID, int ProdQuant, int deptID, int campID, String values) throws SQLException {
         String[] arg = new String[2];
         PreparedStatement iCMD = null;
 
@@ -114,7 +114,7 @@ public class StockDataHandler extends ConnectionHandler {
                 iCMD.setInt(2, ProdQuant);
                 iCMD.setInt(3, deptID);
                 iCMD.setInt(4, campID);
-                iCMD.setString(5, "Yes");
+                iCMD.setString(5, values);
 
                 int count = iCMD.executeUpdate();
 

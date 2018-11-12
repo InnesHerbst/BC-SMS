@@ -205,7 +205,7 @@ public class Stock_AddForm extends javax.swing.JFrame {
         int quantity = Integer.parseInt(qu);
 
         try {
-            stock.AddStock(productid, quantity, depid, campusid);
+            stock.AddStock(productid, quantity, depid, campusid,"Yes");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
