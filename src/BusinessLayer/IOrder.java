@@ -5,10 +5,21 @@
  */
 package BusinessLayer;
 
+import DataLayer.OrderDataHandler;
+import java.rmi.Remote;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author Marline
  */
-public interface IOrder {
-    
+public interface IOrder extends Remote {
+
+    List<Stock> getAuthOrder(int id);
+
+    List<Stock> getUnAuthOrder(int id);
+
+    boolean updateOrder();
+
 }

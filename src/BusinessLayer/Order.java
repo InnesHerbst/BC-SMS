@@ -2,20 +2,26 @@ package BusinessLayer;
 
 import java.util.Date;
 import DataLayer.OrderDataHandler;
+import DataLayer.StockDataHandler;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Marline
  */
-public class Order implements Serializable{
+public class Order implements Serializable {
 
     private int orderID;
     private String orderDesc;
     private Date orderDate;
     private int orderQty;
     private Date pickUpDate;
+    public OrderDataHandler dbConn;
 
     public Order(int orderID, String orderDesc, Date orderDate, int orderQty, Date pickUpDate) {
         this.orderID = orderID;
@@ -23,6 +29,7 @@ public class Order implements Serializable{
         this.orderDate = orderDate;
         this.orderQty = orderQty;
         this.pickUpDate = pickUpDate;
+        this.dbConn = new OrderDataHandler();
     }
 
     public int getOrderID() {
@@ -65,4 +72,17 @@ public class Order implements Serializable{
         this.pickUpDate = pickUpDate;
     }
 
+    public static List<Stock> getAuthOrder(int id) throws ClassNotFoundException, SQLException {
+        List<Stock> stock = OrderDataHandler.getInstance().GetAuthOrders();
+        return stock;
+    }
+
+    public static List<Stock> getUnAuthOrder(int id) throws ClassNotFoundException, SQLException {
+        List<Stock> stock = OrderDataHandler.getInstance().GetUnAuthOrders();
+        return stock;
+    }
+
+    public boolean updateOrder() throws SQLException, ClassNotFoundException {
+        return OrderDataHandler.getInstance().UpdateOrder(orderID);
+    }
 }

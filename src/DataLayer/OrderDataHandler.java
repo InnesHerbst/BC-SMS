@@ -16,7 +16,7 @@ public class OrderDataHandler extends ConnectionHandler {
 
     private static OrderDataHandler orderDataHandler;
 
-    private OrderDataHandler() {
+    public OrderDataHandler() {
         super();
     }
 
