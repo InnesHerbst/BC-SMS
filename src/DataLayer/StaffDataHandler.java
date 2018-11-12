@@ -233,8 +233,8 @@ public class StaffDataHandler extends ConnectionHandler {
                         + "Staff_Gender = ?, "
                         + "Staff_Phone = ?, "
                         + "Staff_Email = ?, "
-                        + "Staff_Address = ?, "
-                        + "Staff_Address = 'null', "
+                        + "Staff_Address_1 = ?, "
+                        + "Staff_Address_2 = 'null', "
                         + "Staff_Campus_ID = ?, "
                         + "Staff_Department_ID = ?, "
                         + "Staff_Password = ? "
@@ -248,11 +248,10 @@ public class StaffDataHandler extends ConnectionHandler {
                 iCMD.setString(7, nStaff.getP_phone());
                 iCMD.setString(8, nStaff.getP_email());
                 iCMD.setString(9, nStaff.getP_address1());
-                iCMD.setString(10, nStaff.getP_address2());
-                iCMD.setInt(11, nStaff.getCampus_id());
-                iCMD.setInt(12, nStaff.getDepartment_id());
-                iCMD.setString(13, uPassword.toString());
-                iCMD.setString(14, nStaff.getP_ID());
+                iCMD.setInt(10, nStaff.getCampus_id());
+                iCMD.setInt(11, nStaff.getDepartment_id());
+                iCMD.setString(12, uPassword.toString());
+                iCMD.setString(13, sID);
 
                 int done = iCMD.executeUpdate();
                 if (done < 0) {

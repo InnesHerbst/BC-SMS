@@ -7,6 +7,7 @@ package UILayer;
 
 import BusinessLayer.IStaff;
 import BusinessLayer.IStock;
+import BusinessLayer.Staff;
 import BusinessLayer.Stock;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -25,11 +26,13 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
      * Creates new form Staff_AddStockForm
      */
     private IStock stock;
+    private static Staff currStaff;
 
-    public Staff_AddStockForm() throws RemoteException, NotBoundException {
+    public Staff_AddStockForm(Staff currStaff) throws RemoteException, NotBoundException {
         initComponents();
         Registry reg = LocateRegistry.getRegistry("localhost", 1099);
-        stock = (IStock) reg.lookup("StaffService");
+        stock = (IStock) reg.lookup("StockService");
+        this.currStaff = currStaff;
     }
 
     /**
@@ -159,15 +162,23 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
 
-        AdministrationForm af = new AdministrationForm();
-        af.setVisible(true);
+        StaffForm af;
+        try {
+            af = new StaffForm(currStaff);
+            af.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
-            StaffForm af = new StaffForm();
+            StaffForm af = new StaffForm(currStaff);
             af.setVisible(true);
             this.setVisible(false);
         } catch (RemoteException ex) {
@@ -208,7 +219,7 @@ public class Staff_AddStockForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Staff_AddStockForm().setVisible(true);
+                    new Staff_AddStockForm(currStaff).setVisible(true);
                 } catch (RemoteException ex) {
                     Logger.getLogger(Staff_AddStockForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NotBoundException ex) {

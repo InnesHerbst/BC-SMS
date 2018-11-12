@@ -28,15 +28,16 @@ public class StaffForm extends javax.swing.JFrame {
      */
     IStaff staff;
 
-    private Staff currStaff;
+    private static Staff currStaff;
     private final String[] campus = new String[]{"--Please Select--", "Pretoria", "Kempton", "Port Elizabeth"};
     private final String[] department = new String[]{"--Please Select--", "Programming", "Networking", "Information Systems"};
 
-    public StaffForm() throws RemoteException, NotBoundException {
+    public StaffForm(Staff currStaff) throws RemoteException, NotBoundException {
         try {
             initComponents();
             Registry reg = LocateRegistry.getRegistry("localhost", 1099);
             staff = (IStaff) reg.lookup("StaffService");
+            this.currStaff = currStaff;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -47,10 +48,6 @@ public class StaffForm extends javax.swing.JFrame {
         //Department CMB
         cmbDepartment.removeAllItems();
         cmbDepartment.setModel(new DefaultComboBoxModel<>(department));
-    }
-
-    private StaffForm(Staff currStaff) {
-        this.currStaff = currStaff;
     }
 
     public void setFields(boolean enabled) {
@@ -422,7 +419,7 @@ public class StaffForm extends javax.swing.JFrame {
         }
         txtCellNum.setText(currStaff.getP_phone());
         txtEmail.setText(currStaff.getP_email());
-        txtAddress.setText(currStaff.getP_email());
+        txtAddress.setText(currStaff.getP_address1());
         cmbCampus.setSelectedIndex(currStaff.getCampus_id());
         cmbDepartment.setSelectedIndex(currStaff.getDepartment_id());
         setFields(false);
@@ -529,12 +526,11 @@ public class StaffForm extends javax.swing.JFrame {
             }
             //Update Database
             Staff nStaff = new Staff(cmbCampus.getSelectedIndex(), cmbDepartment.getSelectedIndex(), sID, sIni, sFName, sLName, sDoB, sGender, sCell, sEmail, sPassword, sAddress, "null");
-            String[] resultStaff = staff.UpdateStaff(sID, nStaff);
+            String[] resultStaff = staff.UpdateStaff(currStaff.getP_ID(), nStaff);
 
             if (resultStaff[0].equals("Success")) {
                 JOptionPane.showMessageDialog(this, "Save Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-                new LoginForm().setVisible(true);
-                this.dispose();
+                setFields(false);
             } else {
                 JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
             }
@@ -542,8 +538,6 @@ public class StaffForm extends javax.swing.JFrame {
             //Set Fields False
             setFields(false);
         } catch (RemoteException ex) {
-            Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
             Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveMouseClicked
@@ -555,7 +549,7 @@ public class StaffForm extends javax.swing.JFrame {
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
         try {
             // TODO add your handling code here:
-            Staff_AddStockForm saf = new Staff_AddStockForm();
+            Staff_AddStockForm saf = new Staff_AddStockForm(currStaff);
             saf.setVisible(true);
             this.setVisible(false);
         } catch (RemoteException ex) {
@@ -610,7 +604,7 @@ public class StaffForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new StaffForm().setVisible(true);
+                    new StaffForm(currStaff).setVisible(true);
                 } catch (RemoteException ex) {
                     Logger.getLogger(StaffForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NotBoundException ex) {

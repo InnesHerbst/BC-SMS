@@ -252,13 +252,14 @@ public class LoginForm extends javax.swing.JFrame {
                     break;
                 case 2:
                     //LOGIN AS STAFF MEMBER
-                    String[] resultStaff = (String[]) staff.signIn(userEmail, userPassword);
+                    Object[] resultStaff = staff.signIn(userEmail, userPassword);
+                    String[]  resultSet= (String[]) resultStaff[0];
 
-                    if (resultStaff[0].equals("Success")) {
-                        new StaffForm().setVisible(true);
+                    if (resultSet[0].equals("Success")) {
+                        new StaffForm((Staff) resultStaff[1]).setVisible(true);
                         this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(this, resultStaff[1], resultStaff[0], JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, resultSet[1], resultSet[0], JOptionPane.ERROR_MESSAGE);
                     }
                     break;
             }
