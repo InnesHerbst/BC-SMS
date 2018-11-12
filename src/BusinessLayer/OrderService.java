@@ -16,18 +16,18 @@ public class OrderService extends UnicastRemoteObject implements Serializable, I
     }
 
     @Override
-    public List<Stock> getAuthOrder(int id) {
-        return null;
+    public List<Stock> GetAuthOrder() {
+        return Stock.GetAuthOrder();
     }
 
     @Override
-    public List<Stock> getUnAuthOrder(int id) {
-        return null;
+    public List<Stock> GetUnAuthStock() {
+        return Stock.GetUnAuthStock();
     }
 
     @Override
-    public boolean updateOrder() {
-        return false;
+    public boolean UpdateStock(int stockID) {
+        return Stock.UpdateStock(stockID);
     }
 
 }

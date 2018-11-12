@@ -9,6 +9,8 @@ import DataLayer.OrderDataHandler;
 import java.rmi.Remote;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,10 +18,10 @@ import java.util.List;
  */
 public interface IOrder extends Remote {
 
-    List<Stock> getAuthOrder(int id);
+    List<Stock> GetAuthOrder();
 
-    List<Stock> getUnAuthOrder(int id);
+    List<Stock> GetUnAuthStock();
 
-    boolean updateOrder();
+    boolean UpdateStock(int stockID);
 
 }

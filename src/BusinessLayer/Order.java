@@ -71,18 +71,4 @@ public class Order implements Serializable {
     public void setPickUpDate(Date pickUpDate) {
         this.pickUpDate = pickUpDate;
     }
-
-    public static List<Stock> getAuthOrder(int id) throws ClassNotFoundException, SQLException {
-        List<Stock> stock = OrderDataHandler.getInstance().GetAuthOrders();
-        return stock;
-    }
-
-    public static List<Stock> getUnAuthOrder(int id) throws ClassNotFoundException, SQLException {
-        List<Stock> stock = OrderDataHandler.getInstance().GetUnAuthOrders();
-        return stock;
-    }
-
-    public boolean updateOrder() throws SQLException, ClassNotFoundException {
-        return OrderDataHandler.getInstance().UpdateOrder(orderID);
-    }
 }
