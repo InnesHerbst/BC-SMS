@@ -15,7 +15,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class ServerSide extends Thread implements Runnable {
 
     public ServerSide() {
-super();
+        super();
     }
 
     @Override
