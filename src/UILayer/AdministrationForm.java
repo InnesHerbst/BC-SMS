@@ -134,7 +134,7 @@ public class AdministrationForm extends javax.swing.JFrame {
 
         switch (sortMethod) {
             case NoSort:
-                
+
                 break;
             case Kempton:
                 //2
@@ -155,7 +155,7 @@ public class AdministrationForm extends javax.swing.JFrame {
                         .filter(item -> item.getCampus_id() == 1).collect(Collectors.toList());
                 break;
         }
-        
+
         DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
         staffModel.setRowCount(0);
 
@@ -598,13 +598,13 @@ public class AdministrationForm extends javax.swing.JFrame {
         for (Stock l : ls) {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
         }
-        
+
         List<Stock> unAuthStock = Stock.GetUnAuthStock();
-        
+
         DefaultTableModel unAuthModel = (DefaultTableModel) tblUnAuthStock.getModel();
-        
+
         unAuthModel.setRowCount(0);
-        
+
         for (Stock l : unAuthStock) {
             unAuthModel.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
         }
@@ -797,13 +797,13 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btnSEmployActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSEmployActionPerformed
-        if(txtSEmploy.getText().trim().equals("")){
+        if (txtSEmploy.getText().trim().equals("")) {
             displayEmployeeData(EmployeeSort.values()[cmbEPrevIndex], "null");
-        }else{
-            String sStatement = txtSEmploy.getText().trim(); 
-        
+        } else {
+            String sStatement = txtSEmploy.getText().trim();
+
             displayEmployeeData(EmployeeSort.values()[cmbEPrevIndex], sStatement);
-        }               
+        }
     }//GEN-LAST:event_btnSEmployActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -811,7 +811,24 @@ public class AdministrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnAuthOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthOrderActionPerformed
-        // TODO add your handling code here:
+        int selectedRowIndex = tblUnAuthStock.getSelectedRow();
+        int id = (int) tblUnAuthStock.getModel().getValueAt(selectedRowIndex, 0);
+
+        if (Stock.UpdateStock(id)) {
+            List<Stock> unAuthStock = Stock.GetUnAuthStock();
+
+            DefaultTableModel unAuthModel = (DefaultTableModel) tblUnAuthStock.getModel();
+
+            unAuthModel.setRowCount(0);
+
+            for (Stock l : unAuthStock) {
+                unAuthModel.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+            }
+            
+            displayStockTableData(SortMethod.NoSort, "null");
+        }else{
+            JOptionPane.showMessageDialog(null, "An error occurred, Please try again", "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAuthOrderActionPerformed
 
     /**
