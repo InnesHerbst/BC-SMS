@@ -28,8 +28,8 @@ super();
             ProductService prods = new ProductService();
             AdminService admins = new AdminService();
 
-            reg.bind("Product", prods);
-            reg.bind("Stock", stocks);
+            reg.bind("ProductService", prods);
+            reg.bind("StockService", stocks);
             reg.bind("StaffService", staffs);
             reg.bind("AdminService", admins);
 

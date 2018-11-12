@@ -69,7 +69,7 @@ public class OrderDataHandler extends ConnectionHandler {
 
         try {
             if (ConnectDatabase()) {
-                sCMD = getDbConnection().prepareStatement("Execute SP_FetchUnAutStock");
+                sCMD = getDbConnection().prepareStatement("Execute SP_FetchUnAuthStock");
 
                 ResultSet result = sCMD.executeQuery();
 
@@ -104,15 +104,15 @@ public class OrderDataHandler extends ConnectionHandler {
         try {
             ConnectDatabase();
             
-            uCMD = getDbConnection().prepareStatement("Update Stock set stock_confirmation = 'Yes' where Stock_ID= '?'");
-            uCMD.setInt(0, stockID);
+            uCMD = getDbConnection().prepareStatement("Update Stock set Stock_Confirmation = 'Yes' where Stock_ID = ?");
+            uCMD.setInt(1, stockID);
             
-            int count = uCMD.executeUpdate();
-            
-            if(count != 1){
-                return false;
-            }
-            
+//            int count = uCMD.executeUpdate();
+//            
+//            if(count != 1){
+//                return false;
+//            }
+            uCMD.executeQuery();
         } catch (Exception e) {
         }finally{
             try{

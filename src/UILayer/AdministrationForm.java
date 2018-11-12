@@ -813,8 +813,10 @@ public class AdministrationForm extends javax.swing.JFrame {
     private void btnAuthOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthOrderActionPerformed
         int selectedRowIndex = tblUnAuthStock.getSelectedRow();
         int id = (int) tblUnAuthStock.getModel().getValueAt(selectedRowIndex, 0);
+        System.out.println(id);
 
         if (Stock.UpdateStock(id)) {
+            System.out.println("Im here");
             List<Stock> unAuthStock = Stock.GetUnAuthStock();
 
             DefaultTableModel unAuthModel = (DefaultTableModel) tblUnAuthStock.getModel();
