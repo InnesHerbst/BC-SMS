@@ -1,6 +1,7 @@
 package BusinessLayer;
 
 import DataLayer.AdminDataHandler;
+import DataLayer.OrderDataHandler;
 import DataLayer.StockDataHandler;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -163,5 +164,38 @@ public class Stock implements Comparable<Stock>, Serializable {
     @Override
     public int compareTo(Stock o) {
         return this.getName().compareTo(o.getName());
+    }
+
+    public static List<Stock> GetAuthOrder() {
+        try {
+            return OrderDataHandler.getInstance().GetAuthOrders();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static List<Stock> GetUnAuthStock() {
+        try {
+            return OrderDataHandler.getInstance().GetUnAuthOrders();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static boolean UpdateStock(int stockID) {
+        try {
+            return OrderDataHandler.getInstance().UpdateOrder(stockID);
+        } catch (SQLException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
