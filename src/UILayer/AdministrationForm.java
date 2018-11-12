@@ -35,8 +35,17 @@ public class AdministrationForm extends javax.swing.JFrame {
         QuantSort;
     }
 
+    enum EmployeeSort {
+        NoSort,
+        Pretoria,
+        Kempton,
+        PortEliz;
+    }
+
     private final String[] sort = new String[]{"No Sorting", "By Name", "By Quantity"};
+    private final String[] empSort = new String[]{"No Sorting", "Pretoria Campus", "Kempton Campus", "Port Elizabeth Campus"};
     private int cmbPrevIndex = 0;
+    private int cmbEPrevIndex = 0;
 
     /**
      * Creates new form AdministrationForm
@@ -52,6 +61,18 @@ public class AdministrationForm extends javax.swing.JFrame {
                 if (cmbSort.getSelectedIndex() != cmbPrevIndex) {
                     displayStockTableData(SortMethod.values()[cmbSort.getSelectedIndex()], "null");
                     cmbPrevIndex = cmbSort.getSelectedIndex();
+                }
+            }
+        });
+
+        cmbSortEmploy.removeAllItems();
+        cmbSortEmploy.setModel(new DefaultComboBoxModel<>(empSort));
+        cmbSortEmploy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (cmbSortEmploy.getSelectedIndex() != cmbEPrevIndex) {
+                    displayEmployeeData(EmployeeSort.values()[cmbSortEmploy.getSelectedIndex()], "null");
+                    cmbEPrevIndex = cmbSortEmploy.getSelectedIndex();
                 }
             }
         });
@@ -101,6 +122,50 @@ public class AdministrationForm extends javax.swing.JFrame {
         }
     }
 
+    private void displayEmployeeData(EmployeeSort sortMethod, String searchString) {
+        List<Staff> staff = Staff.fetchStaffData();
+        List<Staff> definedStaff = null;
+        if (!searchString.equals("null")) {
+            definedStaff = staff;
+            staff = definedStaff.stream()
+                    .filter(item -> item.getP_lastname().contains(searchString))
+                    .collect(Collectors.toList());
+        }
+
+        switch (sortMethod) {
+            case NoSort:
+                
+                break;
+            case Kempton:
+                //2
+                definedStaff = staff;
+                staff = definedStaff.stream()
+                        .filter(item -> item.getCampus_id() == 2).collect(Collectors.toList());
+                break;
+            case PortEliz:
+                //3
+                definedStaff = staff;
+                staff = definedStaff.stream()
+                        .filter(item -> item.getCampus_id() == 3).collect(Collectors.toList());
+                break;
+            case Pretoria:
+                //1
+                definedStaff = staff;
+                staff = definedStaff.stream()
+                        .filter(item -> item.getCampus_id() == 1).collect(Collectors.toList());
+                break;
+        }
+        
+        DefaultTableModel staffModel = (DefaultTableModel) jtblStaff.getModel();
+        staffModel.setRowCount(0);
+
+        for (Staff staff1 : staff) {
+            staffModel.addRow(new Object[]{staff1.getP_ID(), staff1.getP_initials(), staff1.getP_firstname(), staff1.getP_lastname(),
+                staff1.getP_dob(), staff1.getP_gender(), staff1.getP_phone(), staff1.getP_email(),
+                staff1.getP_address1(), staff1.getP_address2()});
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,6 +196,11 @@ public class AdministrationForm extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtblStaffUn = new javax.swing.JTable();
+        cmbSortEmploy = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtSEmploy = new javax.swing.JTextField();
+        btnSEmploy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration");
@@ -141,11 +211,11 @@ public class AdministrationForm extends javax.swing.JFrame {
             }
         });
 
-        tbpAdmin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tbpAdmin.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
         tbpAdmin.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
         jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jPanel1ComponentShown(evt);
@@ -206,6 +276,12 @@ public class AdministrationForm extends javax.swing.JFrame {
         cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setText("Search : ");
+
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("GO!");
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -286,7 +362,7 @@ public class AdministrationForm extends javax.swing.JFrame {
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
@@ -299,7 +375,7 @@ public class AdministrationForm extends javax.swing.JFrame {
         tbpAdmin.addTab("Stock", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
         jPanel2.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jPanel2ComponentShown(evt);
@@ -380,6 +456,19 @@ public class AdministrationForm extends javax.swing.JFrame {
             jtblStaffUn.getColumnModel().getColumn(9).setResizable(false);
         }
 
+        cmbSortEmploy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("Sort By :");
+
+        jLabel4.setText("Search : ");
+
+        btnSEmploy.setText("GO!");
+        btnSEmploy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSEmployActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -390,21 +479,45 @@ public class AdministrationForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
                     .addComponent(jButton5)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(21, 21, 21)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtSEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSEmploy))
+                            .addComponent(cmbSortEmploy, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbSortEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSEmploy)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(66, 66, 66))
+                .addContainerGap())
         );
 
         tbpAdmin.addTab("Employees", jPanel2);
@@ -630,6 +743,20 @@ public class AdministrationForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void btnSEmployActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSEmployActionPerformed
+        if(txtSEmploy.getText().trim().equals("")){
+            displayEmployeeData(EmployeeSort.values()[cmbEPrevIndex], "null");
+        }else{
+            String sStatement = txtSEmploy.getText().trim(); 
+        
+            displayEmployeeData(EmployeeSort.values()[cmbEPrevIndex], sStatement);
+        }               
+    }//GEN-LAST:event_btnSEmployActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -696,8 +823,10 @@ public class AdministrationForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSEmploy;
     private javax.swing.JToggleButton btnSearch;
     private javax.swing.JComboBox<String> cmbSort;
+    private javax.swing.JComboBox<String> cmbSortEmploy;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -707,6 +836,8 @@ public class AdministrationForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -716,6 +847,7 @@ public class AdministrationForm extends javax.swing.JFrame {
     private javax.swing.JTable jtblStaffUn;
     private javax.swing.JTable jtblStock;
     private javax.swing.JTabbedPane tbpAdmin;
+    private javax.swing.JTextField txtSEmploy;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
