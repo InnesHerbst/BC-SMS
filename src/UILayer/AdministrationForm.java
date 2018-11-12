@@ -598,6 +598,16 @@ public class AdministrationForm extends javax.swing.JFrame {
         for (Stock l : ls) {
             model.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
         }
+        
+        List<Stock> unAuthStock = Stock.GetUnAuthStock();
+        
+        DefaultTableModel unAuthModel = (DefaultTableModel) tblUnAuthStock.getModel();
+        
+        unAuthModel.setRowCount(0);
+        
+        for (Stock l : unAuthStock) {
+            unAuthModel.addRow(new Object[]{l.getId(), l.getName(), l.getPrice(), l.getQuantity(), l.getCategory(), l.getDescription()});
+        }
 
         List<Staff> staff = Staff.fetchStaffData();
 
